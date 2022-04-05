@@ -1,6 +1,6 @@
 # redback_mobile_app
 
-A new Flutter project for Redback Operations.
+A new Flutter project for Redback Operations .
 
 ## Getting Started
 
