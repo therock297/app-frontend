@@ -13,7 +13,7 @@ class Account extends StatelessWidget {
         title: Text('R E D B A C K'),
       ),
       body: Center(
-        child: Text('ACCOUNTS PAGE'),
+        child: Text('Settings PAGE'),
       ),
     );
   }

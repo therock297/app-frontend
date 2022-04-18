@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:redback_mobile_app/Account.dart';
+import 'package:redback_mobile_app/info_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -33,7 +34,7 @@ class HomePageState extends State<HomePage> {
               ListTile(
                 leading: Icon(Icons.account_circle_rounded),
                 title: Text(
-                  'Account',
+                  'Settings',
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
@@ -52,7 +53,7 @@ class HomePageState extends State<HomePage> {
                 onTap: () {
                   // Here we will navigate to the accounts page
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Account(),
+                    builder: (context) => InformationPage(),
                   ));
                 },
               )
@@ -83,10 +84,6 @@ class HomePageState extends State<HomePage> {
                 GButton(
                   icon: Icons.account_circle_rounded,
                   text: 'Profile',
-                ),
-                GButton(
-                  icon: Icons.settings,
-                  text: 'Settings',
                 ),
               ]),
         ),
