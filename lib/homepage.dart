@@ -21,7 +21,7 @@ class HomePageState extends State<HomePage> {
       ),
       drawer: Drawer(
         child: Container(
-          color: Colors.deepPurple[100],
+          color: Color.fromARGB(255, 230, 152, 129),
           child: ListView(
             children: [
               DrawerHeader(
@@ -34,6 +34,32 @@ class HomePageState extends State<HomePage> {
               ListTile(
                 leading: Icon(Icons.account_circle_rounded),
                 title: Text(
+                  'Profile',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  // Here we will navigate to the accounts page
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Account(),
+                  ));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.history_edu_rounded),
+                title: Text(
+                  'Fitness History',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  // Here we will navigate to the accounts page
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => InformationPage(),
+                  ));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text(
                   'Settings',
                   style: TextStyle(fontSize: 20),
                 ),
@@ -45,18 +71,18 @@ class HomePageState extends State<HomePage> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.perm_device_information),
+                leading: Icon(Icons.report_gmailerrorred),
                 title: Text(
-                  'App Information',
+                  'Report an Issue',
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
                   // Here we will navigate to the accounts page
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => InformationPage(),
+                    builder: (context) => Account(),
                   ));
                 },
-              )
+              ),
             ],
           ),
         ),
