@@ -18,7 +18,7 @@ class _LoginState extends State<Login> {
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          fillColor: Colors.white,
+          fillColor: const Color(0xFFe87461),
           filled: true,
           prefixIcon: const Icon(Icons.account_circle),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -33,8 +33,9 @@ class _LoginState extends State<Login> {
         autofocus: false,
         obscureText: true,
         textInputAction: TextInputAction.next,
+        style: TextStyle(color: const Color(0xFFe87461)),
         decoration: InputDecoration(
-          fillColor: Colors.white,
+          fillColor: const Color(0xFFe87461),
           filled: true,
           prefixIcon: const Icon(Icons.vpn_key),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -58,7 +59,7 @@ class _LoginState extends State<Login> {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           )),
@@ -93,7 +94,7 @@ class _LoginState extends State<Login> {
                         height: 180,
                         //image logo
                         child: Image.asset(
-                          'assets/images/logoF.png',
+                          'assets/images/BLogo.png',
                           fit: BoxFit.contain,
                         )),
                     const SizedBox(height: 45),
@@ -113,7 +114,7 @@ class _LoginState extends State<Login> {
                       child: const Text(
                         "Forgot Password ?",
                         style: TextStyle(
-                            color: Color(0xFFe87461),
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
                       ),
@@ -124,7 +125,7 @@ class _LoginState extends State<Login> {
                           const Text(
                             "Don't have an Account? ",
                             style: TextStyle(
-                                color: Color(0xFFe87461),
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15),
                           ),
