@@ -93,6 +93,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
+    //last name field
+    final UserNameField = TextFormField(
+        autofocus: false,
+        keyboardType: TextInputType.name,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          fillColor: const Color(0xFFe87461),
+          filled: true,
+          prefixIcon: const Icon(Icons.account_circle),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "User Name",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
+    final mobileField = TextFormField(
+        autofocus: false,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          fillColor: const Color(0xFFe87461),
+          filled: true,
+          prefixIcon: const Icon(Icons.phone),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Phone number",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
     //signup button
     final signUpButton = Material(
       elevation: 5,
@@ -156,6 +187,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     passwordField,
                     const SizedBox(height: 20),
                     confirmPasswordField,
+                    const SizedBox(height: 20),
+                    UserNameField,
+                    const SizedBox(height: 20),
+                    mobileField,
                     const SizedBox(height: 20),
                     signUpButton,
                     const SizedBox(height: 15),
