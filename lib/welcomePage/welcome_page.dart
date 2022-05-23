@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:redback_mobile_app/screens/signUp.dart';
+import 'package:redback_mobile_app/screens/LogIn.dart';
 
 void main() {
   runApp(const MyApp());
@@ -6,7 +8,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  // This widget is the root of the application.
+
+  //This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,7 +52,7 @@ class _WelcomePageState extends State<WelcomePage> {
             padding: const EdgeInsets.all(0.0),
             //Loaded and added image logo from assets folder.
             child: Image.asset(
-              'assets/images/transparentlogo.png',
+              'assets/images/BLogo.png',
             )),
         title: Text(widget.title),
       ),
@@ -58,9 +61,9 @@ class _WelcomePageState extends State<WelcomePage> {
           children: <Widget>[
             //Loaded the logo from assets folder and places it at the top of the screen.
             Image.asset(
-              'assets/images/transparentlogo.png',
-              height: 500,
-              width: 500,
+              'assets/images/BLogo.png',
+              height: 300,
+              width: 300,
             ),
             //Slogan text that appears under logo.
             const Text('EXERCISE AND GET REWARDED',
@@ -97,7 +100,10 @@ class _WelcomePageState extends State<WelcomePage> {
               children: <Widget>[
                 //Sign in button
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
+                    },
                     child: const Text('Sign In'),
                     style: TextButton.styleFrom(
                         minimumSize: const Size(120, 40),
@@ -109,7 +115,12 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 //Create Account button
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegistrationScreen()));
+                    },
                     child: const Text('Create Account'),
                     style: TextButton.styleFrom(
                         minimumSize: const Size(120, 40),

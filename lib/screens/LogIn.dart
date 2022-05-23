@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
 
   Future<void> getData() async {
     try {
+      // use the below uri instead of localhost:8080 when using android emulator
       var response = await client.get(Uri.parse('http://10.0.2.2:8080/user'));
       if (response.statusCode == 200) {
         print(

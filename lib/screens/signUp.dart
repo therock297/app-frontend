@@ -41,22 +41,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   //This function makes a post request to the server and signup endpoint and passes a
   //body of values taken from the signup form
   Future<void> postData() async {
-    // var test = jsonEncode({
-    //   "username": userNameEditingController.text,
-    //   "firstname": firstNameEditingController.text,
-    //   "lastname": secondNameEditingController.text,
-    //   "email": emailEditingController.text,
-    //   "password": passwordEditingController.text,
-    //   "redbackCoins": 0,
-    //   "telephone": int.parse(mobileNumberEditingController.text),
-    //   "userLevel": 0,
-    //   "followers": "",
-    //   "following": "",
-    //   //"__v": 0.toString(),
-    //   "img": ""
-    // });
-    // print(test);
     try {
+      // use the below uri instead of localhost:8080 when using android emulator
       var response = await client.post(Uri.parse('http://10.0.2.2:8080/signup'),
           headers: {"Content-Type": "application/json; charset=utf-8"},
           body: jsonEncode({
