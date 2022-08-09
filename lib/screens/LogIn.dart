@@ -15,7 +15,6 @@ getSharedPreferences() async {
   print('Getting sharedPreferences');
   prefs = await SharedPreferences.getInstance();
 }
->>>>>>> Stashed changes
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
