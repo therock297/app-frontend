@@ -1,12 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-<<<<<<< Updated upstream
-
-import 'package:flutter/material.dart';
-import 'package:redback_mobile_app/screens/signUp.dart';
-import 'package:http/http.dart' as http;
-=======
 import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/screens/signUp.dart';
@@ -21,7 +15,6 @@ getSharedPreferences() async {
   print('Getting sharedPreferences');
   prefs = await SharedPreferences.getInstance();
 }
->>>>>>> Stashed changes
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -42,16 +35,6 @@ class _LoginState extends State<Login> {
   var client = http.Client();
 
   Future<void> getData() async {
-<<<<<<< Updated upstream
-    try {
-      // use the below uri instead of localhost:8080 when using android emulator
-      var response = await client.get(Uri.parse('http://10.0.2.2:8080/user'));
-      if (response.statusCode == 200) {
-        print(
-            "successfully retrieved user but need to handle the data to match the given username and password");
-      }
-      //print(response.body);
-=======
     getSharedPreferences();
     try {
       // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
@@ -86,7 +69,6 @@ class _LoginState extends State<Login> {
         );
       }
       client.close();
->>>>>>> Stashed changes
     } catch (e) {
       print(e);
     }
@@ -117,11 +99,7 @@ class _LoginState extends State<Login> {
         controller: passwordEditingController,
         obscureText: true,
         textInputAction: TextInputAction.next,
-<<<<<<< Updated upstream
-        style: const TextStyle(color: Color(0xFFe87461)),
-=======
         style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
->>>>>>> Stashed changes
         decoration: InputDecoration(
           fillColor: const Color(0xFFe87461),
           filled: true,
