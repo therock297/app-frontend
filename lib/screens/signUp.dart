@@ -43,7 +43,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Future<void> postData() async {
     try {
       // use the below uri instead of localhost:8080 when using android emulator
+<<<<<<< Updated upstream
       var response = await client.post(Uri.parse('http://10.0.2.2:8080/signup'),
+=======
+      var response = await client.post(Uri.parse('http://localhost:8080/signup'),
+>>>>>>> Stashed changes
           headers: {"Content-Type": "application/json; charset=utf-8"},
           body: jsonEncode({
             "username": userNameEditingController.text,
