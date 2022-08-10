@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'dart:js_util';
+//import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/screens/signUp.dart';
 import 'package:redback_mobile_app/screens/homePage.dart';
@@ -32,13 +32,14 @@ class _LoginState extends State<Login> {
   late var userNameField;
   late var passwordField;
 
-  var client = http.Client();
+  
 
   Future<void> getData() async {
     getSharedPreferences();
     try {
+      var client = http.Client();
       // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
-      var response = await client.post(Uri.parse('http://127.0.0.1:8080/login'),
+      var response = await client.post(Uri.parse('http://10.0.2.2:8080/login'),
           headers: {"Content-Type": "application/json; charset=utf-8"},
           body: jsonEncode({
             "username": userNameEditingController.text,
@@ -56,10 +57,10 @@ class _LoginState extends State<Login> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => MyHomePage(
-                      title: '',
-                    )));
+                builder: (context) => HomePage(
+                )));
       } else {
+        print("failed to login");
         //The style also needs to be set
         Fluttertoast.showToast(
           msg: response.body,
