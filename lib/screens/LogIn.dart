@@ -12,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Obtain shared preferences.
 late SharedPreferences prefs;
 getSharedPreferences() async {
-  print('Getting sharedPreferences');
   prefs = await SharedPreferences.getInstance();
 }
 
@@ -49,18 +48,36 @@ class _LoginState extends State<Login> {
       //If there is an error message, there will be an alert box to indicate
       // that the account number or password is incorrect
       if (response.statusCode == 200) {
-        print('Response body: ${response.body}');
         var values = json.decode(response.body);
         //save accessToken and refreshToken in sharedPreferences memory
         prefs.setString("accessToken", values["accessToken"]);
         prefs.setString("refreshToken", values["refreshToken"]);
+        var accessToken = values["accessToken"];
+        var username = userNameEditingController.text;
+        // Obtain and save user details after verified login for future pages
+        response = await client.get(Uri.parse('http://10.0.2.2:8080/user/$username'),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Authorization": "Bearer $accessToken"},
+        );
+        if (response.statusCode == 200) {
+          var userValues = json.decode(response.body);
+          prefs.setString("_id", userValues["_id"]);
+          prefs.setString("username", userValues["username"]);
+          prefs.setString("firstname", userValues["firstname"]);
+          prefs.setString("lastname", userValues["lastname"]);
+          prefs.setString("email", userValues["email"]);
+          prefs.setString("password", userValues["password"]);
+          prefs.setInt("redbackCoins", userValues["redbackCoins"]);
+          prefs.setInt("telephone", userValues["telephone"]);
+          prefs.setInt("userLevel", userValues["userLevel"]);
+        }
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => HomePage(
                 )));
       } else {
-        print("failed to login");
         //The style also needs to be set
         Fluttertoast.showToast(
           msg: response.body,
