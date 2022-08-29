@@ -1,3 +1,11 @@
+Deakin SIT374/SIT764 - RedBack operation
+
+Week 4
+
+Task: Making homepage with previous workouts
+
+Group: PEIJIN HE 221188433, Henry Xiao 222181313
+
 # redback_mobile_app
 
 A new Flutter project for Redback Operations .
