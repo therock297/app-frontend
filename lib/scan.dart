@@ -81,6 +81,11 @@ class _ScanQrPage extends State<ScanQrPage> {
             Navigator.of(context).pop();
             //Scanning resumes when the user closes the pop-up box
             controller!.resumeCamera();
+            //Set the delay to three seconds, otherwise the window
+            // will keep popping up because the code does not stop
+            Future.delayed(Duration(milliseconds: 3000), () {
+              state = 0;
+            });
           },
           child: const Text('Close'),
         ),
@@ -93,13 +98,16 @@ class _ScanQrPage extends State<ScanQrPage> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        state = 0;
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => _buildPopupDialog(context),
-        );
-        //Automatically pauses scanning when a box pops up
-        controller.pauseCamera();
+        if (state == 0) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => _buildPopupDialog(context),
+          );
+          //Automatically pauses scanning when a box pops up
+           controller.pauseCamera();
+        }
+        state = 1;
+        
       });
     });
   }
