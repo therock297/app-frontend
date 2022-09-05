@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code_app/screens/signUp.dart';
 import 'package:redback_mobile_app/screens/signUp.dart';
 
 class Login extends StatefulWidget {
@@ -33,7 +34,7 @@ class _LoginState extends State<Login> {
         autofocus: false,
         obscureText: true,
         textInputAction: TextInputAction.next,
-        style: TextStyle(color: const Color(0xFFe87461)),
+        style: const TextStyle(color: Color(0xFFe87461)),
         decoration: InputDecoration(
           fillColor: const Color(0xFFe87461),
           filled: true,
@@ -137,11 +138,11 @@ class _LoginState extends State<Login> {
                                       builder: (context) =>
                                           const RegistrationScreen()));
                             },
-                            child: Text(
+                            child: const Text(
                               "Sign Up",
                               style: TextStyle(
                                   decoration: TextDecoration.underline,
-                                  color: const Color(0xFFe87461),
+                                  color: Color(0xFFe87461),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15),
                             ),

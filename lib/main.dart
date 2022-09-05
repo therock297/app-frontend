@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
         home: _ElevatedButtonExample(),
         theme: ThemeData(
           fontFamily: 'Poppins',
-          primaryColor: Color.fromARGB(255, 0, 0, 0),
+          primaryColor: const Color.fromARGB(255, 0, 0, 0),
         ));
   }
 }
@@ -21,16 +21,17 @@ class _ElevatedButtonExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: new IconButton(
-            icon: new Icon(Icons.arrow_back, color: Colors.black),
+          leading: IconButton(
+            // ignore: prefer_const_constructors
+            icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          backgroundColor: Color(0xFF380E4A)),
-      backgroundColor: Color(0xFF380E4A),
+          backgroundColor: const Color(0xFF380E4A)),
+      backgroundColor: const Color(0xFF380E4A),
       body: SafeArea(
         child: Column(
           children: [
-            Align(
+            const Align(
               alignment: AlignmentDirectional(0, 0),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(8, 28, 8, 0),
@@ -43,14 +44,16 @@ class _ElevatedButtonExample extends StatelessWidget {
                 ),
               ),
             ),
-            new Align(
+            Align(
               alignment: FractionalOffset.topRight,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ScanQrPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ScanQrPage()));
                 },
-                child: Text(
+                child: const Text(
                   'Scanner',
                   style: TextStyle(
                     fontSize: 10,
@@ -58,7 +61,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                 ),
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(70, 40),
-                  primary: Color(0xFFEF8B60),
+                  primary: const Color(0xFFEF8B60),
                   onPrimary: Colors.black,
                   shape: RoundedRectangleBorder(
                       //to set border radius to button
@@ -67,27 +70,27 @@ class _ElevatedButtonExample extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0, 0),
+              alignment: const AlignmentDirectional(0, 0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 308, 8, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(8, 308, 8, 0),
                 child: Container(
                   width: 300,
                   height: 100,
-                  child: Text(
+                  child: const Text(
                       'Blob of text which will contain instructions for the user on how to complete the workout and what to expect'),
                 ),
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0, 0),
+              alignment: const AlignmentDirectional(0, 0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Text('Start'),
+                  child: const Text('Start'),
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(180, 40),
-                    primary: Color(0xFFEF8B60),
+                    primary: const Color(0xFFEF8B60),
                     onPrimary: Colors.black,
                     shape: RoundedRectangleBorder(
                         //to set border radius to button

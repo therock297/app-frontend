@@ -44,46 +44,37 @@ class _ScanQrPage extends State<ScanQrPage> {
               onQRViewCreated: _onQRViewCreated,
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: (result != null)
-                  // Upon scanning the QR code data will be
-                  //  printed in a text box below
-                  ? Text('QR Code Data: ${result!.code}')
-                  : const Text('Scan a code'),
-            ),
-          )
         ],
       ),
     );
   }
 
   Widget _buildPopupDialog(BuildContext context) {
-    return new AlertDialog(
-      title: const Text('Popup example'),
-      content: new Column(
+    return AlertDialog(
+      title: const Text('Machine Example'),
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
             width: double.infinity,
             height: 200,
-            padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
-            child: Text("This is the context of how to uese !",
-                style: TextStyle(fontSize: 24), textAlign: TextAlign.center),
+            padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
+            child: Text("${result!.code}!",
+                style: const TextStyle(fontSize: 24),
+                textAlign: TextAlign.center),
           ),
         ],
       ),
       actions: <Widget>[
-        new TextButton(
+        TextButton(
           onPressed: () {
             Navigator.of(context).pop();
             //Scanning resumes when the user closes the pop-up box
             controller!.resumeCamera();
             //Set the delay to three seconds, otherwise the window
             // will keep popping up because the code does not stop
-            Future.delayed(Duration(milliseconds: 3000), () {
+            Future.delayed(const Duration(milliseconds: 3000), () {
               state = 0;
             });
           },
