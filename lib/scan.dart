@@ -104,10 +104,9 @@ class _ScanQrPage extends State<ScanQrPage> {
             builder: (BuildContext context) => _buildPopupDialog(context),
           );
           //Automatically pauses scanning when a box pops up
-           controller.pauseCamera();
+          controller.pauseCamera();
         }
         state = 1;
-        
       });
     });
   }
