@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'borading',
+        title: 'Boarding Screen',
         home: _ElevatedButtonExample(),
         theme: ThemeData(
           fontFamily: 'Poppins',
@@ -45,38 +45,37 @@ class _ElevatedButtonExample extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: FractionalOffset.topRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ScanQrPage()));
-                },
-                child: const Text(
-                  'Scanner',
-                  style: TextStyle(
-                    fontSize: 10,
+              alignment: Alignment.topRight,
+              // Icon button with the QR Icon for the QR Scanner
+              child: Padding(
+                // Padding to ensure that icon button is not on the edge of the screen
+                padding: const EdgeInsets.fromLTRB(0, 0, 30.0, 0),
+                // Adding a file background to make the icon stand out
+                child: Ink(
+                  decoration: const ShapeDecoration(
+                      color: Color(0xFFEF8B60), shape: CircleBorder()),
+                  child: IconButton(
+                    icon: const Icon(Icons.qr_code_2),
+                    tooltip: "QR Code Scanner",
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ScanQrPage()));
+                    },
+                    iconSize: 50,
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(70, 40),
-                  primary: const Color(0xFFEF8B60),
-                  onPrimary: Colors.black,
-                  shape: RoundedRectangleBorder(
-                      //to set border radius to button
-                      borderRadius: BorderRadius.circular(8)),
                 ),
               ),
             ),
-            Align(
-              alignment: const AlignmentDirectional(0, 0),
+            const Align(
+              alignment: AlignmentDirectional(0, 0),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8, 308, 8, 0),
-                child: Container(
+                padding: EdgeInsetsDirectional.fromSTEB(8, 308, 8, 0),
+                child: SizedBox(
                   width: 300,
                   height: 100,
-                  child: const Text(
+                  child: Text(
                       'Blob of text which will contain instructions for the user on how to complete the workout and what to expect'),
                 ),
               ),
@@ -87,15 +86,15 @@ class _ElevatedButtonExample extends StatelessWidget {
                 padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text('Start'),
                   style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: const Color(0xFFEF8B60),
                     fixedSize: const Size(180, 40),
-                    primary: const Color(0xFFEF8B60),
-                    onPrimary: Colors.black,
                     shape: RoundedRectangleBorder(
                         //to set border radius to button
                         borderRadius: BorderRadius.circular(8)),
                   ),
+                  child: const Text('Start'),
                 ),
               ),
             ),

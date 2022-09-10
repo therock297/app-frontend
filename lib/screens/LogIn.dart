@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:qr_code_app/screens/signUp.dart';
 import 'package:redback_mobile_app/screens/signUp.dart';
