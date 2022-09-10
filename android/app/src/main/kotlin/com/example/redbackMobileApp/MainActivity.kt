@@ -1,4 +1,4 @@
-package com.example.qr_code_app
+package com.example.redbackMobileApp
 
 import io.flutter.embedding.android.FlutterActivity
 

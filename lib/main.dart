@@ -49,7 +49,7 @@ class _ElevatedButtonExample extends StatelessWidget {
               // Icon button with the QR Icon for the QR Scanner
               child: Padding(
                 // Padding to ensure that icon button is not on the edge of the screen
-                padding: const EdgeInsets.fromLTRB(0, 0, 30.0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 15.0, 0),
                 // Adding a file background to make the icon stand out
                 child: Ink(
                   decoration: const ShapeDecoration(
@@ -63,7 +63,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => const ScanQrPage()));
                     },
-                    iconSize: 50,
+                    iconSize: 35,
                   ),
                 ),
               ),
