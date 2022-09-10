@@ -21,10 +21,15 @@ class _ElevatedButtonExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          // icon back button
           leading: IconButton(
-            // ignore: prefer_const_constructors
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
+            ),
           ),
           backgroundColor: const Color(0xFF380E4A)),
       backgroundColor: const Color(0xFF380E4A),

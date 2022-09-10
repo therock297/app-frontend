@@ -35,15 +35,24 @@ class _ScanQrPage extends State<ScanQrPage> {
     return Scaffold(
       body: Column(
         children: <Widget>[
+          // This creates the small window where the user
+          // can view the QR code being scanned
           Expanded(
             flex: 5,
-            // This creates the small window where the user
-            // can view the QR code being scanned
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
-            ),
+            child: _buildQRView(context),
           ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+              child: TextButton(
+                onPressed: () {
+                  //passing this to our root
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Back to Onboarding Screen"),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -51,7 +60,7 @@ class _ScanQrPage extends State<ScanQrPage> {
 
   Widget _buildPopupDialog(BuildContext context) {
     return AlertDialog(
-      title: const Text('Machine Example'),
+      title: const Text('QR Code Information'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,6 +90,25 @@ class _ScanQrPage extends State<ScanQrPage> {
           child: const Text('Close'),
         ),
       ],
+    );
+  }
+
+  Widget _buildQRView(BuildContext context) {
+    var scanArea = (MediaQuery.of(context).size.width < 400 ||
+            MediaQuery.of(context).size.height < 400)
+        ? 250.0
+        : 300.0;
+    // To ensure the Scanner view is properly sizes after rotation
+    // we need to listen for Flutter SizeChanged notification and update controller
+    return QRView(
+      key: qrKey,
+      onQRViewCreated: _onQRViewCreated,
+      overlay: QrScannerOverlayShape(
+          borderColor: Colors.red,
+          borderRadius: 10,
+          borderLength: 20,
+          borderWidth: 5,
+          cutOutSize: scanArea),
     );
   }
 
