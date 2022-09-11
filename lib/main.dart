@@ -21,17 +21,45 @@ class _ElevatedButtonExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          // icon back button
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.white,
+        // icon back button
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: const Color(0xFF380E4A),
+        actions: <Widget>[
+          Align(
+            alignment: Alignment.topRight,
+            // Icon button with the QR Icon for the QR Scanner
+            child: Padding(
+              // Padding to ensure that icon button is not on the edge of the screen
+              padding: const EdgeInsets.fromLTRB(0.0, 0, 35.0, 0),
+              // Adding a file background to make the icon stand out
+              child: Ink(
+                decoration: const ShapeDecoration(
+                    color: Color(0xFFEF8B60), shape: CircleBorder()),
+                child: IconButton(
+                  icon: const Icon(Icons.qr_code_2),
+                  tooltip: "QR Code Scanner",
+                  iconSize: 35,
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ScanQrPage()));
+                  },
+                ),
+              ),
             ),
           ),
-          backgroundColor: const Color(0xFF380E4A)),
+        ],
+      ),
       backgroundColor: const Color(0xFF380E4A),
       body: SafeArea(
         child: Column(
@@ -49,30 +77,6 @@ class _ElevatedButtonExample extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              // Icon button with the QR Icon for the QR Scanner
-              child: Padding(
-                // Padding to ensure that icon button is not on the edge of the screen
-                padding: const EdgeInsets.fromLTRB(0, 0, 15.0, 0),
-                // Adding a file background to make the icon stand out
-                child: Ink(
-                  decoration: const ShapeDecoration(
-                      color: Color(0xFFEF8B60), shape: CircleBorder()),
-                  child: IconButton(
-                    icon: const Icon(Icons.qr_code_2),
-                    tooltip: "QR Code Scanner",
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ScanQrPage()));
-                    },
-                    iconSize: 35,
-                  ),
-                ),
-              ),
-            ),
             const Align(
               alignment: AlignmentDirectional(0, 0),
               child: Padding(
@@ -81,7 +85,9 @@ class _ElevatedButtonExample extends StatelessWidget {
                   width: 300,
                   height: 100,
                   child: Text(
-                      'Blob of text which will contain instructions for the user on how to complete the workout and what to expect'),
+                    'Blob of text which will contain instructions for the user on how to complete the workout and what to expect',
+                    style: TextStyle(color: Color(0xFFEF8B60)),
+                  ),
                 ),
               ),
             ),
