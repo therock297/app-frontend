@@ -72,15 +72,51 @@ class _ElevatedButtonExample extends StatelessWidget {
             Align(
               alignment: const AlignmentDirectional(0, 0),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8, 308, 8, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(1, 1, 1, 0),
                 child: Container(
                   width: 300,
                   height: 100,
                   child: const Text(
-                      'Blob of text which will contain instructions for the user on how to complete the workout and what to expect'),
+                      'Welcome to the Ramped Fitness Test, In this workout your aim is to cycle for as long as possible, you will begin at a nice cruising pace.',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFFEF8B60),
+                          )),
                 ),
               ),
             ),
+            Align(
+              alignment: const AlignmentDirectional(0, 0),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(1, 2, 1, 0),
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: const Text(
+                      'Every 30 seconds the difficulty will increase, making it harder to continue to cycle. This is a test of both your strength and endurance so make sure to pace yourself to have the best possible chance of clearing all the difficulties. ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFEF8B60),
+                      )),
+                  ),
+                ),
+              ),
+            Align(
+              alignment: const AlignmentDirectional(0, 0),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(1, 3, 1, 0),
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: const Text(
+                      'Once you reach your limit, press the ‘Finish Workout’ button towards the bottom of the screen to end the workout and view your results. Good Luck! ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFEF8B60),
+                      )),
+                  ),
+                ),
+              ),
             Align(
               alignment: const AlignmentDirectional(0, 0),
               child: Padding(
