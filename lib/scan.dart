@@ -49,7 +49,9 @@ class _ScanQrPage extends State<ScanQrPage> {
                   //passing this to our root
                   Navigator.of(context).pop();
                 },
-                child: const Text("Back to Onboarding Screen"),
+                child: const Text(
+                  "Back to Onboarding Screen",
+                ),
               ),
             ),
           )

@@ -67,7 +67,7 @@ class _ElevatedButtonExample extends StatelessWidget {
             const Align(
               alignment: AlignmentDirectional(0, 0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 28, 8, 0),
+                padding: EdgeInsets.fromLTRB(8.0, 28.0, 8.0, 25.0),
                 child: Text(
                   'Ramped Workout',
                   style: TextStyle(
@@ -77,17 +77,51 @@ class _ElevatedButtonExample extends StatelessWidget {
                 ),
               ),
             ),
-            const Align(
-              alignment: AlignmentDirectional(0, 0),
+            Align(
+              alignment: const AlignmentDirectional(0, 0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 308, 8, 0),
-                child: SizedBox(
+                padding: const EdgeInsets.fromLTRB(1.0, 2.0, 1.0, 0),
+                child: Container(
                   width: 300,
                   height: 100,
-                  child: Text(
-                    'Blob of text which will contain instructions for the user on how to complete the workout and what to expect',
-                    style: TextStyle(color: Color(0xFFEF8B60)),
-                  ),
+                  child: const Text(
+                      'Welcome to the Ramped Fitness Test, In this workout your aim is to cycle for as long as possible, you will begin at a nice cruising pace.',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFEF8B60),
+                      )),
+                ),
+              ),
+            ),
+            Align(
+              alignment: const AlignmentDirectional(0, 0),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 20.0),
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: const Text(
+                      'Every 30 seconds the difficulty will increase, making it harder to continue to cycle. This is a test of both your strength and endurance so make sure to pace yourself to have the best possible chance of clearing all the difficulties. ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFEF8B60),
+                      )),
+                ),
+              ),
+            ),
+            Align(
+              alignment: const AlignmentDirectional(0, 0),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 0),
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: const Text(
+                      'Once you reach your limit, press the ‘Finish Workout’ button towards the bottom of the screen to end the workout and view your results. Good Luck! ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFEF8B60),
+                      )),
                 ),
               ),
             ),
