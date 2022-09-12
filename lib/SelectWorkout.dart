@@ -26,9 +26,9 @@ List listData = [
   },
 ];
 
-class HomePage extends StatefulWidget {
+class SelectWorkout extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => HomePageState();
+  State<StatefulWidget> createState() => SelectWorkoutState();
 }
 
 //Use flutter builder to create a list of buttons by using data from listData
@@ -78,7 +78,7 @@ class HomeContent extends StatelessWidget{
   }
 }
 
-class HomePageState extends State<HomePage> {
+class SelectWorkoutState extends State<SelectWorkout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
