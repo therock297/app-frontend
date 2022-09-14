@@ -7,7 +7,7 @@ void main() {
       theme: ThemeData(
           scaffoldBackgroundColor: const Color.fromRGBO(56, 14, 74, 1),
           primarySwatch: null),
-      home: OnBoarding(),
+      home: const OnBoarding(),
     ),
   );
 }

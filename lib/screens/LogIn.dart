@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/screens/signUp.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   _LoginState createState() => _LoginState();
 }

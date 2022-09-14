@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/scan.dart';
 
-void main() => runApp(OnBoarding());
+void main() => runApp(const OnBoarding());
 
 class OnBoarding extends StatelessWidget {
+  const OnBoarding({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Boarding Screen',
-        home: _ElevatedButtonExample(),
-        theme: ThemeData(
-          fontFamily: 'Poppins',
-          primaryColor: const Color.fromARGB(255, 0, 0, 0),
-        ));
+      title: 'Boarding Screen',
+      home: _ElevatedButtonExample(),
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        primaryColor: const Color.fromARGB(255, 0, 0, 0),
+      ),
+    );
   }
 }
 
@@ -31,6 +33,7 @@ class _ElevatedButtonExample extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+        // App Bar Background color
         backgroundColor: const Color(0xFF380E4A),
         actions: <Widget>[
           Align(
@@ -60,10 +63,24 @@ class _ElevatedButtonExample extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: const Color(0xFF380E4A),
-      body: SafeArea(
+
+      // DecoratedBox allows us to create the gradient background
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xff380E4A),
+              Color(0xFFE87461),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+
+        // Column child that will house the onboarding paragraphs
         child: Column(
           children: [
+            // Text box tile
             const Align(
               alignment: AlignmentDirectional(0, 0),
               child: Padding(
@@ -77,14 +94,16 @@ class _ElevatedButtonExample extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: const AlignmentDirectional(0, 0),
+
+            // Text box paragraph 1
+            const Align(
+              alignment: AlignmentDirectional(0, 0),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(1.0, 2.0, 1.0, 0),
-                child: Container(
+                padding: EdgeInsets.fromLTRB(1.0, 2.0, 1.0, 0),
+                child: SizedBox(
                   width: 300,
                   height: 100,
-                  child: const Text(
+                  child: Text(
                       'Welcome to the Ramped Fitness Test, In this workout your aim is to cycle for as long as possible, you will begin at a nice cruising pace.',
                       style: TextStyle(
                         fontSize: 14,
@@ -93,14 +112,16 @@ class _ElevatedButtonExample extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: const AlignmentDirectional(0, 0),
+
+            // Text box paragraph 2
+            const Align(
+              alignment: AlignmentDirectional(0, 0),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 20.0),
-                child: Container(
+                padding: EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 20.0),
+                child: SizedBox(
                   width: 300,
                   height: 100,
-                  child: const Text(
+                  child: Text(
                       'Every 30 seconds the difficulty will increase, making it harder to continue to cycle. This is a test of both your strength and endurance so make sure to pace yourself to have the best possible chance of clearing all the difficulties. ',
                       style: TextStyle(
                         fontSize: 14,
@@ -109,14 +130,16 @@ class _ElevatedButtonExample extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: const AlignmentDirectional(0, 0),
+
+            // Text box paragraph 3
+            const Align(
+              alignment: AlignmentDirectional(0, 0),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 0),
-                child: Container(
+                padding: EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 0),
+                child: SizedBox(
                   width: 300,
                   height: 100,
-                  child: const Text(
+                  child: Text(
                       'Once you reach your limit, press the ‘Finish Workout’ button towards the bottom of the screen to end the workout and view your results. Good Luck! ',
                       style: TextStyle(
                         fontSize: 14,
@@ -125,8 +148,9 @@ class _ElevatedButtonExample extends StatelessWidget {
                 ),
               ),
             ),
+
+            // Start button for user to start workout
             Align(
-              alignment: const AlignmentDirectional(0, 0),
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 child: ElevatedButton(
