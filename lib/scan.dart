@@ -1,7 +1,9 @@
 // make sure to import these packages
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'dart:io';
+import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 
 class ScanQrPage extends StatefulWidget {
   const ScanQrPage({Key? key}) : super(key: key);
@@ -60,41 +62,6 @@ class _ScanQrPage extends State<ScanQrPage> {
     );
   }
 
-  Widget _buildPopupDialog(BuildContext context) {
-    return AlertDialog(
-      title: const Text('QR Code Information'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: 200,
-            padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
-            child: Text("${result!.code}!",
-                style: const TextStyle(fontSize: 24),
-                textAlign: TextAlign.center),
-          ),
-        ],
-      ),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            //Scanning resumes when the user closes the pop-up box
-            controller!.resumeCamera();
-            //Set the delay to three seconds, otherwise the window
-            // will keep popping up because the code does not stop
-            Future.delayed(const Duration(milliseconds: 3000), () {
-              state = 0;
-            });
-          },
-          child: const Text('Close'),
-        ),
-      ],
-    );
-  }
-
   Widget _buildQRView(BuildContext context) {
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
@@ -118,14 +85,18 @@ class _ScanQrPage extends State<ScanQrPage> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       setState(() {
+        // save the qr code data
         result = scanData;
+        if (result?.code != null) {
+          SharedPrefsUtil.updateLastScannedBikeID(result!.code!);
+          debugPrint(result!.code!);
+        }
         if (state == 0) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => _buildPopupDialog(context),
-          );
           //Automatically pauses scanning when a box pops up
           controller.pauseCamera();
+
+          // return back to the onboarding screen
+          Navigator.of(context).pop();
         }
         state = 1;
       });

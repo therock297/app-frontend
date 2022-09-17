@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/scan.dart';
-
-void main() => runApp(const OnBoarding());
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});
@@ -9,7 +8,7 @@ class OnBoarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Boarding Screen',
-      home: _ElevatedButtonExample(),
+      home: const ElevatedButtonExample(),
       theme: ThemeData(
         fontFamily: 'Poppins',
         primaryColor: const Color.fromARGB(255, 0, 0, 0),
@@ -18,7 +17,16 @@ class OnBoarding extends StatelessWidget {
   }
 }
 
-class _ElevatedButtonExample extends StatelessWidget {
+class ElevatedButtonExample extends StatefulWidget {
+  const ElevatedButtonExample({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _ElevatedButtonExample();
+}
+
+class _ElevatedButtonExample extends State<ElevatedButtonExample> {
+  String? lastScannedCode = SharedPrefsUtil.getLastScannedBikeId();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +59,10 @@ class _ElevatedButtonExample extends StatelessWidget {
                   tooltip: "QR Code Scanner",
                   iconSize: 35,
                   color: Colors.black,
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ScanQrPage()));
+                  onPressed: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ScanQrPage()));
+                    _reSyncPreviousCodeString();
                   },
                 ),
               ),
@@ -154,7 +161,9 @@ class _ElevatedButtonExample extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: lastScannedCode != null
+                      ? () => debugPrint("Navigate to new screen")
+                      : null,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: const Color(0xFFEF8B60),
@@ -171,5 +180,11 @@ class _ElevatedButtonExample extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _reSyncPreviousCodeString() {
+    setState(() {
+      lastScannedCode = SharedPrefsUtil.getLastScannedBikeId();
+    });
   }
 }
