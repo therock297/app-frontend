@@ -3,6 +3,21 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:redback_mobile_app/constants.dart' as constants;
+
+class UserInfo{
+  String firstName;
+  String secondName;
+  String email;
+  String password;
+  String userName;
+  String mobile;
+  String gender;
+  String height;
+  String weight;
+  UserInfo(this.firstName, this.secondName, this.email, this.password, this.userName, this.mobile, this.gender, this.height, this.weight);
+}
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -34,15 +49,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final userNameEditingController = new TextEditingController();
   final mobileNumberEditingController = new TextEditingController();
 
+  // declare UserInfo object to be passed to next screens
+  UserInfo userInfo = new UserInfo("firstName", "secondName", "email", "password", "userName", "mobile", "gender", "height", "weight");
+
   //creating a http client that can use the different api requests
-  var client = http.Client();
+  // var client = http.Client();
 
   //This function makes a post request to the server and signup endpoint and passes a
   //body of values taken from the signup form
   Future<void> postData() async {
     try {
+      var client = http.Client();
+      print("posting");
       // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
-      var response = await client.post(Uri.parse('http://10.0.2.2:8080/signup'),
+      String uri = constants.server + '/signup';
+      var response = await client.post(Uri.parse(uri),
           headers: {"Content-Type": "application/json; charset=utf-8"},
           body: jsonEncode({
             "username": userNameEditingController.text,
@@ -57,10 +78,108 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             "following": "",
             "img": ""
           }));
+      print("posted");
       print(response.body);
       client.close();
     } catch (e) {
       print(e);
+    }
+  }
+
+  void toastShow(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.blueGrey,
+      textColor: Colors.white,
+      fontSize: 16.0
+    );
+  }
+
+  // check inputs and send data to next page
+  // need to check/remove for trailing spaces
+  // need to check password min length
+  Future<bool> validateData() async {
+    try {
+      var client = http.Client();
+      // check for any empty fields
+      if (firstNameEditingController.text == "" || 
+          secondNameEditingController.text == "" ||
+          emailEditingController.text == "" ||
+          passwordEditingController.text == "" ||
+          userNameEditingController.text == "" ||
+          mobileNumberEditingController.text == "") {
+        // if any empty fields, show toast with msg to fill all fields
+        toastShow("Please fill in all required fields");
+        // else - no empty fields
+        // check for matching confirm password
+      } else if (passwordEditingController.text != confirmPasswordEditingController.text) {
+        // if password does not match, show toast
+        toastShow("Password does not match");
+        // else - password matches
+        // check username max length
+      } else if (userNameEditingController.text.length >= 24) {
+        toastShow("Username must be less than 24 characters");
+        // else - username is less than max length
+        // check for existing users with username
+      } else {
+        var responseUserName = await client.get(Uri.parse(constants.server + '/checkusername/' + userNameEditingController.text),
+            headers: {"Content-Type": "application/json; charset=utf-8"}
+            );
+        print("username taken: " + responseUserName.body);
+        // if username is taken
+        if (responseUserName.body != 'false') {
+          // show toast username taken
+          toastShow("Username taken");
+        // else - username not taken
+        } else {
+          bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(emailEditingController.text);
+          print("emailValid: " + emailValid.toString());
+          //check for valid email
+          if (!emailValid) {
+            // show toast invalid email
+            toastShow("Invalid email");
+            // else - email valid
+          } else {
+            // check for existing users with email
+            var responseEmail = await client.get(Uri.parse(constants.server + '/checkemail/' + emailEditingController.text),
+              headers: {"Content-Type": "application/json; charset=utf-8"}
+              );
+            print("email taken: " + responseEmail.body);
+            // if email is not taken
+            if (responseEmail.body != 'false') {
+              // show toast email already in use
+              toastShow("Email already in use");
+              // else - email is not taken
+            } else {
+              // return true - validation passed
+              return true;
+            }
+          }
+        }
+      }
+    } catch (e) {
+      print(e);
+      print("error above");
+    }
+    return false;
+  }
+
+  // validate data then open next page
+  Future<void> _nextPage() async {
+    userInfo.firstName = firstNameEditingController.text;
+    userInfo.secondName = secondNameEditingController.text;
+    userInfo.email = emailEditingController.text;
+    userInfo.password = passwordEditingController.text;
+    userInfo.userName = userNameEditingController.text;
+    userInfo.mobile = mobileNumberEditingController.text;
+    final validation = await validateData();
+
+    // if validation passed, go to next page
+    if(validation == true) {
+      postData();
     }
   }
 
@@ -138,6 +257,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final confirmPasswordField = TextFormField(
         autofocus: false,
         controller: confirmPasswordEditingController,
+        obscureText: true,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           fillColor: const Color(0xFFe87461),
@@ -172,7 +292,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     mobileField = TextFormField(
         autofocus: false,
         controller: mobileNumberEditingController,
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.phone,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           fillColor: const Color(0xFFe87461),
@@ -194,7 +314,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           //calls the function to post data to database
-          onPressed: postData,
+          //go to next page to enter more details 
+          onPressed: () {
+            // postData()
+            // set userinfo before sending to next screen
+            _nextPage();
+          },
           child: const Text(
             "Sign Up",
             textAlign: TextAlign.center,

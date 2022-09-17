@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'dart:ffi';
 //import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/screens/signUp.dart';
@@ -8,6 +9,7 @@ import 'package:redback_mobile_app/screens/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:redback_mobile_app/constants.dart' as constants;
 
 // Obtain shared preferences.
 late SharedPreferences prefs;
@@ -31,19 +33,37 @@ class _LoginState extends State<Login> {
   late var userNameField;
   late var passwordField;
 
-  
+  void toastShow(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.blueGrey,
+      textColor: Colors.white,
+      fontSize: 16.0
+    );
+  }
 
   Future<void> getData() async {
+    if (userNameEditingController.text.isEmpty ||
+        passwordEditingController.text.isEmpty) {
+          toastShow("Please enter all fields");
+          return;
+        }
+
     getSharedPreferences();
     try {
       var client = http.Client();
       // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
-      var response = await client.post(Uri.parse('http://10.0.2.2:8080/login'),
+      String uri = constants.server + '/login';
+      var response = await client.post(Uri.parse(uri),
           headers: {"Content-Type": "application/json; charset=utf-8"},
           body: jsonEncode({
             "username": userNameEditingController.text,
             "password": passwordEditingController.text,
           }));
+      print("test1");
       //If the information is correct, you will be redirected to the home page
       //If there is an error message, there will be an alert box to indicate
       // that the account number or password is incorrect
@@ -55,7 +75,7 @@ class _LoginState extends State<Login> {
         var accessToken = values["accessToken"];
         var username = userNameEditingController.text;
         // Obtain and save user details after verified login for future pages
-        response = await client.get(Uri.parse('http://10.0.2.2:8080/user/$username'),
+        response = await client.get(Uri.parse(constants.server + '/user/$username'),
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           "Authorization": "Bearer $accessToken"},
@@ -79,12 +99,7 @@ class _LoginState extends State<Login> {
                 )));
       } else {
         //The style also needs to be set
-        Fluttertoast.showToast(
-          msg: response.body,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-        );
+        toastShow(response.body);
       }
       client.close();
     } catch (e) {
