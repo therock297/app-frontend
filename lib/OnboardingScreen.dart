@@ -156,6 +156,41 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
               ),
             ),
 
+            // Last qr code message box 1
+            Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 28.0, 8.0, 25.0),
+                  child: Text(
+                      lastScannedCode != null
+                          ? "Last Bike Code Scanned"
+                          : "Bike Code Required",
+                      style: const TextStyle(
+                        fontSize: 25,
+                        color: Color(0xFFEF8B60),
+                      )),
+                )),
+
+            // Last qr code message box 2
+            Align(
+              alignment: const AlignmentDirectional(0, 0),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 0),
+                child: SizedBox(
+                  width: 300,
+                  height: 100,
+                  child: Text(
+                      lastScannedCode != null
+                          ? "ID: ${lastScannedCode!}\nNot your current bike? Scan the QR Code on the current bike you are using before you begin"
+                          : "Please scan the QR code on the bike before commencing the workout",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFEF8B60),
+                      )),
+                ),
+              ),
+            ),
+
             // Start button for user to start workout
             Align(
               child: Padding(
