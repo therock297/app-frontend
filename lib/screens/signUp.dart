@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:redback_mobile_app/constants.dart' as constants;
 
-class UserInfo{
+class UserInfo {
   String firstName;
   String secondName;
   String email;
@@ -16,7 +16,8 @@ class UserInfo{
   String gender;
   String height;
   String weight;
-  UserInfo(this.firstName, this.secondName, this.email, this.password, this.userName, this.mobile, this.gender, this.height, this.weight);
+  UserInfo(this.firstName, this.secondName, this.email, this.password,
+      this.userName, this.mobile, this.gender, this.height, this.weight);
 }
 
 class RegistrationScreen extends StatefulWidget {
@@ -50,7 +51,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final mobileNumberEditingController = new TextEditingController();
 
   // declare UserInfo object to be passed to next screens
-  UserInfo userInfo = new UserInfo("firstName", "secondName", "email", "password", "userName", "mobile", "gender", "height", "weight");
+  UserInfo userInfo = new UserInfo("firstName", "secondName", "email",
+      "password", "userName", "mobile", "gender", "height", "weight");
 
   //creating a http client that can use the different api requests
   // var client = http.Client();
@@ -88,14 +90,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   void toastShow(String message) {
     Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.blueGrey,
-      textColor: Colors.white,
-      fontSize: 16.0
-    );
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.blueGrey,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   // check inputs and send data to next page
@@ -105,7 +106,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     try {
       var client = http.Client();
       // check for any empty fields
-      if (firstNameEditingController.text == "" || 
+      if (firstNameEditingController.text == "" ||
           secondNameEditingController.text == "" ||
           emailEditingController.text == "" ||
           passwordEditingController.text == "" ||
@@ -115,7 +116,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         toastShow("Please fill in all required fields");
         // else - no empty fields
         // check for matching confirm password
-      } else if (passwordEditingController.text != confirmPasswordEditingController.text) {
+      } else if (passwordEditingController.text !=
+          confirmPasswordEditingController.text) {
         // if password does not match, show toast
         toastShow("Password does not match");
         // else - password matches
@@ -125,17 +127,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         // else - username is less than max length
         // check for existing users with username
       } else {
-        var responseUserName = await client.get(Uri.parse(constants.server + '/checkusername/' + userNameEditingController.text),
-            headers: {"Content-Type": "application/json; charset=utf-8"}
-            );
+        var responseUserName = await client.get(
+            Uri.parse(constants.server +
+                '/checkusername/' +
+                userNameEditingController.text),
+            headers: {"Content-Type": "application/json; charset=utf-8"});
         print("username taken: " + responseUserName.body);
         // if username is taken
         if (responseUserName.body != 'false') {
           // show toast username taken
           toastShow("Username taken");
-        // else - username not taken
+          // else - username not taken
         } else {
-          bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(emailEditingController.text);
+          bool emailValid = RegExp(
+                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+              .hasMatch(emailEditingController.text);
           print("emailValid: " + emailValid.toString());
           //check for valid email
           if (!emailValid) {
@@ -144,9 +150,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             // else - email valid
           } else {
             // check for existing users with email
-            var responseEmail = await client.get(Uri.parse(constants.server + '/checkemail/' + emailEditingController.text),
-              headers: {"Content-Type": "application/json; charset=utf-8"}
-              );
+            var responseEmail = await client.get(
+                Uri.parse(constants.server +
+                    '/checkemail/' +
+                    emailEditingController.text),
+                headers: {"Content-Type": "application/json; charset=utf-8"});
             print("email taken: " + responseEmail.body);
             // if email is not taken
             if (responseEmail.body != 'false') {
@@ -178,7 +186,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final validation = await validateData();
 
     // if validation passed, go to next page
-    if(validation == true) {
+    if (validation == true) {
       postData();
     }
   }
@@ -314,7 +322,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           //calls the function to post data to database
-          //go to next page to enter more details 
+          //go to next page to enter more details
           onPressed: () {
             // postData()
             // set userinfo before sending to next screen
