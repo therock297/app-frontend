@@ -52,7 +52,7 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
               padding: const EdgeInsets.fromLTRB(0.0, 0, 35.0, 0),
               // Adding a file background to make the icon stand out
               child: Ink(
-                decoration: const ShapeDecoration(
+                decoration: ShapeDecoration(
                     color: Color(0xFFEF8B60), shape: CircleBorder()),
                 child: IconButton(
                   icon: const Icon(Icons.qr_code_2),
@@ -73,7 +73,7 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
 
       // DecoratedBox allows us to create the gradient background
       body: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color(0xff380E4A),

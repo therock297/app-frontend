@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:redback_mobile_app/Account.dart';
 import 'package:redback_mobile_app/info_page.dart';
+import 'package:redback_mobile_app/OnboardingScreen.dart';
 
 //This is a mockup list data for demonstration purpose only.
 //Please use back-end code like node js to call the actual one from RedBack operation database.
@@ -48,7 +49,8 @@ class HomeContent extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => OnBoarding()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => OnBoarding()));
         },
         child: Text(
           listData[index]["title"],
