@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'dart:ffi';
+//import 'dart:ffi';
 //import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/screens/signUp.dart';
@@ -35,22 +35,21 @@ class _LoginState extends State<Login> {
 
   void toastShow(String message) {
     Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.blueGrey,
-      textColor: Colors.white,
-      fontSize: 16.0
-    );
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.blueGrey,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   Future<void> getData() async {
     if (userNameEditingController.text.isEmpty ||
         passwordEditingController.text.isEmpty) {
-          toastShow("Please enter all fields");
-          return;
-        }
+      toastShow("Please enter all fields");
+      return;
+    }
 
     getSharedPreferences();
     try {
@@ -75,10 +74,12 @@ class _LoginState extends State<Login> {
         var accessToken = values["accessToken"];
         var username = userNameEditingController.text;
         // Obtain and save user details after verified login for future pages
-        response = await client.get(Uri.parse(constants.server + '/user/$username'),
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "Authorization": "Bearer $accessToken"},
+        response = await client.get(
+          Uri.parse(constants.server + '/user/$username'),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": "Bearer $accessToken"
+          },
         );
         if (response.statusCode == 200) {
           var userValues = json.decode(response.body);
@@ -93,10 +94,7 @@ class _LoginState extends State<Login> {
           prefs.setInt("userLevel", userValues["userLevel"]);
         }
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomePage(
-                )));
+            context, MaterialPageRoute(builder: (context) => HomePage()));
       } else {
         //The style also needs to be set
         toastShow(response.body);
