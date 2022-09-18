@@ -32,8 +32,8 @@ class SelectWorkout extends StatefulWidget {
 }
 
 //Use flutter builder to create a list of buttons by using data from listData
-class HomeContent extends StatelessWidget{
-  Widget _getListData(context,index){
+class HomeContent extends StatelessWidget {
+  Widget _getListData(context, index) {
     return new Container(
       padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
       width: 110,
@@ -48,7 +48,7 @@ class HomeContent extends StatelessWidget{
           ),
         ),
         onPressed: () {
-          print('Button pressed ...');
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => OnBoarding()));
         },
         child: Text(
           listData[index]["title"],
@@ -57,6 +57,7 @@ class HomeContent extends StatelessWidget{
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     // List constructor
@@ -70,10 +71,9 @@ class HomeContent extends StatelessWidget{
           padding: EdgeInsets.zero,
           scrollDirection: Axis.horizontal,
           // List item length
-          itemCount:listData.length,
+          itemCount: listData.length,
           // create list based on mockup data
-          itemBuilder: this._getListData
-      ),//Call HomeContent
+          itemBuilder: this._getListData), //Call HomeContent
     );
   }
 }
@@ -96,11 +96,11 @@ class SelectWorkoutState extends State<SelectWorkout> {
             children: [
               DrawerHeader(
                   child: Center(
-                    child: Text(
-                      'REDBACK',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                  )),
+                child: Text(
+                  'REDBACK',
+                  style: TextStyle(fontSize: 30),
+                ),
+              )),
               ListTile(
                 leading: Icon(Icons.account_circle_rounded),
                 title: Text(
@@ -195,13 +195,14 @@ class SelectWorkoutState extends State<SelectWorkout> {
             ),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-              child: SingleChildScrollView(child: Column(
+              child: SingleChildScrollView(
+                  child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Align(
                     alignment: AlignmentDirectional(-0.9, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0,80, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 80, 0, 0),
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.5,
                         height: MediaQuery.of(context).size.height * 0.05,

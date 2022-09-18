@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:redback_mobile_app/Account.dart';
-import 'package:redback_mobile_app/screens/info_page.dart';
+import 'package:redback_mobile_app/info_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-
   late String username, firstname, lastname;
   // Obtain shared preferences.
   late SharedPreferences prefs;
@@ -31,11 +30,12 @@ class HomePageState extends State<HomePage> {
   refreshToken() async {
     var client = http.Client();
     // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
-    var response = await client.post(Uri.parse('http://10.0.2.2:8080/refreshToken'),
-        headers: {"Content-Type": "application/json; charset=utf-8"},
-        body: jsonEncode({
-          "token": prefs.getString("refreshToken"),
-        }));
+    var response =
+        await client.post(Uri.parse('http://10.0.2.2:8080/refreshToken'),
+            headers: {"Content-Type": "application/json; charset=utf-8"},
+            body: jsonEncode({
+              "token": prefs.getString("refreshToken"),
+            }));
     if (response.statusCode == 200) {
       var values = json.decode(response.body);
       prefs.setString("accessToken", values["accessToken"]);
@@ -51,10 +51,12 @@ class HomePageState extends State<HomePage> {
       var accessToken = prefs.getString('accessToken');
       // Obtain and save user details
       // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
-      var response = await client.get(Uri.parse('http://10.0.2.2:8080/user/$username'),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Authorization": "Bearer $accessToken"},
+      var response = await client.get(
+        Uri.parse('http://10.0.2.2:8080/user/$username'),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Authorization": "Bearer $accessToken"
+        },
       );
       if (response.statusCode == 200) {
         // update all values
@@ -79,7 +81,6 @@ class HomePageState extends State<HomePage> {
     } catch (e) {
       print(e);
     }
-    
   }
 
   // get username for Future<String> instances - ensures that username data is populated before loading text in widget
@@ -104,7 +105,6 @@ class HomePageState extends State<HomePage> {
     initialize();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,29 +118,26 @@ class HomePageState extends State<HomePage> {
       body: Center(
         // show Future<String> text for username, only shows when username data has been obtained
         child: FutureBuilder<String>(
-          future: getFullname(),
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) {
-                return const Text('Error');
-              } else if (snapshot.hasData) {
-                return Text(
-                'Welcome ${snapshot.data}',
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Color.fromARGB(255, 230, 152, 129),
-                  )
-                );
+            future: getFullname(),
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) {
+                  return const Text('Error');
+                } else if (snapshot.hasData) {
+                  return Text('Welcome ${snapshot.data}',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Color.fromARGB(255, 230, 152, 129),
+                      ));
+                } else {
+                  return const Text('Empty data');
+                }
               } else {
-                return const Text('Empty data');
+                return Text('State: ${snapshot.connectionState}');
               }
-            } else {
-              return Text('State: ${snapshot.connectionState}');
-            }
-          }
-        ),
+            }),
       ),
       drawer: Drawer(
         child: Container(
@@ -157,26 +154,27 @@ class HomePageState extends State<HomePage> {
               // "welcome [user]" in hamburger menu
               ListTile(
                 title: FutureBuilder<String>(
-                  future: getUsername(),
-                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
-                    } else if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasError) {
-                        return const Text('Error');
-                      } else if (snapshot.hasData) {
-                        return Text(
-                        'Welcome $username',
-                        style: const TextStyle(fontSize: 20),
-                        );
+                    future: getUsername(),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          return const Text('Error');
+                        } else if (snapshot.hasData) {
+                          return Text(
+                            'Welcome $username',
+                            style: const TextStyle(fontSize: 20),
+                          );
+                        } else {
+                          return const Text('Empty data');
+                        }
                       } else {
-                        return const Text('Empty data');
+                        return Text('State: ${snapshot.connectionState}');
                       }
-                    } else {
-                      return Text('State: ${snapshot.connectionState}');
-                    }
-                  }
-                ),
+                    }),
               ),
               ListTile(
                 leading: const Icon(Icons.account_circle_rounded),

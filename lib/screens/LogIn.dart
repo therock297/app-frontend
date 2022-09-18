@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/screens/signUp.dart';
 import 'package:redback_mobile_app/screens/homePage.dart';
+import 'package:redback_mobile_app/SelectWorkout.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -94,7 +95,7 @@ class _LoginState extends State<Login> {
           prefs.setInt("userLevel", userValues["userLevel"]);
         }
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => SelectWorkout()));
       } else {
         //The style also needs to be set
         toastShow(response.body);
