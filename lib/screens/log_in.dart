@@ -1,19 +1,20 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+
 //import 'dart:ffi';
 //import 'dart:js_util';
 import 'package:flutter/material.dart';
-import 'package:redback_mobile_app/screens/signUp.dart';
-import 'package:redback_mobile_app/screens/homePage.dart';
-import 'package:redback_mobile_app/SelectWorkout.dart';
-import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
+import 'package:redback_mobile_app/screens/home_page.dart';
+import 'package:redback_mobile_app/screens/sign_up.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Obtain shared preferences.
 late SharedPreferences prefs;
+
 getSharedPreferences() async {
   prefs = await SharedPreferences.getInstance();
 }
@@ -22,17 +23,17 @@ class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  State<StatefulWidget> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
   // our form key
   final _formKey = GlobalKey<FormState>();
-  final userNameEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
+  final userNameEditingController = TextEditingController();
+  final passwordEditingController = TextEditingController();
 
-  late var userNameField;
-  late var passwordField;
+  late TextFormField userNameField;
+  late TextFormField passwordField;
 
   void toastShow(String message) {
     Fluttertoast.showToast(
@@ -45,18 +46,18 @@ class _LoginState extends State<Login> {
         fontSize: 16.0);
   }
 
-  Future<void> getData() async {
+  Future<bool> getData() async {
     if (userNameEditingController.text.isEmpty ||
         passwordEditingController.text.isEmpty) {
       toastShow("Please enter all fields");
-      return;
+      return false;
     }
 
     getSharedPreferences();
     try {
       var client = http.Client();
       // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
-      String uri = constants.server + '/login';
+      String uri = '${constants.server}/login';
       var response = await client.post(Uri.parse(uri),
           headers: {"Content-Type": "application/json; charset=utf-8"},
           body: jsonEncode({
@@ -76,7 +77,7 @@ class _LoginState extends State<Login> {
         var username = userNameEditingController.text;
         // Obtain and save user details after verified login for future pages
         response = await client.get(
-          Uri.parse(constants.server + '/user/$username'),
+          Uri.parse('${constants.server}/user/$username'),
           headers: {
             "Content-Type": "application/json; charset=utf-8",
             "Authorization": "Bearer $accessToken"
@@ -94,8 +95,7 @@ class _LoginState extends State<Login> {
           prefs.setInt("telephone", userValues["telephone"]);
           prefs.setInt("userLevel", userValues["userLevel"]);
         }
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SelectWorkout()));
+        return true;
       } else {
         //The style also needs to be set
         toastShow(response.body);
@@ -104,6 +104,7 @@ class _LoginState extends State<Login> {
     } catch (e) {
       print(e);
     }
+    return false;
   }
 
   @override
@@ -151,7 +152,13 @@ class _LoginState extends State<Login> {
       child: MaterialButton(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: getData,
+          onPressed: () async => {
+                if (await getData())
+                  {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HomePage()))
+                  }
+              },
           child: const Text(
             "Log In",
             textAlign: TextAlign.center,

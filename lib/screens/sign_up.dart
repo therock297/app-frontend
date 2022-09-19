@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 
 class UserInfo {
@@ -24,12 +25,13 @@ class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  State<StatefulWidget> createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   // our form key
   final _formKey = GlobalKey<FormState>();
+
   //here we declare the field variables that will be used in the signup
   late var firstNameField;
   late var secondNameField;
@@ -37,22 +39,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   late var passwordField;
   late var userNameField;
   late var mobileField;
-  late var emptyfollowers = '';
-  late var emptyfollowing = '';
-  late var emptyimg = '';
+  late var emptyFollowers = '';
+  late var emptyFollowing = '';
+  late var emptyImg = '';
 
   //below are our text editing controllers for each field
-  final firstNameEditingController = new TextEditingController();
-  final secondNameEditingController = new TextEditingController();
-  final emailEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
-  final confirmPasswordEditingController = new TextEditingController();
-  final userNameEditingController = new TextEditingController();
-  final mobileNumberEditingController = new TextEditingController();
+  final firstNameEditingController = TextEditingController();
+  final secondNameEditingController = TextEditingController();
+  final emailEditingController = TextEditingController();
+  final passwordEditingController = TextEditingController();
+  final confirmPasswordEditingController = TextEditingController();
+  final userNameEditingController = TextEditingController();
+  final mobileNumberEditingController = TextEditingController();
 
   // declare UserInfo object to be passed to next screens
-  UserInfo userInfo = new UserInfo("firstName", "secondName", "email",
-      "password", "userName", "mobile", "gender", "height", "weight");
+  UserInfo userInfo = UserInfo("firstName", "secondName", "email", "password",
+      "userName", "mobile", "gender", "height", "weight");
 
   //creating a http client that can use the different api requests
   // var client = http.Client();
@@ -64,7 +66,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       var client = http.Client();
       print("posting");
       // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
-      String uri = constants.server + '/signup';
+      String uri = '${constants.server}/signup';
       var response = await client.post(Uri.parse(uri),
           headers: {"Content-Type": "application/json; charset=utf-8"},
           body: jsonEncode({
@@ -128,11 +130,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         // check for existing users with username
       } else {
         var responseUserName = await client.get(
-            Uri.parse(constants.server +
-                '/checkusername/' +
-                userNameEditingController.text),
+            Uri.parse(
+                '${constants.server}/checkusername/${userNameEditingController.text}'),
             headers: {"Content-Type": "application/json; charset=utf-8"});
-        print("username taken: " + responseUserName.body);
+        print("username taken: ${responseUserName.body}");
         // if username is taken
         if (responseUserName.body != 'false') {
           // show toast username taken
@@ -142,7 +143,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           bool emailValid = RegExp(
                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
               .hasMatch(emailEditingController.text);
-          print("emailValid: " + emailValid.toString());
+          print("emailValid: $emailValid");
           //check for valid email
           if (!emailValid) {
             // show toast invalid email
@@ -151,11 +152,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           } else {
             // check for existing users with email
             var responseEmail = await client.get(
-                Uri.parse(constants.server +
-                    '/checkemail/' +
-                    emailEditingController.text),
+                Uri.parse(
+                    '${constants.server}/checkemail/${emailEditingController.text}'),
                 headers: {"Content-Type": "application/json; charset=utf-8"});
-            print("email taken: " + responseEmail.body);
+            print("email taken: ${responseEmail.body}");
             // if email is not taken
             if (responseEmail.body != 'false') {
               // show toast email already in use

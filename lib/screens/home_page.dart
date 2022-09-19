@@ -1,21 +1,28 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Account.dart';
+import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/info_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<StatefulWidget> createState() => HomePageState();
 }
 
 class HomePageState extends State<HomePage> {
   late String username, firstname, lastname;
+
   // Obtain shared preferences.
   late SharedPreferences prefs;
+
   getSharedPreferences() async {
     prefs = await SharedPreferences.getInstance();
   }
@@ -31,7 +38,7 @@ class HomePageState extends State<HomePage> {
     var client = http.Client();
     // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
     var response =
-        await client.post(Uri.parse('http://10.0.2.2:8080/refreshToken'),
+    await client.post(Uri.parse("${constants.server}/refreshToken"),
             headers: {"Content-Type": "application/json; charset=utf-8"},
             body: jsonEncode({
               "token": prefs.getString("refreshToken"),
@@ -72,7 +79,7 @@ class HomePageState extends State<HomePage> {
         prefs.setInt("userLevel", userValues["userLevel"]);
         client.close();
       } else if (loop) {
-        // if failed becaused of token, refresh token first then repeat
+        // if failed because of token, refresh token first then repeat
         await refreshToken();
         await getUser(false);
       } else {
@@ -95,7 +102,7 @@ class HomePageState extends State<HomePage> {
     await getSharedPreferences();
     firstname = prefs.getString("firstname")!;
     lastname = prefs.getString("lastname")!;
-    return firstname + " " + lastname;
+    return "$firstname $lastname";
   }
 
   // initialize SharedPreferences and tokens
@@ -146,11 +153,11 @@ class HomePageState extends State<HomePage> {
             children: [
               const DrawerHeader(
                   child: Center(
-                child: Text(
-                  'REDBACK',
-                  style: TextStyle(fontSize: 30),
-                ),
-              )),
+                    child: Text(
+                      'REDBACK',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  )),
               // "welcome [user]" in hamburger menu
               ListTile(
                 title: FutureBuilder<String>(
@@ -158,7 +165,7 @@ class HomePageState extends State<HomePage> {
                     builder:
                         (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       } else if (snapshot.connectionState ==
                           ConnectionState.done) {
                         if (snapshot.hasError) {

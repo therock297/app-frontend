@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:redback_mobile_app/screens/signUp.dart';
-import 'package:redback_mobile_app/screens/LogIn.dart';
-
-void main() {
-  runApp(const MyApp());
-}
+import 'package:redback_mobile_app/screens/log_in.dart';
+import 'package:redback_mobile_app/screens/sign_up.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -47,7 +43,7 @@ class _WelcomePageState extends State<WelcomePage> {
         //Change colour of AppBar to match colour scheme.
         backgroundColor: const Color.fromRGBO(232, 116, 97, 1),
         //Added padding because we want another widget in the AppBar
-        //which is the comapny logo.
+        //which is the company logo.
         leading: Padding(
             padding: const EdgeInsets.all(0.0),
             //Loaded and added image logo from assets folder.
@@ -101,14 +97,16 @@ class _WelcomePageState extends State<WelcomePage> {
                 //Sign in button
                 TextButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Login()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Login()));
                     },
-                    child: const Text('Sign In'),
                     style: TextButton.styleFrom(
+                        foregroundColor: Colors.white,
                         minimumSize: const Size(120, 40),
-                        backgroundColor: const Color.fromRGBO(232, 116, 97, 1),
-                        primary: Colors.white)),
+                        backgroundColor: const Color.fromRGBO(232, 116, 97, 1)),
+                    child: const Text('Sign In')),
                 //Adds some space between the buttons. We use width because this is a row.
                 const SizedBox(
                   width: 20,
@@ -119,13 +117,14 @@ class _WelcomePageState extends State<WelcomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegistrationScreen()));
+                              builder: (context) =>
+                                  const RegistrationScreen()));
                     },
-                    child: const Text('Create Account'),
                     style: TextButton.styleFrom(
+                        foregroundColor: Colors.white,
                         minimumSize: const Size(120, 40),
-                        backgroundColor: const Color.fromRGBO(232, 116, 97, 1),
-                        primary: Colors.white)),
+                        backgroundColor: const Color.fromRGBO(232, 116, 97, 1)),
+                    child: const Text('Create Account')),
               ],
             ),
           ],

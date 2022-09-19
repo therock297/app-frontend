@@ -7,12 +7,12 @@ class InformationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 104, 75, 182),
+        backgroundColor: const Color.fromARGB(255, 104, 75, 182),
         elevation: 0,
         centerTitle: true,
-        title: Text('R E D B A C K'),
+        title: const Text('R E D B A C K'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('INFORMATION PAGE'),
       ),
     );
