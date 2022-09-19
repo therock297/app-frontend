@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
+import 'package:redback_mobile_app/midworkout(2).dart';
 import 'package:redback_mobile_app/scan.dart';
 
 class OnBoarding extends StatelessWidget {
@@ -197,7 +198,8 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
                 padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 child: ElevatedButton(
                   onPressed: (() {
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MidWorkout()));
                   }),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,

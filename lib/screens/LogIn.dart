@@ -95,7 +95,7 @@ class _LoginState extends State<Login> {
           prefs.setInt("userLevel", userValues["userLevel"]);
         }
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => SelectWorkout()));
       } else {
         //The style also needs to be set
         toastShow(response.body);

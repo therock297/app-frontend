@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:redback_mobile_app/EndScreen.dart';
 
 void main() {
   runApp(const MidWorkout());
@@ -80,6 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   finishWorkout() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => EndScreen()));
     print("Work Finished! ${formatTimeString(timingNumber)}");
     dTimer.cancel();
   }
