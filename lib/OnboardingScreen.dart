@@ -196,9 +196,9 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 child: ElevatedButton(
-                  onPressed: lastScannedCode != null
-                      ? () => debugPrint("Navigate to new screen")
-                      : null,
+                  onPressed: (() {
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                  }),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: const Color(0xFFEF8B60),

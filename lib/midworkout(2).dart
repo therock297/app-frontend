@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MidWorkout());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MidWorkout extends StatelessWidget {
+  const MidWorkout({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -72,7 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String formatTimeString(int value) {
-    String minute = (value / 60).floor() >= 10 ? "${(value / 60).floor()}" : "0${(value / 60).floor()}";
+    String minute = (value / 60).floor() >= 10
+        ? "${(value / 60).floor()}"
+        : "0${(value / 60).floor()}";
     String second = value % 60 >= 10 ? "${value % 60}" : "0${value % 60}";
     return "00:$minute:$second";
   }
@@ -140,7 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Expanded(
                                       flex: 3,
                                       child: Container(
-                                        color: const Color.fromRGBO(239, 93, 62, 1),
+                                        color: const Color.fromRGBO(
+                                            239, 93, 62, 1),
                                         alignment: Alignment.center,
                                         child: const Text(
                                           "15.0 KM/H",
@@ -179,7 +182,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Expanded(
                                       flex: 3,
                                       child: Container(
-                                        color: const Color.fromRGBO(239, 93, 62, 1),
+                                        color: const Color.fromRGBO(
+                                            239, 93, 62, 1),
                                         alignment: Alignment.center,
                                         child: const Text(
                                           "60 RPM",
@@ -229,7 +233,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Expanded(
                                       flex: 3,
                                       child: Container(
-                                        color: const Color.fromRGBO(239, 93, 62, 1),
+                                        color: const Color.fromRGBO(
+                                            239, 93, 62, 1),
                                         alignment: Alignment.center,
                                         child: const Text(
                                           "140 BPM",
@@ -268,7 +273,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Expanded(
                                       flex: 2,
                                       child: Container(
-                                        color: const Color.fromRGBO(239, 93, 62, 1),
+                                        color: const Color.fromRGBO(
+                                            239, 93, 62, 1),
                                         alignment: Alignment.center,
                                         child: const Text(
                                           "96%",
@@ -340,7 +346,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Expanded(
                                       flex: 3,
                                       child: Container(
-                                        color: const Color.fromRGBO(239, 93, 62, 1),
+                                        color: const Color.fromRGBO(
+                                            239, 93, 62, 1),
                                         alignment: Alignment.center,
                                         child: const Text(
                                           "15.0 KJ",
@@ -379,10 +386,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Expanded(
                                       flex: 3,
                                       child: Container(
-                                        color: const Color.fromRGBO(239, 93, 62, 1),
+                                        color: const Color.fromRGBO(
+                                            239, 93, 62, 1),
                                         alignment: Alignment.center,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             InkWell(
                                               onTap: () {
@@ -396,8 +405,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 height: 24,
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
-                                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                                  borderRadius: BorderRadius.circular(24),
+                                                  color: const Color.fromRGBO(
+                                                      255, 255, 255, 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(24),
                                                 ),
                                                 child: const Text("-"),
                                               ),
@@ -421,8 +432,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 height: 24,
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
-                                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                                  borderRadius: BorderRadius.circular(24),
+                                                  color: const Color.fromRGBO(
+                                                      255, 255, 255, 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(24),
                                                 ),
                                                 child: const Text("+"),
                                               ),
