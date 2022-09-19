@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:redback_mobile_app/constants.dart' as constants;
+import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 
 class UserInfo {
   String firstName;

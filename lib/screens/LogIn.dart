@@ -10,7 +10,7 @@ import 'package:redback_mobile_app/SelectWorkout.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:redback_mobile_app/constants.dart' as constants;
+import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 
 // Obtain shared preferences.
 late SharedPreferences prefs;
