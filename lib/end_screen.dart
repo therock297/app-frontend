@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(EndScreen());
-
 class EndScreen extends StatelessWidget {
+  const EndScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'borading',
+        title: 'boarding',
         home: _ElevatedButtonExample(),
         theme: ThemeData(
           fontFamily: 'Poppins',
-          primaryColor: Color.fromARGB(255, 0, 0, 0),
+          primaryColor: const Color.fromARGB(255, 0, 0, 0),
         ));
   }
 }
@@ -26,40 +26,36 @@ class _ElevatedButtonExample extends StatelessWidget {
       //       onPressed: () => Navigator.of(context).pop(),
       //     ),
       //     backgroundColor: Color(0xFF380E4A)),
-      backgroundColor: Color(0xFF380E4A),
+      backgroundColor: const Color(0xFF380E4A),
       body: SafeArea(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Align(
-                alignment: AlignmentDirectional(0, 0),
+                alignment: const AlignmentDirectional(0, 0),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                        child: Container(
-                          child: Text(
-                            'Well Done John!',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFFEF8B60),
-                              fontSize: 30,
-                            ),
+                        child: Text(
+                          'Well Done John!',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFEF8B60),
+                            fontSize: 30,
                           ),
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                        child: Container(
-                          child: Text(
-                            'Here is how your workout went',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFFEF8B60),
-                              fontSize: 22,
-                            ),
+                        child: Text(
+                          'Here is how your workout went',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFEF8B60),
+                            fontSize: 22,
                           ),
                         ),
                       ),
@@ -67,12 +63,12 @@ class _ElevatedButtonExample extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 40, 0, 0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.max,
-                                children: [
+                                children: const [
                                   Text(
                                     'Workout Length ',
                                     style: TextStyle(
@@ -151,13 +147,13 @@ class _ElevatedButtonExample extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 40, 0, 0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Max Speed ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
@@ -165,7 +161,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       fontSize: 25,
                                     ),
                                   ),
-                                  Text(
+                                  const Text(
                                     '32.0 KM/H',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
@@ -173,7 +169,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       fontSize: 25,
                                     ),
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 40, 0, 0),
                                     child: Text(
@@ -186,7 +182,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Text(
+                                  const Text(
                                     ' ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
@@ -194,7 +190,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       fontSize: 25,
                                     ),
                                   ),
-                                  Text(
+                                  const Text(
                                     '60RPM',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
@@ -203,12 +199,13 @@ class _ElevatedButtonExample extends StatelessWidget {
                                     ),
                                   ),
                                   Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 40, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 40, 0, 0),
                                       child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: [
+                                          children: const [
                                             Text(
                                               'Max Power',
                                               style: TextStyle(
@@ -228,7 +225,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                                               ),
                                             ),
                                           ])),
-                                  Text(
+                                  const Text(
                                     '15.0 KJ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
@@ -243,23 +240,23 @@ class _ElevatedButtonExample extends StatelessWidget {
                     ]),
               ),
               Align(
-                alignment: AlignmentDirectional(0, 0),
+                alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                  padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                   child: ElevatedButton(
                     onPressed: () {
                       // It will take us back to homepage.dart
-                      print('Pressed');
+                      debugPrint('Pressed');
                     },
-                    child: Text('Home'),
                     style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      backgroundColor: const Color(0xFFEF8B60),
                       fixedSize: const Size(180, 40),
-                      primary: Color(0xFFEF8B60),
-                      onPrimary: Colors.black,
                       shape: RoundedRectangleBorder(
                           //to set border radius to button
                           borderRadius: BorderRadius.circular(8)),
                     ),
+                    child: const Text('Home'),
                   ),
                 ),
               ),

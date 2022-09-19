@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/midworkout(2).dart';
+import 'package:redback_mobile_app/mid_workout.dart';
 import 'package:redback_mobile_app/scan.dart';
 
 class OnBoarding extends StatelessWidget {
@@ -53,7 +53,7 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
               padding: const EdgeInsets.fromLTRB(0.0, 0, 35.0, 0),
               // Adding a file background to make the icon stand out
               child: Ink(
-                decoration: ShapeDecoration(
+                decoration: const ShapeDecoration(
                     color: Color(0xFFEF8B60), shape: CircleBorder()),
                 child: IconButton(
                   icon: const Icon(Icons.qr_code_2),
@@ -74,7 +74,7 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
 
       // DecoratedBox allows us to create the gradient background
       body: DecoratedBox(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color(0xff380E4A),
@@ -198,8 +198,10 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
                 padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 child: ElevatedButton(
                   onPressed: (() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MidWorkout()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MidWorkout()));
                   }),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
