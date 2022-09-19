@@ -98,7 +98,7 @@ class HomePageState extends State<HomePage> {
   }
 
   // get full name for Future<String> instances - ensures that name data is populated before loading text in widget
-  Future<String> getFullname() async {
+  Future<String> getFullName() async {
     await getSharedPreferences();
     firstname = prefs.getString("firstname")!;
     lastname = prefs.getString("lastname")!;
@@ -125,7 +125,7 @@ class HomePageState extends State<HomePage> {
       body: Center(
         // show Future<String> text for username, only shows when username data has been obtained
         child: FutureBuilder<String>(
-            future: getFullname(),
+            future: getFullName(),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
