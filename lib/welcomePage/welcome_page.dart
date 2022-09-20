@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
           //scaffoldBackgroundColor changes the colour of the background of the app.
-          scaffoldBackgroundColor: const Color.fromRGBO(56, 14, 74, 1),
+          scaffoldBackgroundColor: /*const Color.fromRGBO(56, 14, 74, 1)*/ null,
           primarySwatch: null),
       home: const WelcomePage(title: 'Redback Operations'),
     );
@@ -52,7 +52,18 @@ class _WelcomePageState extends State<WelcomePage> {
             )),
         title: Text(widget.title),
       ),
-      body: Center(
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          colors: [
+            Color(0xff380E4A),
+            Color.fromARGB(255, 99, 37, 126),
+            //Color.fromARGB(255, 239, 136, 120),
+            Color(0xFFE87461),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )),
         child: Column(
           children: <Widget>[
             //Loaded the logo from assets folder and places it at the top of the screen.

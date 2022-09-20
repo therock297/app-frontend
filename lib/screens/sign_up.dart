@@ -355,7 +355,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: const Color.fromRGBO(56, 14, 74, 1),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xff380E4A),
+                  Color.fromARGB(255, 99, 37, 126),
+                  //Color.fromARGB(255, 239, 136, 120),
+                  Color(0xFFE87461),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            /*color: const Color.fromRGBO(56, 14, 74, 1),*/
             child: Padding(
               padding: const EdgeInsets.all(36.0),
               child: Form(

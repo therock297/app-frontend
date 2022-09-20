@@ -59,6 +59,7 @@ class HomeContent extends StatelessWidget {
         child: Text(
           listData[index]["title"],
           style: const TextStyle(color: Color.fromRGBO(64, 32, 27, 1)),
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -197,7 +198,16 @@ class SelectWorkoutState extends State<SelectWorkout> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
             decoration: const BoxDecoration(
-              color: Color(0xFF38014A),
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xff380E4A),
+                  Color.fromARGB(255, 99, 37, 126),
+                  //Color.fromARGB(255, 239, 136, 120),
+                  Color(0xFFE87461),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
@@ -224,7 +234,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                             style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFFE87461),
+                              color: /*Color(0xFFE87461)*/ Colors.white,
                             ),
                             textDirection: TextDirection.ltr,
                             softWrap: true,
@@ -234,7 +244,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                       ),
                     ),
                   ),
-                      const Padding(
+                  const Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 90),
                     child: HomeContent(),
                   ),
@@ -254,7 +264,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFFE87461),
+                            color: /*Color(0xFFE87461)*/ Colors.white,
                           ),
                           textDirection: TextDirection.ltr,
                           softWrap: true,
@@ -263,7 +273,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                       ),
                     ),
                   ),
-                      const Padding(
+                  const Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 100),
                     child: HomeContent(),
                   ),

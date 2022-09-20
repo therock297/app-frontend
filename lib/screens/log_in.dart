@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/screens/home_page.dart';
 import 'package:redback_mobile_app/screens/sign_up.dart';
+import 'package:redback_mobile_app/select_workout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Obtain shared preferences.
@@ -152,13 +153,17 @@ class _LoginState extends State<Login> {
       child: MaterialButton(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: () async => {
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SelectWorkout()));
+          } /*async => {
                 if (await getData())
                   {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HomePage()))
                   }
-              },
+              }*/
+          ,
           child: const Text(
             "Log In",
             textAlign: TextAlign.center,
@@ -185,7 +190,19 @@ class _LoginState extends State<Login> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: const Color.fromRGBO(56, 14, 74, 1),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xff380E4A),
+                  Color.fromARGB(255, 99, 37, 126),
+                  //Color.fromARGB(255, 239, 136, 120),
+                  Color(0xFFE87461),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            /*color: const Color.fromRGBO(56, 14, 74, 1),*/
             child: Padding(
               padding: const EdgeInsets.all(36.0),
               child: Form(
@@ -246,7 +263,7 @@ class _LoginState extends State<Login> {
                               "Sign Up",
                               style: TextStyle(
                                   decoration: TextDecoration.underline,
-                                  color: Color(0xFFe87461),
+                                  color: /*Color(0xFFe87461)*/ Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15),
                             ),

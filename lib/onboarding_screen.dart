@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/mid_workout.dart';
@@ -78,6 +80,8 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
           gradient: LinearGradient(
             colors: [
               Color(0xff380E4A),
+              Color.fromARGB(255, 99, 37, 126),
+              //Color.fromARGB(255, 239, 136, 120),
               Color(0xFFE87461),
             ],
             begin: Alignment.topCenter,
@@ -97,7 +101,8 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
                   'Ramped Workout',
                   style: TextStyle(
                     fontSize: 25,
-                    color: Color(0xFFEF8B60),
+                    fontWeight: FontWeight.bold,
+                    color: /*Color(0xFFEF8B60)*/ Colors.white,
                   ),
                 ),
               ),
@@ -115,7 +120,7 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
                       'Welcome to the Ramped Fitness Test, In this workout your aim is to cycle for as long as possible, you will begin at a nice cruising pace.',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Color(0xFFEF8B60),
+                        color: /*Color(0xFFEF8B60)*/ Colors.white,
                       )),
                 ),
               ),
@@ -133,7 +138,7 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
                       'Every 30 seconds the difficulty will increase, making it harder to continue to cycle. This is a test of both your strength and endurance so make sure to pace yourself to have the best possible chance of clearing all the difficulties. ',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Color(0xFFEF8B60),
+                        color: /*Color(0xFFEF8B60)*/ Colors.white,
                       )),
                 ),
               ),
@@ -151,7 +156,7 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
                       'Once you reach your limit, press the ‘Finish Workout’ button towards the bottom of the screen to end the workout and view your results. Good Luck! ',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Color(0xFFEF8B60),
+                        color: /*Color(0xFFEF8B60)*/ Colors.white,
                       )),
                 ),
               ),
@@ -168,7 +173,8 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
                           : "Bike Code Required",
                       style: const TextStyle(
                         fontSize: 25,
-                        color: Color(0xFFEF8B60),
+                        fontWeight: FontWeight.bold,
+                        color: /*Color(0xFFEF8B60)*/ Colors.white,
                       )),
                 )),
 
@@ -186,7 +192,7 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
                           : "Please scan the QR code on the bike before commencing the workout",
                       style: const TextStyle(
                         fontSize: 14,
-                        color: Color(0xFFEF8B60),
+                        color: /*Color(0xFFEF8B60)*/ Colors.white,
                       )),
                 ),
               ),

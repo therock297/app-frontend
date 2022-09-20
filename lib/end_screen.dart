@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redback_mobile_app/screens/home_page.dart';
 
 class EndScreen extends StatelessWidget {
   const EndScreen({super.key});
@@ -26,8 +27,20 @@ class _ElevatedButtonExample extends StatelessWidget {
       //       onPressed: () => Navigator.of(context).pop(),
       //     ),
       //     backgroundColor: Color(0xFF380E4A)),
-      backgroundColor: const Color(0xFF380E4A),
-      body: SafeArea(
+      backgroundColor: /*const Color(0xFF380E4A)*/ null,
+
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          colors: [
+            Color(0xff380E4A),
+            Color.fromARGB(255, 99, 37, 126),
+            //Color.fromARGB(255, 239, 136, 120),
+            Color(0xFFE87461),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +56,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                           'Well Done John!',
                           style: TextStyle(
                             fontFamily: 'Poppins',
-                            color: Color(0xFFEF8B60),
+                            fontWeight: FontWeight.bold,
+                            color: /*Color(0xFFEF8B60)*/ Colors.white,
                             fontSize: 30,
                           ),
                         ),
@@ -54,7 +68,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                           'Here is how your workout went',
                           style: TextStyle(
                             fontFamily: 'Poppins',
-                            color: Color(0xFFEF8B60),
+                            color: /*Color(0xFFEF8B60)*/ Colors.white,
                             fontSize: 22,
                           ),
                         ),
@@ -73,7 +87,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                     'Workout Length ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
-                                      color: Color.fromARGB(255, 151, 166, 185),
+                                      color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
+                                          .white,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -93,7 +108,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       style: TextStyle(
                                         fontFamily: 'Poppins',
                                         color:
-                                            Color.fromARGB(255, 151, 166, 185),
+                                            /*Color.fromARGB(255, 151, 166, 185)*/ Colors
+                                                .white,
                                         fontSize: 25,
                                       ),
                                     ),
@@ -102,7 +118,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                     'Sustained ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
-                                      color: Color.fromARGB(255, 151, 166, 185),
+                                      color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
+                                          .white,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -122,7 +139,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       style: TextStyle(
                                         fontFamily: 'Poppins',
                                         color:
-                                            Color.fromARGB(255, 151, 166, 185),
+                                            /*Color.fromARGB(255, 151, 166, 185)*/ Colors
+                                                .white,
                                         fontSize: 25,
                                       ),
                                     ),
@@ -131,7 +149,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                     'Rate ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
-                                      color: Color.fromARGB(255, 151, 166, 185),
+                                      color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
+                                          .white,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -157,7 +176,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                     'Max Speed ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
-                                      color: Color.fromARGB(255, 151, 166, 185),
+                                      color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
+                                          .white,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -177,7 +197,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       style: TextStyle(
                                         fontFamily: 'Poppins',
                                         color:
-                                            Color.fromARGB(255, 151, 166, 185),
+                                            /*Color.fromARGB(255, 151, 166, 185)*/ Colors
+                                                .white,
                                         fontSize: 25,
                                       ),
                                     ),
@@ -210,8 +231,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                               'Max Power',
                                               style: TextStyle(
                                                 fontFamily: 'Poppins',
-                                                color: Color.fromARGB(
-                                                    255, 151, 166, 185),
+                                                color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
+                                                    .white,
                                                 fontSize: 25,
                                               ),
                                             ),
@@ -219,8 +240,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                               'Output ',
                                               style: TextStyle(
                                                 fontFamily: 'Poppins',
-                                                color: Color.fromARGB(
-                                                    255, 151, 166, 185),
+                                                color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
+                                                    .white,
                                                 fontSize: 25,
                                               ),
                                             ),
@@ -247,6 +268,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                     onPressed: () {
                       // It will take us back to homepage.dart
                       debugPrint('Pressed');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
