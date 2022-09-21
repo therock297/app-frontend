@@ -5,10 +5,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
-import 'package:redback_mobile_app/account.dart';
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
+import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
+import 'package:redback_mobile_app/account.dart';
 import 'package:redback_mobile_app/info_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,19 +20,6 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   late String username, firstname, lastname;
 
-  // Obtain shared preferences.
-  late SharedPreferences prefs;
-
-  getSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();
-  }
-
-  // SharedPreferences must be initialized before getUser to store preferences
-  initialize() async {
-    await getSharedPreferences();
-    await getUser(true);
-  }
-
   // refresh the authentication tokens - runs on initialization
   refreshToken() async {
     var client = http.Client();
@@ -41,12 +28,11 @@ class HomePageState extends State<HomePage> {
     await client.post(Uri.parse("${constants.server}/refreshToken"),
             headers: {"Content-Type": "application/json; charset=utf-8"},
             body: jsonEncode({
-              "token": prefs.getString("refreshToken"),
+              "token": SharedPrefsUtil.getRequiredValue("refreshToken"),
             }));
     if (response.statusCode == 200) {
       var values = json.decode(response.body);
-      prefs.setString("accessToken", values["accessToken"]);
-      prefs.setString("refreshToken", values["refreshToken"]);
+      SharedPrefsUtil.setTokens(values);
     }
   }
 
@@ -54,12 +40,12 @@ class HomePageState extends State<HomePage> {
   getUser(bool loop) async {
     try {
       var client = http.Client();
-      var username = prefs.getString('username');
-      var accessToken = prefs.getString('accessToken');
+      var username = SharedPrefsUtil.getRequiredValue('username');
+      var accessToken = SharedPrefsUtil.getRequiredValue('accessToken');
       // Obtain and save user details
       // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
       var response = await client.get(
-        Uri.parse('http://10.0.2.2:8080/user/$username'),
+        Uri.parse('${constants.server}/user/$username'),
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           "Authorization": "Bearer $accessToken"
@@ -68,15 +54,7 @@ class HomePageState extends State<HomePage> {
       if (response.statusCode == 200) {
         // update all values
         var userValues = jsonDecode(response.body);
-        prefs.setString("_id", userValues["_id"]);
-        prefs.setString("username", userValues["username"]);
-        prefs.setString("firstname", userValues["firstname"]);
-        prefs.setString("lastname", userValues["lastname"]);
-        prefs.setString("email", userValues["email"]);
-        prefs.setString("password", userValues["password"]);
-        prefs.setInt("redbackCoins", userValues["redbackCoins"]);
-        prefs.setInt("telephone", userValues["telephone"]);
-        prefs.setInt("userLevel", userValues["userLevel"]);
+        SharedPrefsUtil.setUserDetails(userValues);
         client.close();
       } else if (loop) {
         // if failed because of token, refresh token first then repeat
@@ -92,24 +70,14 @@ class HomePageState extends State<HomePage> {
 
   // get username for Future<String> instances - ensures that username data is populated before loading text in widget
   Future<String> getUsername() async {
-    await getSharedPreferences();
-    username = prefs.getString("username")!;
-    return username;
+    return SharedPrefsUtil.getRequiredValue("username");
   }
 
   // get full name for Future<String> instances - ensures that name data is populated before loading text in widget
   Future<String> getFullName() async {
-    await getSharedPreferences();
-    firstname = prefs.getString("firstname")!;
-    lastname = prefs.getString("lastname")!;
+    firstname = SharedPrefsUtil.getRequiredValue("firstname");
+    lastname = SharedPrefsUtil.getRequiredValue("lastname");
     return "$firstname $lastname";
-  }
-
-  // initialize SharedPreferences and tokens
-  @override
-  void initState() {
-    super.initState();
-    initialize();
   }
 
   @override

@@ -8,17 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
-import 'package:redback_mobile_app/screens/home_page.dart';
+import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/screens/sign_up.dart';
 import 'package:redback_mobile_app/select_workout.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-// Obtain shared preferences.
-late SharedPreferences prefs;
-
-getSharedPreferences() async {
-  prefs = await SharedPreferences.getInstance();
-}
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -54,7 +46,6 @@ class _LoginState extends State<Login> {
       return false;
     }
 
-    getSharedPreferences();
     try {
       var client = http.Client();
       // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
@@ -72,8 +63,7 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         var values = json.decode(response.body);
         //save accessToken and refreshToken in sharedPreferences memory
-        prefs.setString("accessToken", values["accessToken"]);
-        prefs.setString("refreshToken", values["refreshToken"]);
+        SharedPrefsUtil.setTokens(values);
         var accessToken = values["accessToken"];
         var username = userNameEditingController.text;
         // Obtain and save user details after verified login for future pages
@@ -86,15 +76,7 @@ class _LoginState extends State<Login> {
         );
         if (response.statusCode == 200) {
           var userValues = json.decode(response.body);
-          prefs.setString("_id", userValues["_id"]);
-          prefs.setString("username", userValues["username"]);
-          prefs.setString("firstname", userValues["firstname"]);
-          prefs.setString("lastname", userValues["lastname"]);
-          prefs.setString("email", userValues["email"]);
-          prefs.setString("password", userValues["password"]);
-          prefs.setInt("redbackCoins", userValues["redbackCoins"]);
-          prefs.setInt("telephone", userValues["telephone"]);
-          prefs.setInt("userLevel", userValues["userLevel"]);
+          SharedPrefsUtil.setUserDetails(userValues);
         }
         return true;
       } else {

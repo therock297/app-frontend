@@ -268,8 +268,10 @@ class _ElevatedButtonExample extends StatelessWidget {
                     onPressed: () {
                       // It will take us back to homepage.dart
                       debugPrint('Pressed');
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()));
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,

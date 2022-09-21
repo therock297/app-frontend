@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/mid_workout.dart';
