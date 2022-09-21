@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/end_screen.dart';
 
 class MidWorkout extends StatelessWidget {
@@ -390,26 +391,35 @@ class _MyHomePageState extends State<MyHomePage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            InkWell(
-                                              onTap: () {
-                                                if (level > 1) {
-                                                  level -= 1;
-                                                  setState(() {});
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 24,
-                                                height: 24,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  color: const Color.fromRGBO(
-                                                      255, 255, 255, 1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(24),
-                                                ),
-                                                child: const Text("-"),
-                                              ),
-                                            ),
+                                            Visibility(
+                                              // @formatter:off
+                                                visible: SharedPrefsUtil.getWorkoutType() != "ramped",
+                                                // @formatter:on
+                                                maintainSize: true,
+                                                maintainAnimation: true,
+                                                maintainState: true,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    if (level > 1) {
+                                                      level -= 1;
+                                                      setState(() {});
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: 24,
+                                                    height: 24,
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              255, 255, 255, 1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24),
+                                                    ),
+                                                    child: const Text("-"),
+                                                  ),
+                                                )),
                                             Text(
                                               "$level",
                                               style: const TextStyle(
@@ -417,26 +427,35 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 color: Colors.black,
                                               ),
                                             ),
-                                            InkWell(
-                                              onTap: () {
-                                                if (level < 20) {
-                                                  level += 1;
-                                                  setState(() {});
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 24,
-                                                height: 24,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  color: const Color.fromRGBO(
-                                                      255, 255, 255, 1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(24),
+                                            Visibility(
+                                              // @formatter:off
+                                              visible: SharedPrefsUtil.getWorkoutType() != "ramped",
+                                              // @formatter:on
+                                              maintainSize: true,
+                                              maintainAnimation: true,
+                                              maintainState: true,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  if (level < 20) {
+                                                    level += 1;
+                                                    setState(() {});
+                                                  }
+                                                },
+                                                child: Container(
+                                                  width: 24,
+                                                  height: 24,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    color: const Color.fromRGBO(
+                                                        255, 255, 255, 1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            24),
+                                                  ),
+                                                  child: const Text("+"),
                                                 ),
-                                                child: const Text("+"),
                                               ),
-                                            ),
+                                            )
                                           ],
                                         ),
                                       ),
