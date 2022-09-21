@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/mid_workout.dart';
@@ -5,6 +6,7 @@ import 'package:redback_mobile_app/scan.dart';
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -201,12 +203,16 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 child: ElevatedButton(
-                  onPressed: (() {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MidWorkout()));
-                  }),
+                  // allow dev access in debug but the workout wont work if no code is scanned at least once so its saved in shared prefs
+                  // in other run modes, require the user to scan the code before proceeding
+                  onPressed: lastScannedCode != null || kDebugMode
+                      ? () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MidWorkout()));
+                        }
+                      : null,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: const Color(0xFFEF8B60),
