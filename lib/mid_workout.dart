@@ -255,12 +255,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Column(
                                   children: [
                                     Expanded(
-                                      flex: 3,
+                                      flex: 2,
                                       child: Container(
                                         color: Colors.white,
                                         alignment: Alignment.center,
                                         child: const Text(
-                                          "Oxygen\nSaturation",
+                                          "Power",
                                           style: TextStyle(
                                             fontSize: 13,
                                             color: Colors.black,
@@ -269,13 +269,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                     ),
                                     Expanded(
-                                      flex: 2,
+                                      flex: 3,
                                       child: Container(
                                         color: const Color.fromRGBO(
                                             239, 93, 62, 1),
                                         alignment: Alignment.center,
                                         child: const Text(
-                                          "96%",
+                                          "500 W",
                                           style: TextStyle(
                                             fontSize: 13,
                                             color: Colors.black,
@@ -333,7 +333,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         color: Colors.white,
                                         alignment: Alignment.center,
                                         child: const Text(
-                                          "Watts",
+                                          "Energy Usage",
                                           style: TextStyle(
                                             fontSize: 13,
                                             color: Colors.black,
