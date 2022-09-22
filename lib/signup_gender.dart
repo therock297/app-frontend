@@ -132,7 +132,7 @@ class _SelectGenderPage extends State<SelectGenderPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const Text(
-                              'What is your gender?',
+                              'What is your biological sex?',
                               style: TextStyle(
                                 fontSize: 22,
                                 color: Color(0xFFE87461),
@@ -230,10 +230,10 @@ class _SelectGenderPage extends State<SelectGenderPage> {
                             const SizedBox(
                               width: 300,
                               child: Text(
-                                'To give you a customized experience we need to know your gender',
+                                'Calculating energy expenditure during the workout will require knowledge of your biological sex. If you do not feel conformable disclosing this information, you can skip this information by selecting \'Prefer not to choose\'',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 16,
                                   color: Colors.black54,
                                   fontWeight: FontWeight.bold,
                                 ),
