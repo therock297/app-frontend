@@ -4,6 +4,7 @@ import 'dart:convert';
 
 //import 'dart:ffi';
 //import 'dart:js_util';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -40,6 +41,12 @@ class _LoginState extends State<Login> {
   }
 
   Future<bool> getData() async {
+    // allow bypass in debug with limited functionality
+    if (kDebugMode) {
+      return true;
+    }
+
+    // ensure the fields aren't empty
     if (userNameEditingController.text.isEmpty ||
         passwordEditingController.text.isEmpty) {
       toastShow("Please enter all fields");
@@ -56,7 +63,7 @@ class _LoginState extends State<Login> {
             "username": userNameEditingController.text,
             "password": passwordEditingController.text,
           }));
-      print("test1");
+
       //If the information is correct, you will be redirected to the home page
       //If there is an error message, there will be an alert box to indicate
       // that the account number or password is incorrect
@@ -77,6 +84,7 @@ class _LoginState extends State<Login> {
         if (response.statusCode == 200) {
           var userValues = json.decode(response.body);
           SharedPrefsUtil.setUserDetails(userValues);
+          debugPrint("Successfully logged in");
         }
         return true;
       } else {
@@ -135,17 +143,13 @@ class _LoginState extends State<Login> {
       child: MaterialButton(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SelectWorkout()));
-          } /*async => {
+          onPressed: () async => {
                 if (await getData())
                   {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const HomePage()))
+                        builder: (context) => const SelectWorkout()))
                   }
-              }*/
-          ,
+              },
           child: const Text(
             "Log In",
             textAlign: TextAlign.center,

@@ -287,7 +287,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           //calls the function to post data to database
           //go to next page to enter more details
           onPressed: () async {
-            // postData()
             // set userinfo before sending to next screen
             if (await _nextPage()) {
               if (!mounted) return;
