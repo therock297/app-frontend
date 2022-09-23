@@ -11,20 +11,20 @@ class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: ElevatedButtonExample(),
+      body: OnboardingState(),
       backgroundColor: Color.fromARGB(255, 0, 0, 0),
     );
   }
 }
 
-class ElevatedButtonExample extends StatefulWidget {
-  const ElevatedButtonExample({super.key});
+class OnboardingState extends StatefulWidget {
+  const OnboardingState({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ElevatedButtonExample();
+  State<StatefulWidget> createState() => _OnboardingState();
 }
 
-class _ElevatedButtonExample extends State<ElevatedButtonExample> {
+class _OnboardingState extends State<OnboardingState> {
   String? lastScannedCode = SharedPrefsUtil.getLastScannedBikeId();
   String workoutType = SharedPrefsUtil.getWorkoutType()!;
 

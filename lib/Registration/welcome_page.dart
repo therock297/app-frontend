@@ -26,10 +26,6 @@ class WelcomePage extends StatefulWidget {
 
 //setState can be used here inside of another method which does something.
 class _WelcomePageState extends State<WelcomePage> {
-  //example method using setState to increment a counter
-  /*void _incrementCounter() {
-    setState(() {});
-  }*/
 
   @override
   Widget build(BuildContext context) {

@@ -12,14 +12,14 @@ class EndScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _ElevatedButtonExample(stats: stats),
+      body: _EndScreen(stats: stats),
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
     );
   }
 }
 
-class _ElevatedButtonExample extends StatelessWidget {
-  const _ElevatedButtonExample({required this.stats});
+class _EndScreen extends StatelessWidget {
+  const _EndScreen({required this.stats});
 
   final WorkoutStats stats;
 

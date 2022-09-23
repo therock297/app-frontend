@@ -17,19 +17,19 @@ class MidWorkout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: MyHomePage(),
+      body: MidWorkoutState(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class MidWorkoutState extends StatefulWidget {
+  const MidWorkoutState({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MidWorkoutState> createState() => _MidWorkoutState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MidWorkoutState extends State<MidWorkoutState> {
   late int level = 1;
   late int downTime = 5;
   late int timingNumber = 0;
