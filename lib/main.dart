@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/welcomePage/welcome_page.dart';
 
@@ -8,6 +9,9 @@ Future<void> main() async {
 
   // initialize shared prefs
   await SharedPrefsUtil.init();
+
+  // initialize dotenv
+  await dotenv.load(fileName: ".env");
 
   runApp(
     MaterialApp(

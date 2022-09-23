@@ -1,7 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:mqtt_client/mqtt_client.dart';
+import 'package:mqtt_client/mqtt_server_client.dart';
+import 'package:redback_mobile_app/Models/workout_stats.dart';
+import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/end_screen.dart';
 
@@ -30,14 +36,22 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late int level = 1;
-
   late int downTime = 5;
-
   late int timingNumber = 0;
-
   late Timer dTimer;
-
   late String timeElapsed = "00:00:00";
+
+  double currentSpeed = 0.0;
+  double currentCadence = 0.0;
+  int currentHeartRate = 0;
+  int currentPower = 0;
+  int currentFanSpeed = 0;
+
+  WorkoutStats stats = WorkoutStats();
+
+  MqttServerClient? mqttClient; // Connection to HiveMQ MQTT broker
+  late Future<void>
+      connectionAttempt; // reference to connection thread should we need to ignore its result
 
   @override
   void initState() {
@@ -58,13 +72,92 @@ class _MyHomePageState extends State<MyHomePage> {
           dTimer.cancel();
         }
       }
+
+      // signal to mqtt that the workout has started if the countdown reaches 0
+      if (downTime == 0) {
+        startWorkout();
+        downTime--;
+      }
+    });
+
+    // initialize the connection to HiveMQ using the stored credentials in another thread
+    connectionAttempt = Future.delayed(Duration.zero, () async {
+      tryConnect();
     });
   }
 
   @override
   void dispose() {
     super.dispose();
+
+    // stop the timer
     dTimer.cancel();
+
+    // disconnect from the MQTT client
+    mqttClient?.disconnect();
+
+    // cancel the connection attempt if its in progress
+    connectionAttempt.ignore();
+  }
+
+  Future<void> tryConnect() async {
+    // create the MQTT Client
+    MqttServerClient client =
+        MqttServerClient.withPort(dotenv.env['MQTT_HOST']!, "redback", 8883);
+    client.secure = true;
+
+    // enable logging and set up the lifecycle method handlers
+    client.logging(on: true);
+    client.onConnected = onConnected;
+    client.onDisconnected = onDisconnected;
+    client.onUnsubscribed = onUnsubscribed;
+    client.onSubscribed = onSubscribed;
+    client.onSubscribeFail = onSubscribeFail;
+
+    // connect to the client
+    final connMessage = MqttConnectMessage()
+        .authenticateAs(
+            dotenv.env['MQTT_USERNAME']!, dotenv.env['MQTT_PASSWORD']!)
+        .startClean();
+    client.connectionMessage = connMessage;
+
+    try {
+      await client.connect(
+          dotenv.env['MQTT_USERNAME']!, dotenv.env['MQTT_PASSWORD']!);
+    } catch (e) {
+      debugPrint('Exception: $e');
+      client.disconnect();
+    }
+
+    // if the connection to MQTT times out and the user has already finished the workout then just return
+    if (!mounted) {
+      return;
+    }
+
+    // we connected to MQTT and this screen is still active
+    debugPrint("Connected to HiveMQ");
+
+    // set up message handler
+    /// The client has a change notifier object(see the Observable class) which we then listen to to get
+    /// notifications of published updates to each subscribed topic.
+
+    // listen to updates if the connection was successful
+    if (client.connectionStatus?.state == MqttConnectionState.connected) {
+      client.updates?.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+        final recMess = c![0].payload as MqttPublishMessage;
+        final pt =
+            MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+
+        /// The payload is a byte buffer, this will be specific to the topic
+        handleMessage(c[0].topic, pt);
+      });
+
+      // subscribe to the mqtt topics for our bike using the wildcard token '#'
+      final String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()}/#";
+      client.subscribe(topic, MqttQos.atLeastOnce);
+    }
+
+    mqttClient = client;
   }
 
   String formatTimeString(int value) {
@@ -75,10 +168,33 @@ class _MyHomePageState extends State<MyHomePage> {
     return "00:$minute:$second";
   }
 
+  startWorkout() {
+    // signal to mqtt that we are about to start a workout
+    String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()!}/workout";
+    String startMessage =
+        "{\"command\": \"start\", \"type\": \"${SharedPrefsUtil.getWorkoutType()!}\", \"duration\":\"-1\"}";
+    final builder = MqttClientPayloadBuilder().addString(startMessage);
+    mqttClient?.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!);
+  }
+
   finishWorkout() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const EndScreen()));
-    debugPrint("Work Finished! ${formatTimeString(timingNumber)}");
+    // signal to mqtt that we are done with the workout
+    if (mqttClient?.connectionStatus?.state == MqttConnectionState.connected) {
+      String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()!}/workout";
+      String workoutType = SharedPrefsUtil.getWorkoutType()!;
+      String stopMessage = "{\"command\": \"stop\", \"type\":\"$workoutType\"}";
+      final builder = MqttClientPayloadBuilder().addString(stopMessage);
+      mqttClient?.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!);
+    }
+
+    // store the workout details here to show the user
+    var workoutLength = formatTimeString(timingNumber);
+    debugPrint("Work Finished! $workoutLength");
+    stats.workoutLength = workoutLength;
+
+    // transition to the end screen and cancel the timer
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => EndScreen(stats: stats)));
     dTimer.cancel();
   }
 
@@ -91,10 +207,10 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(78, 34, 84, 1),
         foregroundColor: Colors.white,
-        title: const Text(
-          "Ramped Workout",
+        title: Text(
+          constants.workoutNames[SharedPrefsUtil.getWorkoutType()]!,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 27,
           ),
         ),
@@ -143,9 +259,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         color: const Color.fromRGBO(
                                             239, 93, 62, 1),
                                         alignment: Alignment.center,
-                                        child: const Text(
-                                          "15.0 KM/H",
-                                          style: TextStyle(
+                                        child: Text(
+                                          "${currentSpeed.toStringAsFixed(1)} KM/H",
+                                          style: const TextStyle(
                                             fontSize: 13,
                                             color: Colors.black,
                                           ),
@@ -183,9 +299,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         color: const Color.fromRGBO(
                                             239, 93, 62, 1),
                                         alignment: Alignment.center,
-                                        child: const Text(
-                                          "60 RPM",
-                                          style: TextStyle(
+                                        child: Text(
+                                          "${currentCadence.toStringAsFixed(1)} RPM",
+                                          style: const TextStyle(
                                             fontSize: 13,
                                             color: Colors.black,
                                           ),
@@ -234,9 +350,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         color: const Color.fromRGBO(
                                             239, 93, 62, 1),
                                         alignment: Alignment.center,
-                                        child: const Text(
-                                          "140 BPM",
-                                          style: TextStyle(
+                                        child: Text(
+                                          "$currentHeartRate BPM",
+                                          style: const TextStyle(
                                             fontSize: 13,
                                             color: Colors.black,
                                           ),
@@ -274,9 +390,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         color: const Color.fromRGBO(
                                             239, 93, 62, 1),
                                         alignment: Alignment.center,
-                                        child: const Text(
-                                          "500 W",
-                                          style: TextStyle(
+                                        child: Text(
+                                          "$currentPower W",
+                                          style: const TextStyle(
                                             fontSize: 13,
                                             color: Colors.black,
                                           ),
@@ -333,7 +449,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         color: Colors.white,
                                         alignment: Alignment.center,
                                         child: const Text(
-                                          "Energy Usage",
+                                          "Fan Speed",
                                           style: TextStyle(
                                             fontSize: 13,
                                             color: Colors.black,
@@ -347,9 +463,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         color: const Color.fromRGBO(
                                             239, 93, 62, 1),
                                         alignment: Alignment.center,
-                                        child: const Text(
-                                          "15.0 KJ",
-                                          style: TextStyle(
+                                        child: Text(
+                                          "$currentFanSpeed KM/H",
+                                          style: const TextStyle(
                                             fontSize: 13,
                                             color: Colors.black,
                                           ),
@@ -401,8 +517,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 child: InkWell(
                                                   onTap: () {
                                                     if (level > 1) {
-                                                      level -= 1;
-                                                      setState(() {});
+                                                      decreaseLevel();
                                                     }
                                                   },
                                                   child: Container(
@@ -437,8 +552,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               child: InkWell(
                                                 onTap: () {
                                                   if (level < 20) {
-                                                    level += 1;
-                                                    setState(() {});
+                                                    increaseLevel();
                                                   }
                                                 },
                                                 child: Container(
@@ -556,4 +670,145 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  void handleMessage(String topic, String pt) {
+    debugPrint("TOPIC: $topic");
+    var topicComponents = topic.split("/");
+    debugPrint("DEBUG: ${topicComponents.last}");
+    debugPrint("DEBUG: $pt");
+
+    switch (topicComponents.last) {
+      case "speed":
+        setState(() {
+          var value = json.decode(pt)['value'];
+          currentSpeed = value;
+        });
+
+        if (currentSpeed > stats.maxSpeed) {
+          stats.maxSpeed = currentSpeed;
+        }
+        debugPrint("Message from topic $topic received: $pt");
+        break;
+      case "cadence":
+        setState(() {
+          var value = json.decode(pt)['value'];
+          currentCadence = value;
+        });
+
+        if (currentCadence > stats.maxCadence) {
+          stats.maxCadence = currentCadence;
+        }
+        debugPrint("Message from topic $topic received: $pt");
+        break;
+      case "power":
+        setState(() {
+          var value = json.decode(pt)['value'];
+          currentPower = value;
+        });
+
+        if (currentPower > stats.maxPower) {
+          stats.maxPower = currentPower;
+        }
+        debugPrint("Message from topic $topic received: $pt");
+        break;
+      case "heartrate":
+        setState(() {
+          var value = json.decode(pt)['value'];
+          currentHeartRate = value;
+        });
+
+        if (currentHeartRate > stats.maxHeartRate) {
+          stats.maxHeartRate = currentHeartRate;
+        }
+        debugPrint("Message from topic $topic received: $pt");
+        break;
+      case "level":
+        setState(() {
+          var value = json.decode(pt)['value'];
+          level = value;
+        });
+
+        if (level > stats.maxLevel) {
+          stats.maxLevel = level;
+        }
+        debugPrint("Message from topic $topic received: $pt");
+        break;
+      case "energy":
+        debugPrint("Message from topic $topic received: $pt");
+        break;
+      case "fan":
+        setState(() {
+          int value = json.decode(pt)['value'];
+          currentFanSpeed =
+              (value / 100 * 54).round(); // max fan speed is 54 KM/H;
+        });
+        debugPrint("Message from topic $topic received: $pt");
+        break;
+      case "resistance":
+        debugPrint("Message from topic $topic received: $pt");
+        break;
+      case "incline":
+        debugPrint("Message from topic $topic received: $pt");
+        break;
+      default:
+        debugPrint("Unknown topic $topic encountered");
+    }
+  }
+
+  void decreaseLevel() {
+    if (mqttClient?.connectionStatus?.state == MqttConnectionState.connected) {
+      setState(() {
+        level--;
+      });
+
+      String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()!}/workout";
+      String workoutType = SharedPrefsUtil.getWorkoutType()!;
+      String stopMessage =
+          "{\"command\": \"decrease\", \"type\":\"$workoutType\"}";
+      final builder = MqttClientPayloadBuilder().addString(stopMessage);
+      mqttClient?.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!);
+    }
+  }
+
+  void increaseLevel() {
+    if (mqttClient?.connectionStatus?.state == MqttConnectionState.connected) {
+      setState(() {
+        level++;
+      });
+
+      String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()!}/workout";
+      String workoutType = SharedPrefsUtil.getWorkoutType()!;
+      String stopMessage =
+          "{\"command\": \"increase\", \"type\":\"$workoutType\"}";
+      final builder = MqttClientPayloadBuilder().addString(stopMessage);
+      mqttClient?.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!);
+    }
+  }
+}
+
+/* MQTT Lifecycle methods for debugging */
+
+// connection succeeded
+void onConnected() {
+  debugPrint('Connected');
+}
+
+// unconnected
+void onDisconnected() {
+  debugPrint('Disconnected');
+}
+
+// subscribe to topic succeeded
+void onSubscribed(String topic) {
+  debugPrint('Subscribed topic: $topic');
+}
+
+// subscribe to topic failed
+void onSubscribeFail(String topic) {
+  debugPrint('Failed to subscribe to topic: $topic');
+}
+
+// unsubscribe succeeded
+void onUnsubscribed(String? topic) {
+  debugPrint('Unsubscribed topic: $topic');
 }
