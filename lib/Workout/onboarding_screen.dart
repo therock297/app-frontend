@@ -10,13 +10,9 @@ class OnBoarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Boarding Screen',
-      home: const ElevatedButtonExample(),
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        primaryColor: const Color.fromARGB(255, 0, 0, 0),
-      ),
+    return const Scaffold(
+      body: ElevatedButtonExample(),
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
     );
   }
 }
@@ -172,7 +168,7 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
                   // in other run modes, require the user to scan the code before proceeding
                   onPressed: lastScannedCode != null || kDebugMode
                       ? () {
-                          Navigator.push(
+                    Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const MidWorkout()));

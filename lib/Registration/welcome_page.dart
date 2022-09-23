@@ -8,13 +8,8 @@ class MyApp extends StatelessWidget {
   //This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          //scaffoldBackgroundColor changes the colour of the background of the app.
-          scaffoldBackgroundColor: /*const Color.fromRGBO(56, 14, 74, 1)*/ null,
-          primarySwatch: null),
-      home: const WelcomePage(title: 'Redback Operations'),
+    return const Scaffold(
+      body: WelcomePage(title: 'Redback Operations'),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:redback_mobile_app/Home/select_workout.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/Home/home_page.dart';
 
 import '../Models/workout_stats.dart';
 
@@ -11,13 +11,10 @@ class EndScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'boarding',
-        home: _ElevatedButtonExample(stats: stats),
-        theme: ThemeData(
-          fontFamily: 'Poppins',
-          primaryColor: const Color.fromARGB(255, 0, 0, 0),
-        ));
+    return Scaffold(
+      body: _ElevatedButtonExample(stats: stats),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+    );
   }
 }
 
@@ -278,10 +275,10 @@ class _ElevatedButtonExample extends StatelessWidget {
                     onPressed: () {
                       // It will take us back to homepage.dart
                       debugPrint('Pressed');
-                      Navigator.push(
+                      Navigator.pop(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HomePage()));
+                              builder: (context) => const SelectWorkout()));
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
