@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redback_mobile_app/Registration/sign_up.dart';
+import 'package:redback_mobile_app/Models/user_info.dart';
 import 'package:redback_mobile_app/Registration/signup_height.dart';
 
 class SelectGenderPage extends StatefulWidget {

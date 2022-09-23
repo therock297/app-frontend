@@ -3,22 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:redback_mobile_app/Models/user_info.dart';
 import 'package:redback_mobile_app/Registration/signup_gender.dart';
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
-
-class UserInfo {
-  String firstName;
-  String secondName;
-  String email;
-  String password;
-  String userName;
-  String mobile;
-  String gender;
-  String height;
-  String weight;
-  UserInfo(this.firstName, this.secondName, this.email, this.password,
-      this.userName, this.mobile, this.gender, this.height, this.weight);
-}
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
