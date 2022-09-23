@@ -14,7 +14,6 @@ import 'package:redback_mobile_app/Workout/end_screen.dart';
 class MidWorkout extends StatelessWidget {
   const MidWorkout({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -148,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
         handleMessage(c[0].topic, pt);
       });
 
-      // subscribe to the mqtt topics for our bike using the wildcard token '#'
+      // subscribe to all the mqtt topics for our bike using the wildcard token '#'
       final String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()}/#";
       client.subscribe(topic, MqttQos.atLeastOnce);
     }
@@ -729,9 +728,6 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         debugPrint("Message from topic $topic received: $pt");
         break;
-      case "energy":
-        debugPrint("Message from topic $topic received: $pt");
-        break;
       case "fan":
         setState(() {
           int value = json.decode(pt)['value'];
@@ -757,6 +753,7 @@ class _MyHomePageState extends State<MyHomePage> {
         level--;
       });
 
+      // send a message to the workout topic to decrease the difficulty
       String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()!}/workout";
       String workoutType = SharedPrefsUtil.getWorkoutType()!;
       String stopMessage =
@@ -772,6 +769,7 @@ class _MyHomePageState extends State<MyHomePage> {
         level++;
       });
 
+      // send a message to the workout topic to increase the difficulty
       String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()!}/workout";
       String workoutType = SharedPrefsUtil.getWorkoutType()!;
       String stopMessage =
