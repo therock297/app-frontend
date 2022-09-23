@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/screens/home_page.dart';
+import 'package:redback_mobile_app/Home/home_page.dart';
 
-import 'Models/workout_stats.dart';
+import '../Models/workout_stats.dart';
 
 class EndScreen extends StatelessWidget {
   const EndScreen({super.key, required this.stats});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:redback_mobile_app/Registration/welcome_page.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/welcomePage/welcome_page.dart';
 
 Future<void> main() async {
   // access shared prefs before runApp

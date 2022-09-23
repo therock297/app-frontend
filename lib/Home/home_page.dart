@@ -7,8 +7,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/account.dart';
-import 'package:redback_mobile_app/info_page.dart';
+import 'package:redback_mobile_app/Home/account.dart';
+import 'package:redback_mobile_app/Home/info_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

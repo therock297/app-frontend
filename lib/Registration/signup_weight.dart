@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
-import 'package:redback_mobile_app/screens/sign_up.dart';
+import 'package:redback_mobile_app/Registration/sign_up.dart';
 import 'package:wheel_slider/wheel_slider.dart';
 
 class WeightPage extends StatefulWidget {

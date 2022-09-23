@@ -10,8 +10,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/screens/sign_up.dart';
-import 'package:redback_mobile_app/select_workout.dart';
+import 'package:redback_mobile_app/Registration/sign_up.dart';
+import 'package:redback_mobile_app/Home/select_workout.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);

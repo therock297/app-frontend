@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/account.dart';
-import 'package:redback_mobile_app/info_page.dart';
-import 'package:redback_mobile_app/onboarding_screen.dart';
+import 'package:redback_mobile_app/Home/account.dart';
+import 'package:redback_mobile_app/Home/info_page.dart';
+import 'package:redback_mobile_app/Workout/onboarding_screen.dart';
 
 //This is a mockup list data for demonstration purpose only.
 //Please use back-end code like node js to call the actual one from RedBack operation database.

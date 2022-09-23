@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:redback_mobile_app/screens/sign_up.dart';
-import 'package:redback_mobile_app/signup_height.dart';
+import 'package:redback_mobile_app/Registration/sign_up.dart';
+import 'package:redback_mobile_app/Registration/signup_height.dart';
 
 class SelectGenderPage extends StatefulWidget {
   const SelectGenderPage({Key? key, required this.userInfo}) : super(key: key);

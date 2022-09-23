@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:redback_mobile_app/screens/log_in.dart';
-import 'package:redback_mobile_app/screens/sign_up.dart';
+import 'package:redback_mobile_app/Registration/log_in.dart';
+import 'package:redback_mobile_app/Registration/sign_up.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

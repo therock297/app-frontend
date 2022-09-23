@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 // TODO: Find null safe replacement library
 import 'package:flutter_circular_slider/flutter_circular_slider.dart'; // ignore: import_of_legacy_library_into_null_safe
-import 'package:redback_mobile_app/screens/sign_up.dart';
-import 'package:redback_mobile_app/signup_weight.dart';
+import 'package:redback_mobile_app/Registration/sign_up.dart';
+import 'package:redback_mobile_app/Registration/signup_weight.dart';
 
 // flutter run --no-sound-null-safety
 

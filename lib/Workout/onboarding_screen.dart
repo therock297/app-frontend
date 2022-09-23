@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/mid_workout.dart';
-import 'package:redback_mobile_app/scan.dart';
+import 'package:redback_mobile_app/Workout/mid_workout.dart';
+import 'package:redback_mobile_app/Workout/scan.dart';
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});

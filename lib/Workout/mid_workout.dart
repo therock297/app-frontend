@@ -9,7 +9,7 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:redback_mobile_app/Models/workout_stats.dart';
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/end_screen.dart';
+import 'package:redback_mobile_app/Workout/end_screen.dart';
 
 class MidWorkout extends StatelessWidget {
   const MidWorkout({Key? key}) : super(key: key);

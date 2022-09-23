@@ -3,9 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:redback_mobile_app/Registration/signup_gender.dart';
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
-
-import '../signup_gender.dart';
 
 class UserInfo {
   String firstName;
