@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:redback_mobile_app/screens/log_in.dart';
-import 'package:redback_mobile_app/screens/sign_up.dart';
+import 'package:redback_mobile_app/Registration/log_in.dart';
+import 'package:redback_mobile_app/Registration/sign_up.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -8,13 +8,8 @@ class MyApp extends StatelessWidget {
   //This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          //scaffoldBackgroundColor changes the colour of the background of the app.
-          scaffoldBackgroundColor: /*const Color.fromRGBO(56, 14, 74, 1)*/ null,
-          primarySwatch: null),
-      home: const WelcomePage(title: 'Redback Operations'),
+    return const Scaffold(
+      body: WelcomePage(title: 'Redback Operations'),
     );
   }
 }
@@ -31,10 +26,6 @@ class WelcomePage extends StatefulWidget {
 
 //setState can be used here inside of another method which does something.
 class _WelcomePageState extends State<WelcomePage> {
-  //example method using setState to increment a counter
-  /*void _incrementCounter() {
-    setState(() {});
-  }*/
 
   @override
   Widget build(BuildContext context) {

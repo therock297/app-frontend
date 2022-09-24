@@ -1,34 +1,32 @@
-import 'dart:ui';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/mid_workout.dart';
-import 'package:redback_mobile_app/scan.dart';
+import 'package:redback_mobile_app/Workout/mid_workout.dart';
+import 'package:redback_mobile_app/Workout/scan.dart';
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Boarding Screen',
-      home: const ElevatedButtonExample(),
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        primaryColor: const Color.fromARGB(255, 0, 0, 0),
-      ),
+    return const Scaffold(
+      body: OnboardingState(),
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
     );
   }
 }
 
-class ElevatedButtonExample extends StatefulWidget {
-  const ElevatedButtonExample({super.key});
+class OnboardingState extends StatefulWidget {
+  const OnboardingState({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ElevatedButtonExample();
+  State<StatefulWidget> createState() => _OnboardingState();
 }
 
-class _ElevatedButtonExample extends State<ElevatedButtonExample> {
+class _OnboardingState extends State<OnboardingState> {
   String? lastScannedCode = SharedPrefsUtil.getLastScannedBikeId();
+  String workoutType = SharedPrefsUtil.getWorkoutType()!;
 
   @override
   Widget build(BuildContext context) {
@@ -93,13 +91,13 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
         child: Column(
           children: [
             // Text box tile
-            const Align(
-              alignment: AlignmentDirectional(0, 0),
+            Align(
+              alignment: const AlignmentDirectional(0, 0),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(8.0, 28.0, 8.0, 25.0),
+                padding: const EdgeInsets.fromLTRB(8.0, 28.0, 8.0, 25.0),
                 child: Text(
-                  'Ramped Workout',
-                  style: TextStyle(
+                  constants.workoutNames[workoutType]!,
+                  style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: /*Color(0xFFEF8B60)*/ Colors.white,
@@ -108,53 +106,16 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
               ),
             ),
 
-            // Text box paragraph 1
-            const Align(
-              alignment: AlignmentDirectional(0, 0),
+            // Text box paragraph
+            Align(
+              alignment: const AlignmentDirectional(0, 0),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(1.0, 2.0, 1.0, 0),
+                padding: const EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 0),
                 child: SizedBox(
                   width: 300,
-                  height: 100,
-                  child: Text(
-                      'Welcome to the Ramped Fitness Test, In this workout your aim is to cycle for as long as possible, you will begin at a nice cruising pace.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: /*Color(0xFFEF8B60)*/ Colors.white,
-                      )),
-                ),
-              ),
-            ),
-
-            // Text box paragraph 2
-            const Align(
-              alignment: AlignmentDirectional(0, 0),
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 20.0),
-                child: SizedBox(
-                  width: 300,
-                  height: 100,
-                  child: Text(
-                      'Every 30 seconds the difficulty will increase, making it harder to continue to cycle. This is a test of both your strength and endurance so make sure to pace yourself to have the best possible chance of clearing all the difficulties. ',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: /*Color(0xFFEF8B60)*/ Colors.white,
-                      )),
-                ),
-              ),
-            ),
-
-            // Text box paragraph 3
-            const Align(
-              alignment: AlignmentDirectional(0, 0),
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 0),
-                child: SizedBox(
-                  width: 300,
-                  height: 100,
-                  child: Text(
-                      'Once you reach your limit, press the ‘Finish Workout’ button towards the bottom of the screen to end the workout and view your results. Good Luck! ',
-                      style: TextStyle(
+                  height: null,
+                  child: Text(constants.onboardingTexts[workoutType]!,
+                      style: const TextStyle(
                         fontSize: 14,
                         color: /*Color(0xFFEF8B60)*/ Colors.white,
                       )),
@@ -203,12 +164,16 @@ class _ElevatedButtonExample extends State<ElevatedButtonExample> {
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                 child: ElevatedButton(
-                  onPressed: (() {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MidWorkout()));
-                  }),
+                  // allow dev access in debug but the workout wont work if no code is scanned at least once so its saved in shared prefs
+                  // in other run modes, require the user to scan the code before proceeding
+                  onPressed: lastScannedCode != null || kDebugMode
+                      ? () {
+                    Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MidWorkout()));
+                        }
+                      : null,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: const Color(0xFFEF8B60),

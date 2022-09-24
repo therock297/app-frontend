@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:redback_mobile_app/screens/home_page.dart';
+import 'package:redback_mobile_app/Home/select_workout.dart';
+import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
+
+import '../Models/workout_stats.dart';
 
 class EndScreen extends StatelessWidget {
-  const EndScreen({super.key});
+  const EndScreen({super.key, required this.stats});
+
+  final WorkoutStats stats;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'boarding',
-        home: _ElevatedButtonExample(),
-        theme: ThemeData(
-          fontFamily: 'Poppins',
-          primaryColor: const Color.fromARGB(255, 0, 0, 0),
-        ));
+    return Scaffold(
+      body: _EndScreen(stats: stats),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+    );
   }
 }
 
-class _ElevatedButtonExample extends StatelessWidget {
+class _EndScreen extends StatelessWidget {
+  const _EndScreen({required this.stats});
+
+  final WorkoutStats stats;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,11 +56,12 @@ class _ElevatedButtonExample extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                         child: Text(
-                          'Well Done John!',
-                          style: TextStyle(
+                          'Well Done ${SharedPrefsUtil.getRequiredValue('firstname')}!',
+                          style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold,
                             color: /*Color(0xFFEF8B60)*/ Colors.white,
@@ -82,8 +89,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.max,
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     'Workout Length ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
@@ -93,14 +100,14 @@ class _ElevatedButtonExample extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '00:00:05',
-                                    style: TextStyle(
+                                    stats.workoutLength,
+                                    style: const TextStyle(
                                       fontFamily: 'Poppins',
                                       color: Color(0xFFEF8B60),
                                       fontSize: 25,
                                     ),
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 40, 0, 0),
                                     child: Text(
@@ -114,7 +121,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Text(
+                                  const Text(
                                     'Sustained ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
@@ -124,14 +131,14 @@ class _ElevatedButtonExample extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    'Level 7',
-                                    style: TextStyle(
+                                    'Level ${stats.maxLevel}',
+                                    style: const TextStyle(
                                       fontFamily: 'Poppins',
                                       color: Color(0xFFEF8B60),
                                       fontSize: 25,
                                     ),
                                   ),
-                                  Padding(
+                                  const Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 40, 0, 0),
                                     child: Text(
@@ -145,7 +152,7 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Text(
+                                  const Text(
                                     'Rate ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
@@ -155,8 +162,8 @@ class _ElevatedButtonExample extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '140 BPM',
-                                    style: TextStyle(
+                                    '${stats.maxHeartRate} BPM',
+                                    style: const TextStyle(
                                       fontFamily: 'Poppins',
                                       color: Color(0xFFEF8B60),
                                       fontSize: 25,
@@ -181,9 +188,9 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       fontSize: 25,
                                     ),
                                   ),
-                                  const Text(
-                                    '32.0 KM/H',
-                                    style: TextStyle(
+                                  Text(
+                                    '${stats.maxSpeed.toStringAsFixed(1)} KM/H',
+                                    style: const TextStyle(
                                       fontFamily: 'Poppins',
                                       color: Color(0xFFEF8B60),
                                       fontSize: 25,
@@ -211,9 +218,9 @@ class _ElevatedButtonExample extends StatelessWidget {
                                       fontSize: 25,
                                     ),
                                   ),
-                                  const Text(
-                                    '60RPM',
-                                    style: TextStyle(
+                                  Text(
+                                    '${stats.maxCadence.toStringAsFixed(1)} RPM',
+                                    style: const TextStyle(
                                       fontFamily: 'Poppins',
                                       color: Color(0xFFEF8B60),
                                       fontSize: 25,
@@ -246,9 +253,9 @@ class _ElevatedButtonExample extends StatelessWidget {
                                               ),
                                             ),
                                           ])),
-                                  const Text(
-                                    '15.0 KJ',
-                                    style: TextStyle(
+                                  Text(
+                                    '${stats.maxPower} W',
+                                    style: const TextStyle(
                                       fontFamily: 'Poppins',
                                       color: Color(0xFFEF8B60),
                                       fontSize: 25,
@@ -268,15 +275,17 @@ class _ElevatedButtonExample extends StatelessWidget {
                     onPressed: () {
                       // It will take us back to homepage.dart
                       debugPrint('Pressed');
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.pop(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SelectWorkout()));
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
                       backgroundColor: const Color(0xFFEF8B60),
                       fixedSize: const Size(180, 40),
                       shape: RoundedRectangleBorder(
-                          //to set border radius to button
+                        //to set border radius to button
                           borderRadius: BorderRadius.circular(8)),
                     ),
                     child: const Text('Home'),

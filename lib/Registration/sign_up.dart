@@ -1,25 +1,11 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, avoid_print
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:redback_mobile_app/Models/user_info.dart';
+import 'package:redback_mobile_app/Registration/signup_gender.dart';
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
-
-class UserInfo {
-  String firstName;
-  String secondName;
-  String email;
-  String password;
-  String userName;
-  String mobile;
-  String gender;
-  String height;
-  String weight;
-  UserInfo(this.firstName, this.secondName, this.email, this.password,
-      this.userName, this.mobile, this.gender, this.height, this.weight);
-}
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -55,40 +41,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // declare UserInfo object to be passed to next screens
   UserInfo userInfo = UserInfo("firstName", "secondName", "email", "password",
       "userName", "mobile", "gender", "height", "weight");
-
-  //creating a http client that can use the different api requests
-  // var client = http.Client();
-
-  //This function makes a post request to the server and signup endpoint and passes a
-  //body of values taken from the signup form
-  Future<void> postData() async {
-    try {
-      var client = http.Client();
-      print("posting");
-      // use 127.0.0.1 when testing with a browser and 10.0.2.2 when testing with the emulator
-      String uri = '${constants.server}/signup';
-      var response = await client.post(Uri.parse(uri),
-          headers: {"Content-Type": "application/json; charset=utf-8"},
-          body: jsonEncode({
-            "username": userNameEditingController.text,
-            "firstname": firstNameEditingController.text,
-            "lastname": secondNameEditingController.text,
-            "email": emailEditingController.text,
-            "password": passwordEditingController.text,
-            "redbackCoins": 0,
-            "telephone": int.parse(mobileNumberEditingController.text),
-            "userLevel": 0,
-            "followers": "",
-            "following": "",
-            "img": ""
-          }));
-      print("posted");
-      print(response.body);
-      client.close();
-    } catch (e) {
-      print(e);
-    }
-  }
 
   void toastShow(String message) {
     Fluttertoast.showToast(
@@ -176,19 +128,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   // validate data then open next page
-  Future<void> _nextPage() async {
+  Future<bool> _nextPage() async {
     userInfo.firstName = firstNameEditingController.text;
     userInfo.secondName = secondNameEditingController.text;
     userInfo.email = emailEditingController.text;
     userInfo.password = passwordEditingController.text;
     userInfo.userName = userNameEditingController.text;
     userInfo.mobile = mobileNumberEditingController.text;
-    final validation = await validateData();
 
     // if validation passed, go to next page
-    if (validation == true) {
-      postData();
-    }
+    return await validateData();
   }
 
   @override
@@ -323,10 +272,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           minWidth: MediaQuery.of(context).size.width,
           //calls the function to post data to database
           //go to next page to enter more details
-          onPressed: () {
-            // postData()
+          onPressed: () async {
             // set userinfo before sending to next screen
-            _nextPage();
+            if (await _nextPage()) {
+              if (!mounted) return;
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SelectGenderPage(userInfo: userInfo)));
+            }
           },
           child: const Text(
             "Sign Up",
@@ -410,6 +362,4 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
   }
-
-  void signUp(String text, String text2) {}
 }

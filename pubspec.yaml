@@ -51,6 +51,17 @@ dependencies:
   # This is the customnavbar dependency
   google_nav_bar: ^5.0.6
 
+  # MQTT library
+  mqtt_client: ^9.7.2
+
+  # Dot Env library
+  flutter_dotenv: ^5.0.2
+
+  # circular slider libraries
+  sleek_circular_slider: ^2.0.1
+  flutter_circular_slider: ^2.5.0
+  wheel_slider: ^1.0.0
+
 dev_dependencies:
   # Package for updating app package name
   change_app_package_name: ^1.1.0
@@ -81,6 +92,7 @@ flutter:
   #   - images/a_dot_ham.jpeg        
   assets:     
     - assets/images/
+    - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
