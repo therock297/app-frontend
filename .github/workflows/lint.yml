@@ -1,0 +1,29 @@
+name: Flutter Lint
+
+# Controls when the workflow will run
+on: [ pull_request ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "lint"
+  lint:
+    name: Flutter Lint
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # sets up the flutter environment from the 'stable' channel
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      # run pub get to download the project packages
+      - run: flutter pub get
+
+      # run analyze to check for linting errors
+      - run: flutter analyze
