@@ -60,7 +60,7 @@ class _EndScreen extends StatelessWidget {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                         child: Text(
-                          'Well Done ${SharedPrefsUtil.getRequiredValue('firstname')}!',
+                          'Well Done ${SharedPrefsUtil.instance?.getString('firstname') ?? "Example User"}!',
                           style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.bold,
