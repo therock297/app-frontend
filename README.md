@@ -97,6 +97,6 @@ password: user
 ## Working with MQTT to receive the sensor data during the workout
 
 1. You will need to create a `.env` file in the root of the project. Inside that file you will to populate it with 3 environment variables; `MQTT_HOST`, `MQTT_USERNAME` and `MQTT_PASSWORD`. The IoT and Embedded Systems team will be able to direct you to these credentials. NOTE: These credentials should never be checked into version control systems
-2. Afterwards you can just run the app as normal and if the workout services are online and running, you can just scan the QR code corresponding to the bike you want to use, start a workout then see the sensor data coming through  
+2. Afterwards you can just run the app as normal and if the workout services are online and running, you can just scan the QR code corresponding to the bike you want to use, start a workout then see the sensor data coming through. The QR codes can be found at the `./assets/QRCodes.pdf` directory  
 
 Check out the `README` file in the `./lib/Workout` directory to learn more about the MQTT schema being used
