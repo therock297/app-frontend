@@ -32,7 +32,7 @@ If you are going to use Visual Studio Code for development then the following [v
 `flutter run` - starts the app. Run with --debug flag to optionally run in DEBUG configuration
 `flutter pub get` - this runs automatically when opening the project but is used download any packages specified in the `pubspec.yaml` file
 `flutter build [platform]` - builds the application for the desired platform (ios for iOS, apk for Android, web for Web)
-`flutter build [platform] --no-sound-null-safety` same as the above but allows the app to be compiled while using libraries which don't confirm to flutter null safety
+`flutter build [platform] --no-sound-null-safety` same as the above but allows the app to be compiled while using libraries which don't support to flutter null safety
 
 ## Testing on Device
 
@@ -42,14 +42,14 @@ In addition, physical devices offer access to components such as cameras, microp
 ### Getting started on Android
 
 1. In your terminal, run `flutter doctor` to determine if your environment is properly configured for Android development, if not, resolve the issues which appear before continuing
-2. In your terminal, run `flutter build apk`, this will build the Android app and will alert you of any build errors. If there are any build errors, those should be resolved before continuing as well
+2. In your terminal, run `flutter build apk --no-sound-null-safety`, this will build the Android app and will alert you of any build errors. If there are any build errors, those should be resolved before continuing as well
 3. Start Android studio, open the android folder to import the project. If you are using Android Studio as your main development IDE then you'd want to change the view from `Android` to `Project` on the left hand project hierarchy tab
 4. Select your development device (emulator or physical device) and then run the application from Android Studio.
 
 ### Getting Started on iOS
 
 1. In your terminal, run `flutter doctor` to determine if your environment is properly configured for iOS development, if not, resolve the issues which appear before continuing
-2. In your terminal, run `flutter build ios`, this will build the iOS app and will alert you of any build errors. If there are any build errors, those should be resolved before continuing as well
+2. In your terminal, run `flutter build ios --no-sound-null-safety`, this will build the iOS app and will alert you of any build errors. If there are any build errors, those should be resolved before continuing as well
 3. Open Xcode, once it launches you need to look up the `ios` directory and open the `Runner.xcworkspace` file. Xcode will then open the project, there will be no dart/swift/objective-c files in the project directory but that is fine
 4. If you are developing using a simulator you can just choose a specific simulator and then run the application from XCode.
 
@@ -61,6 +61,11 @@ In addition, physical devices offer access to components such as cameras, microp
 6. Return to Xcode and go the `Accounts` settings and add in your Apple Developer account, once added you should be able to see at least your personal team listed (as well as any others your account is associated with)
 7. Open the `Runner.xcodeproj` file from within the project hierarchy, select the `Runner` Target and then select the `Signings & Capabilities` tab, you should see the `Team` dropdown menu. Select the team you want to use for development. Xcode will now update the signing certificate for the app using your development profile
 8. Almost done! Select your development device from the device selector and run the application. It will build and run but will stop immediately. On your iPhone, go to `Settings -> General -> VPN & Device Management` and then select on the Developer App tab which corresponds to the email of your Apple Developer account. Press the 'Trust' button which appears at the top and then you will be good to go. Re-run the app from Xcode and it will launch properly
+
+### NOTE  
+
+At the moment we are using libraries which don't support Flutter Null Safety thus we must run the app differently than normal utilising an additional flag.  
+`flutter run --[build configuration] --no-sound-null-safety` -> Runs on physical devices automatically if they are connected to your computer or running emulator.
 
 ## Setting up the backend
 
@@ -92,10 +97,6 @@ password: user
 ## Working with MQTT to receive the sensor data during the workout
 
 1. You will need to create a `.env` file in the root of the project. Inside that file you will to populate it with 3 environment variables; `MQTT_HOST`, `MQTT_USERNAME` and `MQTT_PASSWORD`. The IoT and Embedded Systems team will be able to direct you to these credentials. NOTE: These credentials should never be checked into version control systems
-2. Afterwards you can just run the app as normal and if the workout services are online and running, you can just scan the QR code corresponding to the bike you want to use, start a workout then see the sensor data coming through
-
-### NOTE
-
-Without the MQTT credentials the app will most likely crash since it is expecting them, you could comment out that section if you need to progress through the app and don't want to deal with any of the MQTT stuff.
+2. Afterwards you can just run the app as normal and if the workout services are online and running, you can just scan the QR code corresponding to the bike you want to use, start a workout then see the sensor data coming through  
 
 Check out the `README` file in the `./lib/Workout` directory to learn more about the MQTT schema being used
