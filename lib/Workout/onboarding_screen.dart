@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/Workout/mid_workout.dart';
@@ -27,6 +28,8 @@ class OnboardingState extends StatefulWidget {
 class _OnboardingState extends State<OnboardingState> {
   String? lastScannedCode = SharedPrefsUtil.getLastScannedBikeId();
   String workoutType = SharedPrefsUtil.getWorkoutType()!;
+
+  bool qrMissingWarningShown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -167,12 +170,7 @@ class _OnboardingState extends State<OnboardingState> {
                   // allow dev access in debug but the workout wont work if no code is scanned at least once so its saved in shared prefs
                   // in other run modes, require the user to scan the code before proceeding
                   onPressed: lastScannedCode != null || kDebugMode
-                      ? () {
-                    Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MidWorkout()));
-                        }
+                      ? handleStartPress
                       : null,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
@@ -196,5 +194,28 @@ class _OnboardingState extends State<OnboardingState> {
     setState(() {
       lastScannedCode = SharedPrefsUtil.getLastScannedBikeId();
     });
+  }
+
+  handleStartPress() {
+    // show a toast informing the user that it is advised to scan the qr code whilst in debug.
+    // Users wont reach this point when running in release mode as they will be require to scan the QR code first
+    // we only show this message once per run
+    if (kDebugMode &&
+        !qrMissingWarningShown &&
+        SharedPrefsUtil.getLastScannedBikeId() == null) {
+      Fluttertoast.showToast(
+          msg: "Please scan the QR code",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.blueGrey,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
+      qrMissingWarningShown = true;
+      return;
+    }
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const MidWorkout()));
   }
 }

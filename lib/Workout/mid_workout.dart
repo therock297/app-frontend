@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -43,9 +44,10 @@ class _MidWorkoutState extends State<MidWorkoutState> {
   int currentFanSpeed = 0;
 
   WorkoutStats stats = WorkoutStats();
+  bool lastScannedQRCodeExists = SharedPrefsUtil.getLastScannedBikeId() != null;
 
   MqttServerClient? mqttClient; // Connection to HiveMQ MQTT broker
-  late Future<void>
+  Future<void>?
       connectionAttempt; // reference to connection thread should we need to ignore its result
 
   @override
@@ -75,6 +77,28 @@ class _MidWorkoutState extends State<MidWorkoutState> {
       }
     });
 
+    // check if we have out required values from the .env file, if not present, don't try to connect
+    if (dotenv.env['MQTT_HOST'] == null ||
+        dotenv.env['MQTT_USERNAME'] == null ||
+        dotenv.env['MQTT_PASSWORD'] == null) {
+      Fluttertoast.showToast(
+          msg: "Missing .env file credentials",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.blueGrey,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
+      return;
+    }
+
+    // check if we scanned a qr code on the bike, release mode enforces this, debug might return null
+    // we cannot subscribe to the mqtt topics as we don't have the Bike ID of the bike sensors we want to subscribe to
+    if (!lastScannedQRCodeExists) {
+      return;
+    }
+
     // initialize the connection to HiveMQ using the stored credentials in another thread
     connectionAttempt = Future.delayed(Duration.zero, () async {
       tryConnect();
@@ -92,7 +116,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
     mqttClient?.disconnect();
 
     // cancel the connection attempt if its in progress
-    connectionAttempt.ignore();
+    connectionAttempt?.ignore();
   }
 
   Future<void> tryConnect() async {
@@ -164,6 +188,11 @@ class _MidWorkoutState extends State<MidWorkoutState> {
   }
 
   startWorkout() {
+    // ensure we have scanned the qr code to send the message over MQTT to start the workout
+    if (!lastScannedQRCodeExists) {
+      return;
+    }
+
     // signal to mqtt that we are about to start a workout
     String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()!}/workout";
     String startMessage =
@@ -753,6 +782,11 @@ class _MidWorkoutState extends State<MidWorkoutState> {
         level--;
       });
 
+      // ensure we have scanned the qr code to send the message over MQTT
+      if (SharedPrefsUtil.getLastScannedBikeId() == null) {
+        return;
+      }
+
       // send a message to the workout topic to decrease the difficulty
       String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()!}/workout";
       String workoutType = SharedPrefsUtil.getWorkoutType()!;
@@ -768,6 +802,11 @@ class _MidWorkoutState extends State<MidWorkoutState> {
       setState(() {
         level++;
       });
+
+      // ensure we have scanned the qr code to send the message over MQTT
+      if (SharedPrefsUtil.getLastScannedBikeId() == null) {
+        return;
+      }
 
       // send a message to the workout topic to increase the difficulty
       String topic = "bike/${SharedPrefsUtil.getLastScannedBikeId()!}/workout";
