@@ -157,7 +157,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               child: Image.asset(
                                 "assets/logo.png",
                                 width: 108,
@@ -683,7 +683,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                 Stack(
                                   alignment: Alignment.center,
                                   children: [
-                                    PieChartSample(),
+                                    const PieChartSample(),
                                     Container(
                                       width: 50,
                                       height: 50,
