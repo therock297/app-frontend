@@ -165,7 +165,7 @@ class _OnboardingState extends State<OnboardingState> {
             // Start button for user to start workout
             Align(
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
                 child: ElevatedButton(
                   // allow dev access in debug but the workout wont work if no code is scanned at least once so its saved in shared prefs
                   // in other run modes, require the user to scan the code before proceeding
