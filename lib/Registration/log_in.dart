@@ -173,91 +173,87 @@ class _LoginState extends State<Login> {
           },
         ),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xff380E4A),
-                  Color.fromARGB(255, 99, 37, 126),
-                  //Color.fromARGB(255, 239, 136, 120),
-                  Color(0xFFE87461),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            /*color: const Color.fromRGBO(56, 14, 74, 1),*/
-            child: Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    //Image.asset('assets/images/Logo.png'),
-                    SizedBox(
-                        height: 180,
-                        //image logo
-                        child: Image.asset(
-                          'assets/images/BLogo.png',
-                          fit: BoxFit.contain,
-                        )),
-                    const SizedBox(height: 45),
-                    userNameField,
-                    const SizedBox(height: 20),
-                    passwordField,
-                    const SizedBox(height: 20),
-                    logInButton,
-                    const SizedBox(height: 15),
-                    const SizedBox(height: 13),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        textStyle: const TextStyle(
-                            fontSize: 12, color: Color(0xFFe87461)),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        "Forgot Password ?",
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xff380E4A),
+              Color.fromARGB(255, 99, 37, 126),
+              //Color.fromARGB(255, 239, 136, 120),
+              Color(0xFFE87461),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        /*color: const Color.fromRGBO(56, 14, 74, 1),*/
+        child: Padding(
+          padding: const EdgeInsets.all(36.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                //Image.asset('assets/images/Logo.png'),
+                SizedBox(
+                    height: 180,
+                    //image logo
+                    child: Image.asset(
+                      'assets/images/BLogo.png',
+                      fit: BoxFit.contain,
+                    )),
+                const SizedBox(height: 45),
+                userNameField,
+                const SizedBox(height: 20),
+                passwordField,
+                const SizedBox(height: 20),
+                logInButton,
+                const SizedBox(height: 15),
+                const SizedBox(height: 13),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: const TextStyle(
+                        fontSize: 12, color: Color(0xFFe87461)),
+                  ),
+                  onPressed: () {},
+                  child: const Text(
+                    "Forgot Password ?",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text(
+                        "Don't have an Account? ",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
                       ),
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text(
-                            "Don't have an Account? ",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RegistrationScreen()));
-                            },
-                            child: const Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: /*Color(0xFFe87461)*/ Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ),
-                          )
-                        ])
-                  ],
-                ),
-              ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegistrationScreen()));
+                        },
+                        child: const Text(
+                          "Sign Up",
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: /*Color(0xFFe87461)*/ Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        ),
+                      )
+                    ])
+              ],
             ),
           ),
         ),
