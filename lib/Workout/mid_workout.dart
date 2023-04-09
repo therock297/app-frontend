@@ -77,7 +77,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
       }
     });
 
-    //check if we have out required values from the .env file, if not present, don't try to connect
+    //(This is only for front-end use version.)check if we have out required values from the .env file, if not present, don't try to connect.
     // if (dotenv.env['MQTT_HOST'] == null ||
     //     dotenv.env['MQTT_USERNAME'] == null ||
     //     dotenv.env['MQTT_PASSWORD'] == null) {
