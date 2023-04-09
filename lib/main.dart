@@ -10,7 +10,7 @@ Future<void> main() async {
   // initialize shared prefs
   await SharedPrefsUtil.init();
 
-  // initialize doten
+  // initialize env
   // await dotenv.load(fileName: ".env");
 
   runApp(
