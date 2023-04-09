@@ -11,7 +11,7 @@ Future<void> main() async {
   await SharedPrefsUtil.init();
 
   // initialize dotenv
-  await dotenv.load(fileName: ".env");
+  //await dotenv.load(fileName: ".env");
 
   runApp(
     MaterialApp(
