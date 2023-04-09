@@ -10,8 +10,8 @@ Future<void> main() async {
   // initialize shared prefs
   await SharedPrefsUtil.init();
 
-  // initialize dotenv
-  await dotenv.load(fileName: ".env");
+  // initialize doten
+  // await dotenv.load(fileName: ".env");
 
   runApp(
     MaterialApp(

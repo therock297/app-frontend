@@ -78,20 +78,20 @@ class _MidWorkoutState extends State<MidWorkoutState> {
     });
 
     // check if we have out required values from the .env file, if not present, don't try to connect
-    if (dotenv.env['MQTT_HOST'] == null ||
-        dotenv.env['MQTT_USERNAME'] == null ||
-        dotenv.env['MQTT_PASSWORD'] == null) {
-      Fluttertoast.showToast(
-          msg: "Missing .env file credentials",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.blueGrey,
-          textColor: Colors.white,
-          fontSize: 16.0);
-
-      return;
-    }
+    // if (dotenv.env['MQTT_HOST'] == null ||
+    //     dotenv.env['MQTT_USERNAME'] == null ||
+    //     dotenv.env['MQTT_PASSWORD'] == null) {
+    //   Fluttertoast.showToast(
+    //       msg: "Missing .env file credentials",
+    //       toastLength: Toast.LENGTH_SHORT,
+    //       gravity: ToastGravity.BOTTOM,
+    //       timeInSecForIosWeb: 2,
+    //       backgroundColor: Colors.blueGrey,
+    //       textColor: Colors.white,
+    //       fontSize: 16.0);
+    //
+    //   return;
+    // }
 
     // check if we scanned a qr code on the bike, release mode enforces this, debug might return null
     // we cannot subscribe to the mqtt topics as we don't have the Bike ID of the bike sensors we want to subscribe to
