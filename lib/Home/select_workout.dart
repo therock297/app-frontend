@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/Home/account.dart';
-import 'package:redback_mobile_app/Home/info_page.dart';
+import 'package:redback_mobile_app/Settings/account.dart';
+import 'package:redback_mobile_app/Settings/info_page.dart';
+import 'package:redback_mobile_app/Settings/settings.dart';
 import 'package:redback_mobile_app/Workout/onboarding_screen.dart';
 
 //This is a mockup list data for demonstration purpose only.
@@ -116,7 +117,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
-                  // Here we will navigate to the accounts page
+                  // Here we will navigate to the information page
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const InformationPage(),
                   ));
@@ -129,9 +130,9 @@ class SelectWorkoutState extends State<SelectWorkout> {
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
-                  // Here we will navigate to the accounts page
+                  // Here we will navigate to the settings page
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Account(),
+                    builder: (context) => const SettingsPage(),
                   ));
                 },
               ),

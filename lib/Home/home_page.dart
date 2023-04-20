@@ -7,8 +7,9 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
-import 'package:redback_mobile_app/Home/account.dart';
-import 'package:redback_mobile_app/Home/info_page.dart';
+import 'package:redback_mobile_app/Settings/account.dart';
+import 'package:redback_mobile_app/Settings/info_page.dart';
+import 'package:redback_mobile_app/Settings/settings.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -88,7 +89,7 @@ class HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 104, 75, 182),
         elevation: 0,
         centerTitle: true,
-        title: const Text('R E D B A C K'),
+        title: const Text('R E D B A C Kr'),
       ),
       body: Center(
         // show Future<String> text for username, only shows when username data has been obtained
@@ -158,7 +159,7 @@ class HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
-                  // Here we will navigate to the accounts page
+                  // Here we will navigate to the profile page
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Account(),
                   ));
@@ -171,7 +172,7 @@ class HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
-                  // Here we will navigate to the accounts page
+                  // Here we will navigate to the information page
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const InformationPage(),
                   ));
@@ -184,9 +185,9 @@ class HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
-                  // Here we will navigate to the accounts page
+                  // Here we will navigate to the settings page
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Account(),
+                    builder: (context) => const SettingsPage(),
                   ));
                 },
               ),
@@ -197,7 +198,7 @@ class HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 20),
                 ),
                 onTap: () {
-                  // Here we will navigate to the accounts page
+                  // Here we will navigate to the issue page
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Account(),
                   ));
