@@ -4,6 +4,7 @@ import 'dart:convert';
 
 //import 'dart:ffi';
 //import 'dart:js_util';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,7 +12,10 @@ import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/Registration/sign_up.dart';
-import 'package:redback_mobile_app/Home/select_workout.dart';
+
+import 'package:sign_button/sign_button.dart';
+
+import '../Home/select_workout.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -39,7 +43,12 @@ class _LoginState extends State<Login> {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
+  bool _isHidden = true;
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
   Future<bool> getData() async {
     // allow bypass in debug with limited functionality
     if (kDebugMode) {
@@ -107,13 +116,12 @@ class _LoginState extends State<Login> {
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          fillColor: const Color(0xFFe87461),
+          fillColor: const Color(0xffffffff),
           filled: true,
-          prefixIcon: const Icon(Icons.account_circle),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "User Name",
+          hintText: "Email",
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(30),
           ),
         ));
 
@@ -125,13 +133,20 @@ class _LoginState extends State<Login> {
         textInputAction: TextInputAction.next,
         style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
         decoration: InputDecoration(
-          fillColor: const Color(0xFFe87461),
+          fillColor: const Color(0xffffffff),
           filled: true,
-          prefixIcon: const Icon(Icons.vpn_key),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Password",
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          suffix: InkWell(
+            onTap: _togglePasswordView,  /// This is Magical Function
+            child: Icon(
+              _isHidden ?         /// CHeck Show & Hide.
+              Icons.visibility :
+              Icons.visibility_off,
+            ),
           ),
         ));
 
@@ -144,11 +159,18 @@ class _LoginState extends State<Login> {
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () async => {
-                if (await getData())
-                  {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SelectWorkout()))
-                  }
+
+              FirebaseAuth.instance
+                  .signInWithEmailAndPassword(
+                  email: userNameEditingController.text,
+                  password: passwordEditingController.text)
+                  .then((value) {
+          Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const SelectWorkout()));
+              }).onError((error, stackTrace) {
+                print("Error ${error.toString()}");
+              }),
+
               },
           child: const Text(
             "Log In",
@@ -162,27 +184,17 @@ class _LoginState extends State<Login> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(56, 14, 74, 1),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFe87461)),
-          onPressed: () {
-            //passing this to our root
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+
       body: Center(
         child: SingleChildScrollView(
           child: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xff380E4A),
+                  Color(0xFFE87461),
                   Color.fromARGB(255, 99, 37, 126),
                   //Color.fromARGB(255, 239, 136, 120),
-                  Color(0xFFE87461),
+                  Color(0xff380E4A),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -211,22 +223,22 @@ class _LoginState extends State<Login> {
                     passwordField,
                     const SizedBox(height: 20),
                     logInButton,
-                    const SizedBox(height: 15),
+                    // const SizedBox(height: 15),
                     const SizedBox(height: 13),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        textStyle: const TextStyle(
-                            fontSize: 12, color: Color(0xFFe87461)),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        "Forgot Password ?",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
-                      ),
-                    ),
+                    // TextButton(
+                    //   style: TextButton.styleFrom(
+                    //     textStyle: const TextStyle(
+                    //         fontSize: 12, color: Color(0xFFe87461)),
+                    //   ),
+                    //   onPressed: () {},
+                    //   child: const Text(
+                    //     "Forgot Password ?",
+                    //     style: TextStyle(
+                    //         color: Colors.white,
+                    //         fontWeight: FontWeight.bold,
+                    //         fontSize: 15),
+                    //   ),
+                    // ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -249,12 +261,60 @@ class _LoginState extends State<Login> {
                               "Sign Up",
                               style: TextStyle(
                                   decoration: TextDecoration.underline,
-                                  color: /*Color(0xFFe87461)*/ Colors.white,
+                                  color: /*Color(0xFFe87461)*/ Color(0xFFE87461),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15),
                             ),
-                          )
-                        ])
+                          ),
+                        ]),
+                    const SizedBox(height: 50,),
+                    Column(
+                      //This aligns the buttons in the middle of the column.
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        //Sign in button
+
+                        //Adds some space between the buttons. We use width because this is a row.
+
+                        //Create Account button
+                        Container(
+                          width: 320.0, // Set the width of the container
+                          height: 50.0, // Set the height of the container
+                          child: SignInButton(
+                            buttonType: ButtonType.google,
+                            onPressed: () {
+                              print('click');
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 20,),
+
+                        Container(
+                          width: 320.0, // Set the width of the container
+                          height: 50.0, // Set the height of the container
+                          child: SignInButton(
+                            buttonType: ButtonType.github,
+                            onPressed: () {
+                              print('click');
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 20,),
+                        Container(
+                          width: 320.0, // Set the width of the container
+                          height: 50.0, // Set the height of the container
+                          child: SignInButton(
+                            buttonType: ButtonType.facebook,
+                            onPressed: () {
+                              print('click');
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 20,),
+
+
+                      ],
+                    ),
                   ],
                 ),
               ),
