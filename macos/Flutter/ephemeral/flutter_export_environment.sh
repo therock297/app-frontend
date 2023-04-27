@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=H:\flutter_windows_3.0.5-stable\flutter"
-export "FLUTTER_APPLICATION_PATH=H:\Github\qr_scanner"
+export "FLUTTER_ROOT=C:\Flutter\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\manus\Downloads\app-frontend-main\app-frontend-main"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
