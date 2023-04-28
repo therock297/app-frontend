@@ -89,7 +89,7 @@ class HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 104, 75, 182),
         elevation: 0,
         centerTitle: true,
-        title: const Text('R E D B A C Kr'),
+        title: const Text('R E D B A C K'),
       ),
       body: Center(
         // show Future<String> text for username, only shows when username data has been obtained

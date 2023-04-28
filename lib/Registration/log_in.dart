@@ -4,6 +4,7 @@ import 'dart:convert';
 
 //import 'dart:ffi';
 //import 'dart:js_util';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -156,20 +157,24 @@ class _LoginState extends State<Login> {
       child: MaterialButton(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: () async => {
-
-              FirebaseAuth.instance
-                  .signInWithEmailAndPassword(
-                  email: userNameEditingController.text,
-                  password: passwordEditingController.text)
-                  .then((value) {
-          Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const SelectWorkout()));
-              }).onError((error, stackTrace) {
-                print("Error ${error.toString()}");
-              }),
-
-              },
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const SelectWorkout()));
+          },
+          // onPressed: () async => {
+          //
+          //     FirebaseAuth.instance
+          //         .signInWithEmailAndPassword(
+          //         email: userNameEditingController.text,
+          //         password: passwordEditingController.text)
+          //         .then((value) {
+          // Navigator.of(context).push(MaterialPageRoute(
+          // builder: (context) => const SelectWorkout()));
+          //     }).onError((error, stackTrace) {
+          //       print("Error ${error.toString()}");
+          //     }),
+          //
+          //     },
           child: const Text(
             "Log In",
             textAlign: TextAlign.center,

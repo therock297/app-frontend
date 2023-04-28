@@ -64,6 +64,7 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   flutter_circular_slider: ^2.5.0
   wheel_slider: ^1.0.0
+  fl_chart: ^0.62.0
 
 dev_dependencies:
   # Package for updating app package name
