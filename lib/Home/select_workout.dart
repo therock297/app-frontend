@@ -145,7 +145,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                 onTap: () {
                   // Here we will navigate to the accounts page
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Account(),
+                    builder: (context) => const ContactPage(),
                   ));
                 },
               ),

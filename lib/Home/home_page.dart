@@ -200,7 +200,7 @@ class HomePageState extends State<HomePage> {
                 onTap: () {
                   // Here we will navigate to the issue page
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Account(),
+                    builder: (context) => const ContactPage(),
                   ));
                 },
               ),
