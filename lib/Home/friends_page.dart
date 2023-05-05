@@ -1,5 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:redback_mobile_app/Home/select_workout.dart';
+import 'package:redback_mobile_app/Home/arena_page.dart';
 
 class FriendsPage extends StatefulWidget {
   const FriendsPage({super.key});
@@ -13,6 +15,64 @@ class _FriendsPageState extends State<FriendsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        color: const Color.fromARGB(255, 230, 152, 129),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+          child: GNav(
+              backgroundColor: Color.fromARGB(255, 230, 152, 129),
+              color: Color.fromARGB(183, 255, 255, 255),
+              activeColor: Color.fromARGB(255, 130, 235, 182),
+              tabBackgroundColor: Color.fromARGB(55, 114, 243, 153),
+              gap: 10,
+              padding: EdgeInsets.all(16),
+              tabs: [
+                GButton(
+                  icon: Icons.home,
+                  text: 'Home',
+                  onPressed: ()  => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SelectWorkout(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Home page(select_workout page)."),
+                  },
+                ),
+                GButton(
+                  icon: Icons.favorite_rounded,
+                  text: 'Friends',
+                  onPressed: ()  => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FriendsPage(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Friends page."),
+                  },
+                ),
+                GButton(
+                  icon: Icons.golf_course_rounded,
+                  text: 'Arena',
+                  onPressed: ()  => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ArenaPage(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Arena page."),
+                  },
+                ),
+                GButton(
+                  icon: Icons.account_circle_rounded,
+                  text: 'Profile',
+                ),
+              ]),
+        ),
+      ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
