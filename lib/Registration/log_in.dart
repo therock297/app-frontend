@@ -206,7 +206,6 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    //Image.asset('assets/images/Logo.png'),
                     SizedBox(
                       height: SizeConfig.blockSizeVertical! * 4,
                     ),
@@ -226,7 +225,6 @@ class _LoginState extends State<Login> {
                       height: SizeConfig.blockSizeVertical! * 2,
                     ),
                     passwordField,
-
                     TextButton(
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.only(
@@ -250,36 +248,36 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: SizeConfig.blockSizeVertical! * 1.6,
                     ),
-
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text(
-                            "No Account? ",
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text(
+                          "No Account? ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegistrationScreen()));
+                          },
+                          child: const Text(
+                            "Register",
                             style: TextStyle(
-                                color: Colors.white,
+                                decoration: TextDecoration.underline,
+                                color: /*Color(0xFFe87461)*/
+                                    Color(0xFFE87461),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RegistrationScreen()));
-                            },
-                            child: const Text(
-                              "Register",
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: /*Color(0xFFe87461)*/
-                                      Color(0xFFE87461),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ),
-                          ),
-                        ]),
+                        ),
+                      ],
+                    ),
                     SizedBox(
                       height: SizeConfig.blockSizeVertical! * 4,
                     ),
