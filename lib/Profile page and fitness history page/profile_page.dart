@@ -30,7 +30,8 @@ class Profile3Page extends StatefulWidget {
   State<Profile3Page> createState() => _Profile3PageState();
 }
 
-class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderStateMixin{
+class _Profile3PageState extends State<Profile3Page>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -112,7 +113,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                             Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     "Profile",
@@ -141,7 +143,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                             Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     "Redback Team",
@@ -158,7 +161,7 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                       children: [
                                         ...List.generate(
                                           4,
-                                              (index) => buildHead(index),
+                                          (index) => buildHead(index),
                                         ),
                                       ],
                                     ),
@@ -169,7 +172,7 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                             Padding(
                               padding: const EdgeInsets.all(15),
                               child: Image.asset(
-                                "assets/logo.png",
+                                "assets/images/BLogo.png",
                                 width: 108,
                                 height: 108,
                               ),
@@ -273,8 +276,10 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                       right: 10,
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: const [
                                         Text(
                                           "160",
@@ -338,7 +343,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           height: 90,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -378,7 +384,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           height: 60,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -418,7 +425,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           height: 30,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -458,7 +466,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           height: 110,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -498,7 +507,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           height: 150,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -538,7 +548,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           height: 160,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(220, 77, 78, 1),
+                                            color:
+                                                Color.fromRGBO(220, 77, 78, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -578,7 +589,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           height: 110,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -618,7 +630,8 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           height: 80,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -643,7 +656,6 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                               ),
                             ),
                           ),
-
                           Container(
                             height: 100,
                             alignment: Alignment.center,
@@ -728,25 +740,30 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                 Expanded(
                                   child: Container(
                                     height: 220,
-                                    padding:const EdgeInsets.symmetric(vertical: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15),
                                     decoration: BoxDecoration(
-                                      color: const Color.fromRGBO(138, 128, 160, 1),
+                                      color: const Color.fromRGBO(
+                                          138, 128, 160, 1),
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Container(
                                           width: 60,
                                           height: 60,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius: BorderRadius.circular(60),
+                                            borderRadius:
+                                                BorderRadius.circular(60),
                                           ),
                                           child: const Icon(
                                             Icons.local_fire_department,
                                             size: 40,
-                                            color:  Color.fromRGBO(218, 122, 103, 1),
+                                            color: Color.fromRGBO(
+                                                218, 122, 103, 1),
                                           ),
                                         ),
                                         const Text(
@@ -754,7 +771,7 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.normal,
-                                            color:  Color.fromRGBO(0, 0, 0, 1),
+                                            color: Color.fromRGBO(0, 0, 0, 1),
                                           ),
                                         ),
                                         const Text(
@@ -762,7 +779,7 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
-                                            color:  Color.fromRGBO(0, 0, 0, 1),
+                                            color: Color.fromRGBO(0, 0, 0, 1),
                                           ),
                                         ),
                                         const Text(
@@ -770,36 +787,43 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
-                                            color:  Colors.grey,
+                                            color: Colors.grey,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 15,),
+                                const SizedBox(
+                                  width: 15,
+                                ),
                                 Expanded(
                                   child: Container(
                                     height: 220,
-                                    padding:const EdgeInsets.symmetric(vertical: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15),
                                     decoration: BoxDecoration(
-                                      color: const Color.fromRGBO(156, 66, 127, 1),
+                                      color:
+                                          const Color.fromRGBO(156, 66, 127, 1),
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Container(
                                           width: 60,
                                           height: 60,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius: BorderRadius.circular(60),
+                                            borderRadius:
+                                                BorderRadius.circular(60),
                                           ),
                                           child: const Icon(
                                             Icons.local_fire_department,
                                             size: 40,
-                                            color:  Color.fromRGBO(218, 122, 103, 1),
+                                            color: Color.fromRGBO(
+                                                218, 122, 103, 1),
                                           ),
                                         ),
                                         const Text(
@@ -807,7 +831,7 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.normal,
-                                            color:  Color.fromRGBO(0, 0, 0, 1),
+                                            color: Color.fromRGBO(0, 0, 0, 1),
                                           ),
                                         ),
                                         const Text(
@@ -815,7 +839,7 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
-                                            color:  Color.fromRGBO(0, 0, 0, 1),
+                                            color: Color.fromRGBO(0, 0, 0, 1),
                                           ),
                                         ),
                                         const Text(
@@ -823,7 +847,7 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
-                                            color:  Colors.grey,
+                                            color: Colors.grey,
                                           ),
                                         ),
                                       ],
@@ -858,20 +882,21 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                 GButton(
                   icon: Icons.home,
                   text: 'Home',
-                  onPressed: ()  => {
+                  onPressed: () => {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => SelectWorkout(),
                       ),
                     ),
-                    debugPrint("Redirecting to Home page(select_workout page)."),
+                    debugPrint(
+                        "Redirecting to Home page(select_workout page)."),
                   },
                 ),
                 GButton(
                   icon: Icons.favorite_rounded,
                   text: 'Friends',
-                  onPressed: ()  => {
+                  onPressed: () => {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -884,7 +909,7 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                 GButton(
                   icon: Icons.golf_course_rounded,
                   text: 'Arena',
-                  onPressed: ()  => {
+                  onPressed: () => {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -897,7 +922,7 @@ class _Profile3PageState extends State<Profile3Page> with SingleTickerProviderSt
                 GButton(
                   icon: Icons.account_circle_rounded,
                   text: 'Profile',
-                  onPressed: ()  => {
+                  onPressed: () => {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -1139,7 +1164,9 @@ class _LineChartSample2State extends State<LineChartSample> {
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
-              colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+              colors: gradientColors
+                  .map((color) => color.withOpacity(0.3))
+                  .toList(),
             ),
           ),
         ),
@@ -1173,7 +1200,8 @@ class PieChart2State extends State {
                   touchedIndex = -1;
                   return;
                 }
-                touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                touchedIndex =
+                    pieTouchResponse.touchedSection!.touchedSectionIndex;
               });
             },
           ),
@@ -1260,8 +1288,6 @@ class PieChart2State extends State {
     });
   }
 }
-
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
