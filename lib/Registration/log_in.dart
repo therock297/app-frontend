@@ -1,9 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-
-//import 'dart:ffi';
-//import 'dart:js_util';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/Registration/sign_up.dart';
-
+import 'package:redback_mobile_app/Utils/size_config.dart';
 import 'package:sign_button/sign_button.dart';
 
 import '../Home/select_workout.dart';
@@ -43,23 +40,18 @@ class _LoginState extends State<Login> {
         textColor: Colors.white,
         fontSize: 16.0);
   }
+
   bool _isHidden = true;
   void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
     });
   }
+
   Future<bool> getData() async {
     // allow bypass in debug with limited functionality
     if (kDebugMode) {
       return true;
-    }
-
-    // ensure the fields aren't empty
-    if (userNameEditingController.text.isEmpty ||
-        passwordEditingController.text.isEmpty) {
-      toastShow("Please enter all fields");
-      return false;
     }
 
     try {
@@ -105,10 +97,12 @@ class _LoginState extends State<Login> {
       print(e);
     }
     return false;
+    // return true;
   }
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     // username field
     userNameField = TextFormField(
         autofocus: false,
@@ -141,11 +135,16 @@ class _LoginState extends State<Login> {
             borderRadius: BorderRadius.circular(30),
           ),
           suffix: InkWell(
-            onTap: _togglePasswordView,  /// This is Magical Function
+            onTap: _togglePasswordView,
+
+            /// This is Magical Function
             child: Icon(
-              _isHidden ?         /// CHeck Show & Hide.
-              Icons.visibility :
-              Icons.visibility_off,
+              _isHidden
+                  ?
+
+                  /// CHeck Show & Hide.
+                  Icons.visibility
+                  : Icons.visibility_off,
             ),
           ),
         ));
@@ -159,21 +158,19 @@ class _LoginState extends State<Login> {
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () async => {
-
-              FirebaseAuth.instance
-                  .signInWithEmailAndPassword(
-                  email: userNameEditingController.text,
-                  password: passwordEditingController.text)
-                  .then((value) {
-          Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const SelectWorkout()));
-              }).onError((error, stackTrace) {
-                print("Error ${error.toString()}");
-              }),
-
+                FirebaseAuth.instance
+                    .signInWithEmailAndPassword(
+                        email: userNameEditingController.text,
+                        password: passwordEditingController.text)
+                    .then((value) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SelectWorkout()));
+                }).onError((error, stackTrace) {
+                  print("Error ${error.toString()}");
+                }),
               },
           child: const Text(
-            "Log In",
+            "Sign In",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
@@ -184,25 +181,25 @@ class _LoginState extends State<Login> {
     );
 
     return Scaffold(
-
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFE87461),
-                  Color.fromARGB(255, 99, 37, 126),
-                  //Color.fromARGB(255, 239, 136, 120),
-                  Color(0xff380E4A),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFE87461),
+              Color.fromARGB(255, 99, 37, 126),
+              Color(0xff380E4A),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
             /*color: const Color.fromRGBO(56, 14, 74, 1),*/
             child: Padding(
-              padding: const EdgeInsets.all(36.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.blockSizeHorizontal! * 5,
+              ),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -211,39 +208,54 @@ class _LoginState extends State<Login> {
                   children: <Widget>[
                     //Image.asset('assets/images/Logo.png'),
                     SizedBox(
-                        height: 180,
-                        //image logo
-                        child: Image.asset(
-                          'assets/images/BLogo.png',
-                          fit: BoxFit.contain,
-                        )),
-                    const SizedBox(height: 45),
+                      height: SizeConfig.blockSizeVertical! * 4,
+                    ),
+                    SizedBox(
+                      height: SizeConfig.blockSizeVertical! * 22,
+                      //image logo
+                      child: Image.asset(
+                        'assets/images/BLogo.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.blockSizeVertical! * 3.9,
+                    ),
                     userNameField,
-                    const SizedBox(height: 20),
+                    SizedBox(
+                      height: SizeConfig.blockSizeVertical! * 2,
+                    ),
                     passwordField,
-                    const SizedBox(height: 20),
+
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.blockSizeHorizontal! * 50),
+                        textStyle: const TextStyle(
+                            fontSize: 12, color: Color(0xFFe87461)),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Forgot Password ?",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.blockSizeVertical! * 2,
+                    ),
                     logInButton,
-                    // const SizedBox(height: 15),
-                    const SizedBox(height: 13),
-                    // TextButton(
-                    //   style: TextButton.styleFrom(
-                    //     textStyle: const TextStyle(
-                    //         fontSize: 12, color: Color(0xFFe87461)),
-                    //   ),
-                    //   onPressed: () {},
-                    //   child: const Text(
-                    //     "Forgot Password ?",
-                    //     style: TextStyle(
-                    //         color: Colors.white,
-                    //         fontWeight: FontWeight.bold,
-                    //         fontSize: 15),
-                    //   ),
-                    // ),
+                    SizedBox(
+                      height: SizeConfig.blockSizeVertical! * 1.6,
+                    ),
+
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           const Text(
-                            "Don't have an Account? ",
+                            "No Account? ",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -258,16 +270,19 @@ class _LoginState extends State<Login> {
                                           const RegistrationScreen()));
                             },
                             child: const Text(
-                              "Sign Up",
+                              "Register",
                               style: TextStyle(
                                   decoration: TextDecoration.underline,
-                                  color: /*Color(0xFFe87461)*/ Color(0xFFE87461),
+                                  color: /*Color(0xFFe87461)*/
+                                      Color(0xFFE87461),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15),
                             ),
                           ),
                         ]),
-                    const SizedBox(height: 50,),
+                    SizedBox(
+                      height: SizeConfig.blockSizeVertical! * 4,
+                    ),
                     Column(
                       //This aligns the buttons in the middle of the column.
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -278,41 +293,65 @@ class _LoginState extends State<Login> {
 
                         //Create Account button
                         Container(
-                          width: 320.0, // Set the width of the container
-                          height: 50.0, // Set the height of the container
+                          width: SizeConfig.blockSizeHorizontal! *
+                              100, // Set the width of the container
+                          height: SizeConfig.blockSizeVertical! *
+                              6.5, // Set the height of the container
                           child: SignInButton(
-                            buttonType: ButtonType.google,
+                            padding: 5,
+                            width: 130,
+                            buttonSize: ButtonSize.medium,
+                            btnColor: Color.fromARGB(255, 126, 101, 173),
+                            buttonType: ButtonType.googleDark,
+                            btnText: "Google",
                             onPressed: () {
                               print('click');
                             },
                           ),
                         ),
-                        const SizedBox(height: 20,),
-
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical! * 2,
+                        ),
                         Container(
-                          width: 320.0, // Set the width of the container
-                          height: 50.0, // Set the height of the container
+                          width: SizeConfig.blockSizeHorizontal! *
+                              100, // Set the width of the container
+                          height: SizeConfig.blockSizeVertical! *
+                              6.5, // Set the height of the container
                           child: SignInButton(
-                            buttonType: ButtonType.github,
+                            padding: 5,
+                            width: 130,
+                            buttonSize: ButtonSize.medium,
+                            btnColor: Color.fromARGB(255, 126, 101, 173),
+                            buttonType: ButtonType.githubDark,
+                            btnText: "Github",
                             onPressed: () {
                               print('click');
                             },
                           ),
                         ),
-                        const SizedBox(height: 20,),
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical! * 2,
+                        ),
                         Container(
-                          width: 320.0, // Set the width of the container
-                          height: 50.0, // Set the height of the container
+                          width: SizeConfig.blockSizeHorizontal! *
+                              100, // Set the width of the container
+                          height: SizeConfig.blockSizeVertical! *
+                              6.5, // Set the height of the container
                           child: SignInButton(
-                            buttonType: ButtonType.facebook,
+                            padding: 5,
+                            width: 130,
+                            buttonSize: ButtonSize.medium,
+                            btnColor: Color.fromARGB(255, 126, 101, 173),
+                            buttonType: ButtonType.facebookDark,
+                            btnText: "FaceBook",
                             onPressed: () {
                               print('click');
                             },
                           ),
                         ),
-                        const SizedBox(height: 20,),
-
-
+                        SizedBox(
+                          height: SizeConfig.blockSizeVertical! * 2,
+                        ),
                       ],
                     ),
                   ],
@@ -322,6 +361,7 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
+      // ),
     );
   }
 
