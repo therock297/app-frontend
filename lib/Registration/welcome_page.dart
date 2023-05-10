@@ -54,11 +54,11 @@ class _WelcomePageState extends State<WelcomePage> {
                     horizontal: SizeConfig.blockSizeHorizontal! * 17,
                   ),
                   child: SizedBox(
-                    height: SizeConfig.blockSizeVertical! * 32,
+                    height: SizeConfig.blockSizeVertical! * 28,
                     child: //Loaded the logo from assets folder and places it at the top of the screen.
                         Image.asset(
                       'assets/images/redbacklogo.png',
-                      height: SizeConfig.blockSizeVertical! * 32,
+                      height: SizeConfig.blockSizeVertical! * 28,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
