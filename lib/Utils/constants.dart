@@ -18,5 +18,5 @@ const Map<String, String> workoutNames = {
   "ramped": "Ramped Workout",
   "strength": "Strength Training",
   "endurance": "Endurance Training",
-  "threshold": "Anaerobic Threshold Training"
+  "threshold": "Anaerobic Training"
 };

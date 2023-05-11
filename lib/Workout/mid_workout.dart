@@ -11,6 +11,7 @@ import 'package:redback_mobile_app/Models/workout_stats.dart';
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/Workout/end_screen.dart';
+import 'package:redback_mobile_app/Utils/size_config.dart';
 
 class MidWorkout extends StatelessWidget {
   const MidWorkout({Key? key}) : super(key: key);
@@ -76,22 +77,6 @@ class _MidWorkoutState extends State<MidWorkoutState> {
         downTime--;
       }
     });
-
-    //(This is only for front-end use version.)check if we have out required values from the .env file, if not present, don't try to connect.
-    // if (dotenv.env['MQTT_HOST'] == null ||
-    //     dotenv.env['MQTT_USERNAME'] == null ||
-    //     dotenv.env['MQTT_PASSWORD'] == null) {
-    //   Fluttertoast.showToast(
-    //       msg: "Missing .env file credentials",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.BOTTOM,
-    //       timeInSecForIosWeb: 2,
-    //       backgroundColor: Colors.blueGrey,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0);
-    //
-    //   return;
-    // }
 
     // check if we scanned a qr code on the bike, release mode enforces this, debug might return null
     // we cannot subscribe to the mqtt topics as we don't have the Bike ID of the bike sensors we want to subscribe to
@@ -224,6 +209,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: const Color.fromRGBO(181, 79, 92, 1),
       appBar: AppBar(
@@ -532,8 +518,10 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Visibility(
-                                              // @formatter:off
-                                                visible: SharedPrefsUtil.getWorkoutType() != "ramped",
+                                                // @formatter:off
+                                                visible: SharedPrefsUtil
+                                                        .getWorkoutType() !=
+                                                    "ramped",
                                                 // @formatter:on
                                                 maintainSize: true,
                                                 maintainAnimation: true,
@@ -568,7 +556,9 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                             ),
                                             Visibility(
                                               // @formatter:off
-                                              visible: SharedPrefsUtil.getWorkoutType() != "ramped",
+                                              visible: SharedPrefsUtil
+                                                      .getWorkoutType() !=
+                                                  "ramped",
                                               // @formatter:on
                                               maintainSize: true,
                                               maintainAnimation: true,

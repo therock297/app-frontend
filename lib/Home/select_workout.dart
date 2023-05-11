@@ -14,7 +14,7 @@ List listData = [
   {"title": 'Ramped Workout', "code": "ramped"},
   {"title": 'Endurance Training', "code": "endurance"},
   {"title": 'Strength Training', "code": "strength"},
-  {"title": 'Anaerobic threshold training', "code": "threshold"},
+  {"title": 'Anaerobic Training', "code": "threshold"},
 ];
 
 class SelectWorkout extends StatefulWidget {
@@ -174,7 +174,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                 GButton(
                   icon: Icons.favorite_rounded,
                   text: 'Friends',
-                  onPressed: ()  => {
+                  onPressed: () => {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -187,7 +187,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                 GButton(
                   icon: Icons.golf_course_rounded,
                   text: 'Arena',
-                  onPressed: ()  => {
+                  onPressed: () => {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
