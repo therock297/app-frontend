@@ -194,6 +194,7 @@ class _LoginState extends State<Login> {
           ),
         ),
         child: SafeArea(
+          bottom: false,
           child: SingleChildScrollView(
             /*color: const Color.fromRGBO(56, 14, 74, 1),*/
             child: Padding(
