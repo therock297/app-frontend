@@ -65,6 +65,9 @@ dependencies:
   flutter_circular_slider: ^2.5.0
   wheel_slider: ^1.0.0
   fl_chart: ^0.62.0
+  google_maps_flutter: ^2.2.6
+  location: ^4.4.0
+  flutter_svg: ^2.0.5
 
 dev_dependencies:
   # Package for updating app package name
