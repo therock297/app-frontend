@@ -20,3 +20,4 @@ const Map<String, String> workoutNames = {
   "endurance": "Endurance Training",
   "threshold": "Anaerobic Training"
 };
+const String google_api_key = "YOUR_API_KEY";
