@@ -8,7 +8,7 @@ class FriendsPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _FriendsPageState();
-
+  
 }
 
 class _FriendsPageState extends State<FriendsPage> {
@@ -26,6 +26,7 @@ class _FriendsPageState extends State<FriendsPage> {
               tabBackgroundColor: Color.fromARGB(55, 114, 243, 153),
               gap: 10,
               padding: EdgeInsets.all(16),
+              selectedIndex: 1,
               tabs: [
                 GButton(
                   icon: Icons.home,

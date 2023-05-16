@@ -574,6 +574,7 @@ class _Arena2Page extends State<Arena2Page> {
               tabBackgroundColor: Color.fromARGB(55, 114, 243, 153),
               gap: 10,
               padding: EdgeInsets.all(16),
+              selectedIndex: 2,
               tabs: [
                 GButton(
                   icon: Icons.home,
