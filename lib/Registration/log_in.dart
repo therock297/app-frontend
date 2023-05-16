@@ -11,7 +11,8 @@ import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/Registration/sign_up.dart';
 import 'package:redback_mobile_app/Utils/size_config.dart';
 import 'package:sign_button/sign_button.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_core/firebase_core.dart';
 import '../Home/select_workout.dart';
 
 class Login extends StatefulWidget {
@@ -26,6 +27,8 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final userNameEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+  final _googleSignIn = GoogleSignIn();
 
   late TextFormField userNameField;
   late TextFormField passwordField;
@@ -52,6 +55,12 @@ class _LoginState extends State<Login> {
     // allow bypass in debug with limited functionality
     if (kDebugMode) {
       return true;
+    }
+
+    if (userNameEditingController.text.isEmpty ||
+        passwordEditingController.text.isEmpty) {
+      toastShow("Please enter all fields");
+      return false;
     }
 
     try {
@@ -157,18 +166,38 @@ class _LoginState extends State<Login> {
       child: MaterialButton(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: () async => {
-                FirebaseAuth.instance
-                    .signInWithEmailAndPassword(
-                        email: userNameEditingController.text,
-                        password: passwordEditingController.text)
-                    .then((value) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SelectWorkout()));
-                }).onError((error, stackTrace) {
-                  print("Error ${error.toString()}");
-                }),
-              },
+          onPressed: () async {
+            try {
+              await FirebaseAuth.instance.signInWithEmailAndPassword(
+                email: userNameEditingController.text,
+                password: passwordEditingController.text,
+              );
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const SelectWorkout(),
+              ));
+            } catch (e) {
+              String errorMessage;
+              if (e is FirebaseAuthException) {
+                if (e.code == 'user-not-found') {
+                  errorMessage = 'Invalid email address.';
+                } else if (e.code == 'wrong-password') {
+                  errorMessage = 'Invalid password.';
+                } else {
+                  errorMessage = 'Login failed. Please try again.';
+                }
+              } else {
+                errorMessage = 'Login failed. Please try again.';
+              }
+              Fluttertoast.showToast(
+                msg: errorMessage,
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.TOP,
+                backgroundColor: Colors.white,
+                textColor: Colors.black,
+                fontSize: 16.0,
+              );
+            }
+          },
           child: const Text(
             "Sign In",
             textAlign: TextAlign.center,
@@ -303,8 +332,28 @@ class _LoginState extends State<Login> {
                             btnColor: Color.fromARGB(255, 126, 101, 173),
                             buttonType: ButtonType.googleDark,
                             btnText: "Google",
-                            onPressed: () {
-                              print('click');
+                            onPressed: () async {
+                              try {
+                                final GoogleSignInAccount? googleSignInAccount =
+                                    await _googleSignIn.signIn();
+                                if (googleSignInAccount != null) {
+                                  final GoogleSignInAuthentication
+                                      googleSignInAuthentication =
+                                      await googleSignInAccount.authentication;
+                                  final AuthCredential authCredential =
+                                      GoogleAuthProvider.credential(
+                                          accessToken:
+                                              googleSignInAuthentication
+                                                  .accessToken,
+                                          idToken: googleSignInAuthentication
+                                              .idToken);
+                                  await _auth
+                                      .signInWithCredential(authCredential);
+                                }
+                              } on FirebaseAuthException catch (e) {
+                                print(e.message);
+                                throw e;
+                              }
                             },
                           ),
                         ),

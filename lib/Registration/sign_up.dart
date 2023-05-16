@@ -226,10 +226,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: MaterialButton(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          //calls the function to post data to database
-          //go to next page to enter more details
           onPressed: () async {
-            // set userinfo before sending to next screen
             FirebaseAuth.instance
                 .createUserWithEmailAndPassword(
                     email: emailEditingController.text,
@@ -238,8 +235,35 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               print("Created New Account");
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Login()));
-            }).onError((error, stackTrace) {
-              print("Error ${error.toString()}");
+            }).catchError((error) {
+              String errorMessage = "An error occurred, please try again.";
+              if (error is FirebaseAuthException) {
+                switch (error.code) {
+                  case "email-already-in-use":
+                    errorMessage = "Email is already in use.";
+                    break;
+                  case "invalid-email":
+                    errorMessage = "Email address is invalid.";
+                    break;
+                  case "weak-password":
+                    errorMessage = "Password is too weak.";
+                    break;
+                }
+              }
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.white,
+                  content:
+                      Text(errorMessage, style: TextStyle(color: Colors.black)),
+                  duration: const Duration(seconds: 5),
+                  action: SnackBarAction(
+                    label: "Dismiss",
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    },
+                  ),
+                ),
+              );
             });
           },
           child: const Text(

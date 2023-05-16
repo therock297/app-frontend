@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:redback_mobile_app/Registration/welcome_page.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
+import 'package:firebase_core/firebase_core.dart';
+//import 'firebase_options.dart';
 
 Future<void> main() async {
   // access shared prefs before runApp
@@ -9,6 +11,7 @@ Future<void> main() async {
 
   // initialize shared prefs
   await SharedPrefsUtil.init();
+  await Firebase.initializeApp();
 
   // initialize dotenv
   // await dotenv.load(fileName: ".env");
