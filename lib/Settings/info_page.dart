@@ -82,7 +82,8 @@ class InformationPage extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 232, 116, 97),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0)
-          )
+          ),
+          alignment: Alignment.centerLeft,
         ),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -99,14 +100,21 @@ class InformationPage extends StatelessWidget {
             children: [
               const TextSpan(text: "\n"),
               TextSpan(
-                text: newsList[index]["news"],
+                text: newsList[index]["news"].substring(0, newsList[index]["news"].length > 150 ? 148 : newsList[index]["news"].length),
                 style: const TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                 ),
               ),
-              const TextSpan(text: "\n\n\n\t\t\t\t"),
+              TextSpan(
+                text: newsList[index]["news"].length <= 50 ? "\n\n\n\n\t\t\t\t" : (newsList[index]["news"].length <= 100 ? "\n\n\n\t\t\t\t" : (newsList[index]["news"].length <= 150 ? "\n\n\t\t\t\t" : "...\n\n\t\t\t\t")),
+                style: const TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
               TextSpan(
                 text: newsList[index]["time"] >= 60 ? (newsList[index]["time"] ~/ 60).toString() : newsList[index]["time"].toString(),
                 style: const TextStyle(
@@ -267,7 +275,8 @@ class AboutUsPage extends InformationPage {
               backgroundColor: const Color.fromARGB(255, 232, 116, 97),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0)
-              )
+              ),
+            alignment: Alignment.centerLeft,
           ),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -354,7 +363,8 @@ class ContactPage extends InformationPage {
               backgroundColor: const Color.fromARGB(255, 232, 116, 97),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0)
-              )
+              ),
+            alignment: Alignment.centerLeft,
           ),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -441,7 +451,8 @@ class FAQPage extends InformationPage {
               backgroundColor: const Color.fromARGB(255, 232, 116, 97),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0)
-              )
+              ),
+            alignment: Alignment.centerLeft,
           ),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(

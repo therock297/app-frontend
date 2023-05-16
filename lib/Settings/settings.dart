@@ -94,7 +94,7 @@ class SettingsPageState extends State<SettingsPage> {
                 ),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const InformationPage()
+                      builder: (context) => const FAQPage()
                   ));
                 },
               )
