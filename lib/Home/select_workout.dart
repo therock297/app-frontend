@@ -5,6 +5,9 @@ import 'package:redback_mobile_app/Settings/account.dart';
 import 'package:redback_mobile_app/Settings/info_page.dart';
 import 'package:redback_mobile_app/Settings/settings.dart';
 import 'package:redback_mobile_app/Workout/onboarding_screen.dart';
+import 'package:redback_mobile_app/Home/friends_page.dart';
+import 'package:redback_mobile_app/Home/arena_page.dart';
+import 'package:redback_mobile_app/Profile page and fitness history page/profile_page.dart';
 
 //This is a mockup list data for demonstration purpose only.
 //Please use back-end code like node js to call the actual one from RedBack operation database.
@@ -12,7 +15,7 @@ List listData = [
   {"title": 'Ramped Workout', "code": "ramped"},
   {"title": 'Endurance Training', "code": "endurance"},
   {"title": 'Strength Training', "code": "strength"},
-  {"title": 'Anaerobic threshold training', "code": "threshold"},
+  {"title": 'Anaerobic Training', "code": "threshold"},
 ];
 
 class SelectWorkout extends StatefulWidget {
@@ -106,7 +109,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                 onTap: () {
                   // Here we will navigate to the accounts page
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Account(),
+                    builder: (context) => const ProfilePage(index: 0),
                   ));
                 },
               ),
@@ -119,7 +122,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
                 onTap: () {
                   // Here we will navigate to the information page
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const InformationPage(),
+                    builder: (context) => const ProfilePage(index: 2),
                   ));
                 },
               ),
@@ -155,7 +158,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
       ),
       bottomNavigationBar: Container(
         color: const Color.fromARGB(255, 230, 152, 129),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
           child: GNav(
               backgroundColor: Color.fromARGB(255, 230, 152, 129),
@@ -164,6 +167,7 @@ class SelectWorkoutState extends State<SelectWorkout> {
               tabBackgroundColor: Color.fromARGB(55, 114, 243, 153),
               gap: 10,
               padding: EdgeInsets.all(16),
+              selectedIndex: 0,
               tabs: [
                 GButton(
                   icon: Icons.home,
@@ -172,6 +176,28 @@ class SelectWorkoutState extends State<SelectWorkout> {
                 GButton(
                   icon: Icons.favorite_rounded,
                   text: 'Friends',
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FriendsPage(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Friends page."),
+                  },
+                ),
+                GButton(
+                  icon: Icons.golf_course_rounded,
+                  text: 'Arena',
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ArenaPage(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Arena page."),
+                  },
                 ),
                 GButton(
                   icon: Icons.account_circle_rounded,

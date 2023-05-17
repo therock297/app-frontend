@@ -11,6 +11,7 @@ import 'package:redback_mobile_app/Models/workout_stats.dart';
 import 'package:redback_mobile_app/Utils/constants.dart' as constants;
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 import 'package:redback_mobile_app/Workout/end_screen.dart';
+import 'package:redback_mobile_app/Utils/size_config.dart';
 
 class MidWorkout extends StatelessWidget {
   const MidWorkout({Key? key}) : super(key: key);
@@ -76,22 +77,6 @@ class _MidWorkoutState extends State<MidWorkoutState> {
         downTime--;
       }
     });
-
-    //(This is only for front-end use version.)check if we have out required values from the .env file, if not present, don't try to connect.
-    // if (dotenv.env['MQTT_HOST'] == null ||
-    //     dotenv.env['MQTT_USERNAME'] == null ||
-    //     dotenv.env['MQTT_PASSWORD'] == null) {
-    //   Fluttertoast.showToast(
-    //       msg: "Missing .env file credentials",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.BOTTOM,
-    //       timeInSecForIosWeb: 2,
-    //       backgroundColor: Colors.blueGrey,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0);
-    //
-    //   return;
-    // }
 
     // check if we scanned a qr code on the bike, release mode enforces this, debug might return null
     // we cannot subscribe to the mqtt topics as we don't have the Bike ID of the bike sensors we want to subscribe to
@@ -224,6 +209,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: const Color.fromRGBO(181, 79, 92, 1),
       appBar: AppBar(
@@ -248,19 +234,20 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 30,
+                      SizedBox(
+                        height: SizeConfig.blockSizeVertical! * 2,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.blockSizeHorizontal! * 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: SizedBox(
-                                width: 150,
-                                height: 70,
+                                width: SizeConfig.blockSizeHorizontal! * 40,
+                                height: SizeConfig.blockSizeVertical! * 10,
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -271,7 +258,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: const Text(
                                           "Speed",
                                           style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -286,7 +273,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: Text(
                                           "${currentSpeed.toStringAsFixed(1)} KM/H",
                                           style: const TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -299,8 +286,8 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: SizedBox(
-                                width: 150,
-                                height: 70,
+                                width: SizeConfig.blockSizeHorizontal! * 40,
+                                height: SizeConfig.blockSizeVertical! * 10,
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -311,7 +298,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: const Text(
                                           "Cadence",
                                           style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -326,7 +313,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: Text(
                                           "${currentCadence.toStringAsFixed(1)} RPM",
                                           style: const TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -339,19 +326,20 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: SizeConfig.blockSizeVertical! * 2,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.blockSizeHorizontal! * 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: SizedBox(
-                                width: 150,
-                                height: 70,
+                                width: SizeConfig.blockSizeHorizontal! * 40,
+                                height: SizeConfig.blockSizeVertical! * 10,
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -362,7 +350,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: const Text(
                                           "Heart Rate",
                                           style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -377,7 +365,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: Text(
                                           "$currentHeartRate BPM",
                                           style: const TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -390,8 +378,8 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: SizedBox(
-                                width: 150,
-                                height: 70,
+                                width: SizeConfig.blockSizeHorizontal! * 40,
+                                height: SizeConfig.blockSizeVertical! * 10,
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -402,7 +390,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: const Text(
                                           "Power",
                                           style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -417,7 +405,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: Text(
                                           "$currentPower W",
                                           style: const TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -430,8 +418,8 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 40,
+                      SizedBox(
+                        height: SizeConfig.blockSizeVertical! * 3,
                       ),
                       const Text(
                         "Time Elapsed",
@@ -441,8 +429,8 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                           color: Color.fromRGBO(255, 255, 255, 1),
                         ),
                       ),
-                      const SizedBox(
-                        height: 5,
+                      SizedBox(
+                        height: SizeConfig.blockSizeVertical! * 0.5,
                       ),
                       Text(
                         formatTimeString(timingNumber),
@@ -452,19 +440,20 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                           color: Color.fromRGBO(255, 255, 255, 1),
                         ),
                       ),
-                      const SizedBox(
-                        height: 40,
+                      SizedBox(
+                        height: SizeConfig.blockSizeVertical! * 3,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.blockSizeHorizontal! * 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: SizedBox(
-                                width: 150,
-                                height: 70,
+                                width: SizeConfig.blockSizeHorizontal! * 40,
+                                height: SizeConfig.blockSizeVertical! * 10,
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -475,7 +464,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: const Text(
                                           "Fan Speed",
                                           style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -490,7 +479,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: Text(
                                           "$currentFanSpeed KM/H",
                                           style: const TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -503,8 +492,8 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: SizedBox(
-                                width: 150,
-                                height: 70,
+                                width: SizeConfig.blockSizeHorizontal! * 40,
+                                height: SizeConfig.blockSizeVertical! * 10,
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -515,7 +504,7 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                         child: const Text(
                                           "Current Level",
                                           style: TextStyle(
-                                            fontSize: 13,
+                                            fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -532,8 +521,10 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Visibility(
-                                              // @formatter:off
-                                                visible: SharedPrefsUtil.getWorkoutType() != "ramped",
+                                                // @formatter:off
+                                                visible: SharedPrefsUtil
+                                                        .getWorkoutType() !=
+                                                    "ramped",
                                                 // @formatter:on
                                                 maintainSize: true,
                                                 maintainAnimation: true,
@@ -545,8 +536,12 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                                     }
                                                   },
                                                   child: Container(
-                                                    width: 24,
-                                                    height: 24,
+                                                    width: SizeConfig
+                                                            .blockSizeVertical! *
+                                                        2.5,
+                                                    height: SizeConfig
+                                                            .blockSizeVertical! *
+                                                        2.5,
                                                     alignment: Alignment.center,
                                                     decoration: BoxDecoration(
                                                       color:
@@ -562,13 +557,15 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                             Text(
                                               "$level",
                                               style: const TextStyle(
-                                                fontSize: 13,
+                                                fontSize: 15,
                                                 color: Colors.black,
                                               ),
                                             ),
                                             Visibility(
                                               // @formatter:off
-                                              visible: SharedPrefsUtil.getWorkoutType() != "ramped",
+                                              visible: SharedPrefsUtil
+                                                      .getWorkoutType() !=
+                                                  "ramped",
                                               // @formatter:on
                                               maintainSize: true,
                                               maintainAnimation: true,
@@ -580,8 +577,12 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                                                   }
                                                 },
                                                 child: Container(
-                                                  width: 24,
-                                                  height: 24,
+                                                  width: SizeConfig
+                                                          .blockSizeVertical! *
+                                                      2.5,
+                                                  height: SizeConfig
+                                                          .blockSizeVertical! *
+                                                      2.5,
                                                   alignment: Alignment.center,
                                                   decoration: BoxDecoration(
                                                     color: const Color.fromRGBO(
@@ -610,14 +611,14 @@ class _MidWorkoutState extends State<MidWorkoutState> {
                 ),
               ),
               Container(
-                height: 70,
+                height: SizeConfig.blockSizeVertical! * 10,
                 alignment: Alignment.center,
                 color: const Color.fromRGBO(78, 34, 84, 1),
                 child: InkWell(
                   onTap: () => finishWorkout(),
                   child: Container(
-                    width: 150,
-                    height: 45,
+                    width: SizeConfig.blockSizeHorizontal! * 40,
+                    height: SizeConfig.blockSizeVertical! * 5,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: const Color.fromRGBO(239, 93, 62, 1),

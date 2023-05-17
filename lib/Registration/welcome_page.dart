@@ -54,11 +54,11 @@ class _WelcomePageState extends State<WelcomePage> {
                     horizontal: SizeConfig.blockSizeHorizontal! * 17,
                   ),
                   child: SizedBox(
-                    height: SizeConfig.blockSizeVertical! * 32,
+                    height: SizeConfig.blockSizeVertical! * 28,
                     child: //Loaded the logo from assets folder and places it at the top of the screen.
                         Image.asset(
                       'assets/images/redbacklogo.png',
-                      height: SizeConfig.blockSizeVertical! * 32,
+                      height: SizeConfig.blockSizeVertical! * 28,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -114,7 +114,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       },
                       style: TextButton.styleFrom(
                         fixedSize: Size(SizeConfig.blockSizeHorizontal! * 87,
-                            SizeConfig.blockSizeVertical! * 5.5),
+                            SizeConfig.blockSizeVertical! * 7.5),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30), // <-- Radius
                         ),
@@ -124,7 +124,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                       child: Text(
                         'Sign Up',
-                        style: const TextStyle(fontWeight: FontWeight.w500)
+                        style: const TextStyle(fontWeight: FontWeight.w600)
                             .copyWith(
                                 fontSize: SizeConfig.blockSizeHorizontal! * 5),
                       ),
@@ -147,13 +147,13 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                         foregroundColor: Colors.white,
                         minimumSize: Size(SizeConfig.blockSizeHorizontal! * 87,
-                            SizeConfig.blockSizeVertical! * 5.5),
+                            SizeConfig.blockSizeVertical! * 7.5),
                         backgroundColor:
                             const Color.fromARGB(255, 163, 76, 207),
                       ),
                       child: Text(
                         'Sign In',
-                        style: const TextStyle(fontWeight: FontWeight.w500)
+                        style: const TextStyle(fontWeight: FontWeight.w600)
                             .copyWith(
                                 fontSize: SizeConfig.blockSizeHorizontal! * 5),
                       ),

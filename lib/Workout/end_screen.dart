@@ -3,6 +3,7 @@ import 'package:redback_mobile_app/Home/select_workout.dart';
 import 'package:redback_mobile_app/Utils/shared_prefs_util.dart';
 
 import '../Models/workout_stats.dart';
+import 'package:redback_mobile_app/Utils/size_config.dart';
 
 class EndScreen extends StatelessWidget {
   const EndScreen({super.key, required this.stats});
@@ -25,6 +26,7 @@ class _EndScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       // Removing the app bar for the sake of design. It may be added later if needed.
       // appBar: AppBar(
@@ -94,8 +96,8 @@ class _EndScreen extends StatelessWidget {
                                     'Workout Length ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
-                                      color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
-                                          .white,
+                                      color: /*Color.fromARGB(255, 151, 166, 185)*/
+                                          Colors.white,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -125,8 +127,8 @@ class _EndScreen extends StatelessWidget {
                                     'Sustained ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
-                                      color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
-                                          .white,
+                                      color: /*Color.fromARGB(255, 151, 166, 185)*/
+                                          Colors.white,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -156,8 +158,8 @@ class _EndScreen extends StatelessWidget {
                                     'Rate ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
-                                      color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
-                                          .white,
+                                      color: /*Color.fromARGB(255, 151, 166, 185)*/
+                                          Colors.white,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -183,8 +185,8 @@ class _EndScreen extends StatelessWidget {
                                     'Max Speed ',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
-                                      color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
-                                          .white,
+                                      color: /*Color.fromARGB(255, 151, 166, 185)*/
+                                          Colors.white,
                                       fontSize: 25,
                                     ),
                                   ),
@@ -238,8 +240,8 @@ class _EndScreen extends StatelessWidget {
                                               'Max Power',
                                               style: TextStyle(
                                                 fontFamily: 'Poppins',
-                                                color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
-                                                    .white,
+                                                color: /*Color.fromARGB(255, 151, 166, 185)*/
+                                                    Colors.white,
                                                 fontSize: 25,
                                               ),
                                             ),
@@ -247,8 +249,8 @@ class _EndScreen extends StatelessWidget {
                                               'Output ',
                                               style: TextStyle(
                                                 fontFamily: 'Poppins',
-                                                color: /*Color.fromARGB(255, 151, 166, 185)*/ Colors
-                                                    .white,
+                                                color: /*Color.fromARGB(255, 151, 166, 185)*/
+                                                    Colors.white,
                                                 fontSize: 25,
                                               ),
                                             ),
@@ -283,9 +285,10 @@ class _EndScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
                       backgroundColor: const Color(0xFFEF8B60),
-                      fixedSize: const Size(180, 40),
+                      fixedSize: Size(SizeConfig.blockSizeHorizontal! * 50,
+                          SizeConfig.blockSizeVertical! * 7),
                       shape: RoundedRectangleBorder(
-                        //to set border radius to button
+                          //to set border radius to button
                           borderRadius: BorderRadius.circular(8)),
                     ),
                     child: const Text('Home'),

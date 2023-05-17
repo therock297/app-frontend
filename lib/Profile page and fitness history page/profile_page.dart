@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:redback_mobile_app/Home/select_workout.dart';
+import 'package:redback_mobile_app/Home/friends_page.dart';
+import 'package:redback_mobile_app/Home/arena_page.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class ProfilePage extends StatelessWidget {
+  final int index;
+  const ProfilePage({Key? key, required this.index}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -17,23 +17,32 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHome3Page(),
+      home: Profile3Page(index: index),
     );
   }
 }
 
-class MyHome3Page extends StatefulWidget {
-  const MyHome3Page({Key? key}) : super(key: key);
+class Profile3Page extends StatefulWidget {
+  final int index;
+  const Profile3Page({Key? key, required this.index}) : super(key: key);
 
   @override
-  State<MyHome3Page> createState() => _MyHome3PageState();
+  State<Profile3Page> createState() => _Profile3PageState();
 }
 
-class _MyHome3PageState extends State<MyHome3Page> {
+class _Profile3PageState extends State<Profile3Page>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _tabController = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: widget.index,
+    );
   }
 
   @override
@@ -69,7 +78,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                   width: double.infinity,
                   height: 50,
                   color: const Color.fromRGBO(217, 106, 84, 1),
-                  child: const TabBar(
+                  child: TabBar(
+                    controller: _tabController,
                     labelColor: Colors.black,
                     labelStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -91,6 +101,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
                 ),
                 Expanded(
                   child: TabBarView(
+                    controller: _tabController,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       /// PROFILE
@@ -102,7 +113,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                             Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     "Profile",
@@ -131,7 +143,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                             Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     "Redback Team",
@@ -159,7 +172,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
                             Padding(
                               padding: const EdgeInsets.all(15),
                               child: Image.asset(
-                                "assets/logo.png",
+                                "assets/images/BLogo.png",
                                 width: 108,
                                 height: 108,
                               ),
@@ -263,8 +276,10 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                       right: 10,
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: const [
                                         Text(
                                           "160",
@@ -328,7 +343,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           height: 90,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -368,7 +384,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           height: 60,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -408,7 +425,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           height: 30,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -448,7 +466,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           height: 110,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -488,7 +507,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           height: 150,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -528,7 +548,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           height: 160,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(220, 77, 78, 1),
+                                            color:
+                                                Color.fromRGBO(220, 77, 78, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -568,7 +589,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           height: 110,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -608,7 +630,8 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           height: 80,
                                           alignment: Alignment.bottomCenter,
                                           decoration: const BoxDecoration(
-                                            color: Color.fromRGBO(110, 210, 229, 1),
+                                            color: Color.fromRGBO(
+                                                110, 210, 229, 1),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30),
                                               topRight: Radius.circular(30),
@@ -633,7 +656,6 @@ class _MyHome3PageState extends State<MyHome3Page> {
                               ),
                             ),
                           ),
-
                           Container(
                             height: 100,
                             alignment: Alignment.center,
@@ -718,25 +740,30 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                 Expanded(
                                   child: Container(
                                     height: 220,
-                                    padding:const EdgeInsets.symmetric(vertical: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15),
                                     decoration: BoxDecoration(
-                                      color: const Color.fromRGBO(138, 128, 160, 1),
+                                      color: const Color.fromRGBO(
+                                          138, 128, 160, 1),
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Container(
                                           width: 60,
                                           height: 60,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius: BorderRadius.circular(60),
+                                            borderRadius:
+                                                BorderRadius.circular(60),
                                           ),
                                           child: const Icon(
                                             Icons.local_fire_department,
                                             size: 40,
-                                            color:  Color.fromRGBO(218, 122, 103, 1),
+                                            color: Color.fromRGBO(
+                                                218, 122, 103, 1),
                                           ),
                                         ),
                                         const Text(
@@ -744,7 +771,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.normal,
-                                            color:  Color.fromRGBO(0, 0, 0, 1),
+                                            color: Color.fromRGBO(0, 0, 0, 1),
                                           ),
                                         ),
                                         const Text(
@@ -752,7 +779,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
-                                            color:  Color.fromRGBO(0, 0, 0, 1),
+                                            color: Color.fromRGBO(0, 0, 0, 1),
                                           ),
                                         ),
                                         const Text(
@@ -760,36 +787,43 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
-                                            color:  Colors.grey,
+                                            color: Colors.grey,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 15,),
+                                const SizedBox(
+                                  width: 15,
+                                ),
                                 Expanded(
                                   child: Container(
                                     height: 220,
-                                    padding:const EdgeInsets.symmetric(vertical: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15),
                                     decoration: BoxDecoration(
-                                      color: const Color.fromRGBO(156, 66, 127, 1),
+                                      color:
+                                          const Color.fromRGBO(156, 66, 127, 1),
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Container(
                                           width: 60,
                                           height: 60,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius: BorderRadius.circular(60),
+                                            borderRadius:
+                                                BorderRadius.circular(60),
                                           ),
                                           child: const Icon(
                                             Icons.local_fire_department,
                                             size: 40,
-                                            color:  Color.fromRGBO(218, 122, 103, 1),
+                                            color: Color.fromRGBO(
+                                                218, 122, 103, 1),
                                           ),
                                         ),
                                         const Text(
@@ -797,7 +831,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.normal,
-                                            color:  Color.fromRGBO(0, 0, 0, 1),
+                                            color: Color.fromRGBO(0, 0, 0, 1),
                                           ),
                                         ),
                                         const Text(
@@ -805,7 +839,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
-                                            color:  Color.fromRGBO(0, 0, 0, 1),
+                                            color: Color.fromRGBO(0, 0, 0, 1),
                                           ),
                                         ),
                                         const Text(
@@ -813,7 +847,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
-                                            color:  Colors.grey,
+                                            color: Colors.grey,
                                           ),
                                         ),
                                       ],
@@ -835,7 +869,7 @@ class _MyHome3PageState extends State<MyHome3Page> {
       ),
       bottomNavigationBar: Container(
         color: const Color.fromARGB(255, 230, 152, 129),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
           child: GNav(
               backgroundColor: Color.fromARGB(255, 230, 152, 129),
@@ -848,14 +882,55 @@ class _MyHome3PageState extends State<MyHome3Page> {
                 GButton(
                   icon: Icons.home,
                   text: 'Home',
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SelectWorkout(),
+                      ),
+                    ),
+                    debugPrint(
+                        "Redirecting to Home page(select_workout page)."),
+                  },
                 ),
                 GButton(
                   icon: Icons.favorite_rounded,
                   text: 'Friends',
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FriendsPage(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Friends page."),
+                  },
+                ),
+                GButton(
+                  icon: Icons.golf_course_rounded,
+                  text: 'Arena',
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ArenaPage(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Arena page."),
+                  },
                 ),
                 GButton(
                   icon: Icons.account_circle_rounded,
                   text: 'Profile',
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ArenaPage(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Arena page."),
+                  },
                 ),
               ]),
         ),
@@ -1089,7 +1164,9 @@ class _LineChartSample2State extends State<LineChartSample> {
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
-              colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+              colors: gradientColors
+                  .map((color) => color.withOpacity(0.3))
+                  .toList(),
             ),
           ),
         ),
@@ -1123,7 +1200,8 @@ class PieChart2State extends State {
                   touchedIndex = -1;
                   return;
                 }
-                touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                touchedIndex =
+                    pieTouchResponse.touchedSection!.touchedSectionIndex;
               });
             },
           ),
@@ -1210,8 +1288,6 @@ class PieChart2State extends State {
     });
   }
 }
-
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);

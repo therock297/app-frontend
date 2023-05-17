@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:redback_mobile_app/Home/select_workout.dart';
+import 'package:redback_mobile_app/Home/friends_page.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class ArenaPage extends StatelessWidget {
+  const ArenaPage({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -16,19 +14,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHome2Page(),
+      home: const Arena2Page(),
     );
   }
 }
 
-class MyHome2Page extends StatefulWidget {
-  const MyHome2Page({Key? key}) : super(key: key);
+class Arena2Page extends StatefulWidget {
+  const Arena2Page({Key? key}) : super(key: key);
 
   @override
-  State<MyHome2Page> createState() => _MyHome2PageState();
+  State<Arena2Page> createState() => _Arena2Page();
 }
 
-class _MyHome2PageState extends State<MyHome2Page> {
+class _Arena2Page extends State<Arena2Page> {
   @override
   void initState() {
     // TODO: implement initState
@@ -275,8 +273,8 @@ class _MyHome2PageState extends State<MyHome2Page> {
                           height: 50,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: const Color.fromRGBO(0, 0, 0, 0.2),
-                            borderRadius: BorderRadius.circular(10)
+                              color: const Color.fromRGBO(0, 0, 0, 0.2),
+                              borderRadius: BorderRadius.circular(10)
                           ),
                           child: const Text(
                             "12,345: Joined",
@@ -295,8 +293,8 @@ class _MyHome2PageState extends State<MyHome2Page> {
                           height: 50,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: const Color.fromRGBO(0, 0, 0, 0.2),
-                            borderRadius: BorderRadius.circular(10)
+                              color: const Color.fromRGBO(0, 0, 0, 0.2),
+                              borderRadius: BorderRadius.circular(10)
                           ),
                           child: const Text(
                             "Completed: Yesterday",
@@ -343,8 +341,8 @@ class _MyHome2PageState extends State<MyHome2Page> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(100)
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(100)
                         ),
                         child: const Icon(
                           Icons.arrow_forward_ios_rounded,
@@ -458,7 +456,7 @@ class _MyHome2PageState extends State<MyHome2Page> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
-                   Text(
+                  Text(
                     "Live Events",
                     style: TextStyle(
                       fontSize: 18,
@@ -567,7 +565,7 @@ class _MyHome2PageState extends State<MyHome2Page> {
       ),
       bottomNavigationBar: Container(
         color: const Color.fromARGB(255, 230, 152, 129),
-        child: const Padding(
+        child:  Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
           child: GNav(
               backgroundColor: Color.fromARGB(255, 230, 152, 129),
@@ -576,18 +574,46 @@ class _MyHome2PageState extends State<MyHome2Page> {
               tabBackgroundColor: Color.fromARGB(55, 114, 243, 153),
               gap: 10,
               padding: EdgeInsets.all(16),
+              selectedIndex: 2,
               tabs: [
                 GButton(
                   icon: Icons.home,
                   text: 'Home',
+                  onPressed: ()  => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SelectWorkout(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Home page(select_workout page)."),
+                  },
                 ),
                 GButton(
                   icon: Icons.favorite_rounded,
                   text: 'Friends',
+                  onPressed: ()  => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FriendsPage(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Friends page."),
+                  },
                 ),
                 GButton(
                   icon: Icons.golf_course_rounded,
                   text: 'Arena',
+                  onPressed: ()  => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ArenaPage(),
+                      ),
+                    ),
+                    debugPrint("Redirecting to Arena page."),
+                  },
                 ),
                 GButton(
                   icon: Icons.account_circle_rounded,
