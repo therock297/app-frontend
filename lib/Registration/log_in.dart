@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
   final passwordEditingController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
-
+  User? _user;
   late TextFormField userNameField;
   late TextFormField passwordField;
 
@@ -333,26 +333,40 @@ class _LoginState extends State<Login> {
                             buttonType: ButtonType.googleDark,
                             btnText: "Google",
                             onPressed: () async {
-                              try {
-                                final GoogleSignInAccount? googleSignInAccount =
-                                    await _googleSignIn.signIn();
-                                if (googleSignInAccount != null) {
-                                  final GoogleSignInAuthentication
-                                      googleSignInAuthentication =
-                                      await googleSignInAccount.authentication;
-                                  final AuthCredential authCredential =
-                                      GoogleAuthProvider.credential(
-                                          accessToken:
-                                              googleSignInAuthentication
-                                                  .accessToken,
-                                          idToken: googleSignInAuthentication
-                                              .idToken);
-                                  await _auth
-                                      .signInWithCredential(authCredential);
+                              final GoogleSignInAccount? googleSignInAccount =
+                                  await _googleSignIn.signIn();
+
+                              if (googleSignInAccount != null) {
+                                final GoogleSignInAuthentication
+                                    googleSignInAuthentication =
+                                    await googleSignInAccount.authentication;
+
+                                final AuthCredential credential =
+                                    GoogleAuthProvider.credential(
+                                  accessToken:
+                                      googleSignInAuthentication.accessToken,
+                                  idToken: googleSignInAuthentication.idToken,
+                                );
+
+                                try {
+                                  final UserCredential userCredential =
+                                      await _auth
+                                          .signInWithCredential(credential);
+
+                                  _user = userCredential.user;
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code ==
+                                      'account-exists-with-different-credential') {
+                                    print(e.message);
+                                    rethrow;
+                                  } else if (e.code == 'invalid-credential') {
+                                    print(e.message);
+                                    rethrow;
+                                  }
+                                } catch (e) {
+                                  print(e.toString());
+                                  rethrow;
                                 }
-                              } on FirebaseAuthException catch (e) {
-                                print(e.message);
-                                throw e;
                               }
                             },
                           ),
