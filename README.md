@@ -67,7 +67,7 @@ In addition, physical devices offer access to components such as cameras, microp
 At the moment we are using libraries which don't support Flutter Null Safety thus we must run the app differently than normal utilising an additional flag.  
 `flutter run --[build configuration] --no-sound-null-safety` -> Runs on physical devices automatically if they are connected to your computer or running emulator.
 
-## Setting up the backend
+## Setting up the backend (Deprecated)
 
 1. Clone the backend repository via `git clone https://github.com/redbackoperations/backend.git` and checkout the `extra-data-fields` branch
 2. In your terminal, navigate to the repository directory and run `npm install` in the root of the project
